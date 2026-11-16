@@ -3,7 +3,7 @@
 > Generated from `deliverables.ts` by `npm run register`. Edit the data file, not this table.
 > Rule: nothing is marked Created/Tested/Approved unless the file exists (enforced by `register.test.ts`).
 
-**Totals:** Created 9 · In progress 16 · Tested 3 · Blocked 3 · Planned 11
+**Totals:** Created 9 · In progress 15 · Tested 4 · Blocked 3 · Planned 11
 
 | ID | Name | Description | File location | Status | Dependencies | Validation | Approval | Classification | Last modified |
 |---|---|---|---|---|---|---|---|---|---|
@@ -26,7 +26,7 @@
 | RRS-2-03 | Homepage | All 13 spec sections, journey hero, fictional audit preview. | `02-Public-Website/src/pages/home.tsx` | **In progress** | RRS-2-02, RRS-1-05, RRS-2-06 | e2e: overflow, h1, CTA links, demo labels | Pending | Working, Needs approval | 2026-11-16 |
 | RRS-2-04 | Service pages (5) + Services hub | Reusable service template driven by catalog. | `02-Public-Website/src/pages/service.tsx`<br>`02-Public-Website/src/content/services.ts` | **In progress** | RRS-2-02, RRS-1-05 | e2e + SEO checks | Pending | Working, Needs approval | 2026-11-16 |
 | RRS-2-05 | Pricing page | Six offers, add-ons, usage-cost disclosure, proposed-price status. | `02-Public-Website/src/pages/pricing.tsx` | **In progress** | RRS-1-05 | e2e: prices match catalog | Pending | Working, Needs approval | 2026-11-16 |
-| RRS-2-06 | Snapshot scoring framework & engine | 100-pt / 5-category framework with sources, evidence, missing-data rules, confidence, overrides. | `04-Audits-and-Scorecards/snapshot/framework.ts`<br>`04-Audits-and-Scorecards/snapshot/engine.ts`<br>`04-Audits-and-Scorecards/snapshot/engine.test.ts`<br>`04-Audits-and-Scorecards/snapshot/METHODOLOGY.md` | **In progress** | — | engine.test.ts | Pending | Working, Needs approval | 2026-11-16 |
+| RRS-2-06 | Snapshot scoring framework & engine | 100-pt / 5-category framework with sources, evidence, missing-data rules, confidence, overrides. | `04-Audits-and-Scorecards/snapshot/framework.ts`<br>`04-Audits-and-Scorecards/snapshot/engine.ts`<br>`04-Audits-and-Scorecards/snapshot/engine.test.ts`<br>`04-Audits-and-Scorecards/snapshot/METHODOLOGY.md`<br>`04-Audits-and-Scorecards/snapshot/framework.json` | **Tested** | — | engine.test.ts (13 tests) + strict tsc | Pending | Working, Needs approval | 2026-11-16 |
 | RRS-2-07 | Snapshot lead-magnet page | Chip-based request flow, follow-up self-check, consent, attribution, preview mode. | `02-Public-Website/src/pages/snapshot.tsx`<br>`02-Public-Website/public/js/site.js` | **In progress** | RRS-2-06, RRS-2-01 | e2e: validation, honeypot, step flow, preview message | Pending | Working, Needs credentials, Needs approval | 2026-11-16 |
 | RRS-2-08 | Sample Snapshot report (fictional) | Completed report for a clearly fictional business, computed by the engine. | `17-Sample-Clients/fictional-hvac-snapshot.json`<br>`02-Public-Website/src/pages/sample-report.tsx` | **In progress** | RRS-2-06 | Engine output snapshot + demo-label test | Not required | Mock | 2026-11-16 |
 | RRS-2-09 | Industry pages | Hub + priority-industry pages from a reusable template; links to existing offers. | `02-Public-Website/src/content/industries.ts`<br>`02-Public-Website/src/pages/industry.tsx` | **In progress** | RRS-2-02 | e2e + uniqueness check (no doorway duplicates) | Pending | Working, Needs approval | 2026-11-16 |

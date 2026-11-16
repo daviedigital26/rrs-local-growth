@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Reale Revenue Systems — Local Growth Operating System (website, offers, Snapshot, scoring, sales and fulfillment tooling)",
+  "description": "Reale Revenue Systems \u2014 Local Growth Operating System (website, offers, Snapshot, scoring, sales and fulfillment tooling)",
   "engines": {
     "node": ">=20"
   },
@@ -14,13 +14,14 @@
     "register": "tsx 00-Project-Management/build-register.ts",
     "assets": "tsx 08-Design-Assets/build-assets.ts",
     "build:site": "tsx 02-Public-Website/scripts/build.tsx",
-    "build": "npm run tokens && npm run catalog && npm run assets && npm run build:site && npm run register",
+    "build": "npm run tokens && npm run catalog && npm run framework && npm run assets && npm run build:site && npm run register",
     "serve": "tsx 02-Public-Website/scripts/serve.ts",
     "test": "node --import tsx --test \"**/*.test.ts\"",
     "test:e2e": "tsx 15-Quality-Assurance/e2e/run-e2e.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "typecheck:core": "tsc -p tsconfig.core.json --noEmit",
-    "verify": "npm run build && npm run typecheck:core && npm test && npm run test:e2e"
+    "verify": "npm run build && npm run typecheck:core && npm test && npm run test:e2e",
+    "framework": "tsx 04-Audits-and-Scorecards/snapshot/export-methodology.ts"
   },
   "dependencies": {
     "react": "19.2.8",

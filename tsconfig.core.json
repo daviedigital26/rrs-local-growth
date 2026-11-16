@@ -5,6 +5,8 @@
     "01-Brand-System/Design-Tokens/*.ts",
     "03-Offers-and-Pricing/*.ts",
     "04-Audits-and-Scorecards/snapshot/*.ts",
+    "08-Design-Assets/*.ts",
+    "01-Brand-System/Logos/concepts/*.ts",
     "00-Project-Management/*.ts",
     "02-Public-Website/site.config.ts"
   ]

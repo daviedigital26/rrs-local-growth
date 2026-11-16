@@ -11,7 +11,7 @@ export function resolveColors(file: TokenFile = raw): Record<string, string> {
   const out: Record<string, string> = {};
   const brand = file.color.brand as Record<string, BrandEntry>;
   for (const [k, v] of Object.entries(brand)) out[k] = v.value.toUpperCase();
-  const derived = file.color.derived as Record<string, DerivedEntry>;
+  const derived = file.color.derived as unknown as Record<string, DerivedEntry>;
   for (const [k, v] of Object.entries(derived)) {
     const [a, b, w] = v.mix;
     const A = out[a];

@@ -1,0 +1,48 @@
+{
+  "_notice": "FICTIONAL SAMPLE. Mesquite Ridge Comfort Co. is an invented business. Every value below is made up to demonstrate the Snapshot format. It is not a real company, client or result.",
+  "input": {
+    "business": { "name": "Mesquite Ridge Comfort Co.", "industry": "HVAC", "area": "Surprise, AZ", "fictional": true },
+    "reportDate": "2026-11-10",
+    "results": [
+      { "criterionId": "maps.profile", "status": "scored", "tier": 1, "evidence": { "type": "public_observation", "note": "Profile found; name, phone and area match", "sourceUrl": "https://example.invalid/fictional-profile", "checkedAt": "2026-11-10" } },
+      { "criterionId": "maps.category", "status": "scored", "tier": 0.5, "evidence": { "type": "public_observation", "note": "Primary category acceptable; no services listed", "checkedAt": "2026-11-10" } },
+      { "criterionId": "maps.completeness", "status": "scored", "tier": 0.75, "evidence": { "type": "public_observation", "note": "4 of 5 fields (no description)", "checkedAt": "2026-11-10" } },
+      { "criterionId": "maps.activity", "status": "scored", "tier": 0, "evidence": { "type": "public_observation", "note": "No owner photos/updates in 90 days", "checkedAt": "2026-11-10" } },
+      { "criterionId": "maps.local_results", "status": "scored", "tier": 0.5, "evidence": { "type": "sampled_test", "note": "Query 'ac repair surprise az', mobile, Surprise city centre: observed position 7", "checkedAt": "2026-11-10" } },
+      { "criterionId": "ai.entity", "status": "scored", "tier": 0.5, "evidence": { "type": "public_observation", "note": "One directory lists an old phone number", "checkedAt": "2026-11-10" } },
+      { "criterionId": "ai.schema", "status": "scored", "tier": 0, "evidence": { "type": "public_observation", "note": "No LocalBusiness structured data found", "checkedAt": "2026-11-10" } },
+      { "criterionId": "ai.answers", "status": "scored", "tier": 0.5, "evidence": { "type": "public_observation", "note": "Services listed but questions not answered", "checkedAt": "2026-11-10" } },
+      { "criterionId": "ai.mentions", "status": "scored", "tier": 0.5, "evidence": { "type": "public_observation", "note": "Two reputable directory mentions found", "checkedAt": "2026-11-10" } },
+      { "criterionId": "ai.assistant_sample", "status": "scored", "tier": 0, "evidence": { "type": "sampled_test", "note": "8 prompts on 2 assistants, recorded conditions; not mentioned", "checkedAt": "2026-11-10" } },
+      { "criterionId": "reviews.volume", "status": "scored", "tier": 0.5, "evidence": { "type": "public_observation", "note": "87 reviews vs competitor median 156 (56%)", "checkedAt": "2026-11-10" } },
+      { "criterionId": "reviews.rating", "status": "scored", "tier": 1, "evidence": { "type": "public_observation", "note": "4.7 average", "checkedAt": "2026-11-10" } },
+      { "criterionId": "reviews.recency", "status": "scored", "tier": 0.75, "evidence": { "type": "public_observation", "note": "Latest review 3 weeks ago", "checkedAt": "2026-11-10" } },
+      { "criterionId": "reviews.responses", "status": "scored", "tier": 0.5, "evidence": { "type": "public_observation", "note": "6 of last 10 reviews answered", "checkedAt": "2026-11-10" } },
+      { "criterionId": "reviews.site_trust", "status": "scored", "tier": 0.75, "evidence": { "type": "public_observation", "note": "Licence, real photos, warranty; no review link", "checkedAt": "2026-11-10" } },
+      { "criterionId": "website.mobile_cta", "status": "scored", "tier": 0.5, "evidence": { "type": "public_observation", "note": "Phone number below the fold on mobile, not tappable", "checkedAt": "2026-11-10" } },
+      { "criterionId": "website.clarity", "status": "scored", "tier": 0.5, "evidence": { "type": "public_observation", "note": "Service and reason shown; area not stated", "checkedAt": "2026-11-10" } },
+      { "criterionId": "website.speed", "status": "scored", "tier": 0.25, "evidence": { "type": "api_data", "note": "Mobile performance median of 3 runs: 41", "checkedAt": "2026-11-10" } },
+      { "criterionId": "website.form", "status": "scored", "tier": 0.5, "evidence": { "type": "public_observation", "note": "9 required fields (not submitted)", "checkedAt": "2026-11-10" } },
+      { "criterionId": "website.basics", "status": "scored", "tier": 1, "evidence": { "type": "public_observation", "note": "HTTPS valid; nav links work", "checkedAt": "2026-11-10" } },
+      { "criterionId": "followup.paths", "status": "scored", "tier": 0.5, "evidence": { "type": "public_observation", "note": "Phone and form only", "checkedAt": "2026-11-10" } },
+      { "criterionId": "followup.after_hours", "status": "scored", "tier": 0.5, "evidence": { "type": "public_observation", "note": "Form available, no response expectation", "checkedAt": "2026-11-10" } },
+      { "criterionId": "followup.booking", "status": "scored", "tier": 0.5, "evidence": { "type": "public_observation", "note": "Quote request form only", "checkedAt": "2026-11-10" } },
+      { "criterionId": "followup.speed", "status": "not_verified" },
+      { "criterionId": "followup.missed_calls", "status": "scored", "tier": 0.25, "evidence": { "type": "owner_reported", "note": "Owner: callers can leave a voicemail", "checkedAt": "2026-11-10" } },
+      { "criterionId": "followup.quotes", "status": "not_verified" }
+    ]
+  },
+  "competitors": [
+    { "name": "Competitor A (fictional)", "reviews": 214, "rating": 4.8, "schema": true, "mobileCta": true },
+    { "name": "Competitor B (fictional)", "reviews": 156, "rating": 4.6, "schema": false, "mobileCta": true },
+    { "name": "Competitor C (fictional)", "reviews": 98, "rating": 4.9, "schema": true, "mobileCta": false }
+  ],
+  "immediateOpportunities": [
+    { "category": "website", "action": "Put a tap-to-call button in the mobile header", "effort": "Low" },
+    { "category": "ai", "action": "Add LocalBusiness structured data and fix the outdated directory phone number", "effort": "Low" },
+    { "category": "maps", "action": "Add services and a description to the Google profile; post fresh job photos", "effort": "Low" },
+    { "category": "followup", "action": "Add a missed-call text-back (with consent language) and an after-hours response promise", "effort": "Medium" },
+    { "category": "website", "action": "Shorten the quote form from 9 to 5 required fields", "effort": "Low" }
+  ],
+  "scenarioInputs": { "monthlyInquiries": 90, "closeRate": 0.3, "averageJobValue": 420 }
+}
