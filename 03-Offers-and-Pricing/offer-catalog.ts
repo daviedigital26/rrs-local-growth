@@ -1,0 +1,418 @@
+/**
+ * RRS offer catalog — source of truth for the website, pricing sheet, proposals and Reale OS.
+ * Prices: spec Part 2 PROPOSED launch prices, pending owner approval (DECISIONS D-010).
+ * Hours and tool costs are ASSUMPTIONS to refine after the first engagements.
+ */
+import type { AddOn, Offer } from './types.ts';
+
+/** ASSUMPTION — loaded internal/contractor labour cost per hour used by the cost model. */
+export const LABOR_COST_PER_HOUR = 45;
+/** Target gross margin used to flag offers for pricing review. */
+export const TARGET_GROSS_MARGIN = 0.5;
+
+const proposed = (setup: number, monthly: number) => ({ setup, monthly, currency: 'USD' as const, status: 'proposed' as const });
+
+const standardOffboarding = [
+  'Confirm cancellation in writing and the effective date per the agreement notice period.',
+  'Deliver a final report and export of client-owned data (CSV/JSON) and documents.',
+  'Transfer or confirm client ownership of every account, profile, domain and asset created.',
+  'Disable RRS automations and remove RRS from delegated access (GBP, analytics, CRM, website).',
+  'Record the offboarding in the client log; close open tasks; archive per data-retention policy.',
+];
+
+export const offers: Offer[] = [
+  {
+    id: 'local-visibility-jumpstart',
+    code: 'A',
+    name: 'Local Visibility Jumpstart™',
+    shortName: 'Local Visibility Jumpstart',
+    stage: 'Get Discovered',
+    parts: ['maps'],
+    tagline: 'Fix the basics that decide whether you show up on Google Maps.',
+    servicePage: 'local-seo',
+    services: [
+      'Google Business Profile optimization',
+      'Business information consistency audit',
+      'Important local citation corrections',
+      'Website conversion basics',
+      'Review-request setup',
+      'Basic local visibility reporting',
+    ],
+    price: proposed(497, 197),
+    customer: {
+      headline: 'Show up correctly where local customers look first.',
+      summary:
+        'We tighten your Google Business Profile, correct inconsistent business details across the directories that matter, fix the most obvious website friction, and set up a simple, compliant way to ask customers for reviews. Then we report what changed each month.',
+      whatYouGet: [
+        'A complete, accurate Google Business Profile with the right categories, services, hours and photos',
+        'Your name, address and phone made consistent across important listings',
+        'Quick website fixes: visible phone number, clear call-to-action, service area',
+        'A review-request link and message your team can send after every job',
+        'A plain-English monthly visibility report',
+      ],
+      bestFor: 'Established local businesses whose profile and listings have never been properly cleaned up.',
+    },
+    fulfillment: {
+      setup: [
+        'Run the Google Business Profile audit and Business Entity Consistency audit; record evidence with dates.',
+        'Agree corrections list with client; apply GBP edits through delegated manager access.',
+        'Correct priority citations (major data aggregators and top directories for the industry).',
+        'Apply website conversion basics within scope (or hand a fix list to the client’s web contact).',
+        'Configure review-request link + message template; train the client on asking every customer.',
+        'Capture the baseline for monthly reporting.',
+      ],
+      monthly: [
+        'Check GBP for unwanted edits, new questions and photo freshness; publish approved updates.',
+        'Re-check top citations for drift.',
+        'Prepare the monthly visibility report; route for approval before delivery.',
+      ],
+    },
+    eligibility: {
+      goodFit: ['Has a real, staffed business location or a legitimate service area', 'Can grant delegated GBP manager access', 'Established enough to have past customers to ask for reviews'],
+      notAFit: ['Businesses without a legitimate address for the requested listing (no virtual offices)', 'Anyone asking for fake reviews, keyword-stuffed names or extra listings'],
+    },
+    cost: { toolCostMonthly: 15, notes: ['Share of citation/visibility tooling. Verify current vendor pricing before approval.'] },
+    hours: { setup: { min: 6, max: 10 }, monthly: { min: 1.5, max: 3 } },
+    scopeLimits: ['One location and one Google Business Profile', 'Up to 15 citation corrections at setup', 'Website basics limited to up to 3 small edits on existing pages'],
+    exclusions: ['New website pages or redesign (see Website-to-Customer Conversion™)', 'Paid ads', 'Review responses (see Reputation Revenue Engine™)', 'Directory listing fees charged by third parties'],
+    requiredInputs: ['Delegated Google Business Profile manager access', 'Official business name, address/service area, phone, hours', 'List of services and service areas', '10+ recent real photos', 'Website editor access or the web contact’s details'],
+    onboarding: ['Signed agreement + setup payment', 'Business information form', 'GBP manager access granted (no passwords shared)', 'Photo upload', 'Baseline captured', 'Kickoff call scheduled'],
+    reporting: ['Profile completeness and changes made', 'Citation corrections made / outstanding', 'Profile interactions available from GBP Insights (calls, directions, website clicks)', 'Review count and rating trend', 'Next month’s priorities'],
+    upgrades: [
+      { to: 'ai-discovery-accelerator', when: 'Basics are clean and the client wants to be cited in AI answers' },
+      { to: 'reputation-revenue-engine', when: 'Review volume or recency trails local competitors' },
+      { to: 'local-revenue-dominator', when: 'Snapshot shows weaknesses in three or more categories' },
+    ],
+    offboarding: standardOffboarding,
+    compliance: ['Follow Google Business Profile guidelines: no keyword-stuffed names, no false locations, no duplicate listings', 'Never create fake reviews or fabricated citations'],
+  },
+  {
+    id: 'ai-discovery-accelerator',
+    code: 'B',
+    name: 'AI Discovery Accelerator™',
+    shortName: 'AI Discovery Accelerator',
+    stage: 'Get Discovered',
+    parts: ['ai', 'maps'],
+    tagline: 'Make your business easy for AI assistants to understand, trust and cite.',
+    servicePage: 'ai-search-visibility',
+    services: [
+      'AI search visibility assessment',
+      'Sampled recommendation tracking',
+      'Business-entity consistency',
+      'Relevant structured data',
+      'Answer-focused, original website content',
+      'Search visibility monitoring',
+      'Competitor comparison',
+      'Source citation analysis',
+    ],
+    price: proposed(997, 397),
+    customer: {
+      headline: 'Be the business AI tools can describe accurately.',
+      summary:
+        'More customers ask AI assistants for recommendations. We test how assistants describe you and your competitors using a repeatable set of prompts, fix the information they rely on, and publish clear, original answers on your site. We report what we observe each month. We never promise placement, because AI answers vary.',
+      whatYouGet: [
+        'A recorded baseline of how major AI assistants answer local questions in your category',
+        'Consistent business facts across your site, profiles and key sources',
+        'Structured data that describes your business, services and area',
+        'Original, answer-focused content written from your real expertise',
+        'Monthly sampled tracking with competitor comparison and the sources AI tools cite',
+      ],
+      bestFor: 'Businesses with solid basics that want to be part of AI-assisted discovery early.',
+    },
+    fulfillment: {
+      setup: [
+        'Define the prompt set (services × area × intent) and record test conditions (assistant, date, location context, logged-in state).',
+        'Run the baseline sample; store raw answers and cited sources as evidence.',
+        'Run the entity consistency audit; correct site, profiles and key sources.',
+        'Implement LocalBusiness/Service/FAQ structured data; validate it.',
+        'Interview the owner; draft answer-focused pages/sections; client approves before publishing.',
+      ],
+      monthly: [
+        'Repeat the sampled prompt set under the same recorded conditions.',
+        'Compare against competitors; analyse which sources the answers cite.',
+        'Publish one approved content improvement; fix new entity inconsistencies.',
+        'Prepare report noting answer variability; route for approval.',
+      ],
+    },
+    eligibility: {
+      goodFit: ['Local Visibility basics already in place (or bundled)', 'Owner can share real expertise for content', 'Website we can edit or a responsive web contact'],
+      notAFit: ['Clients who need guaranteed AI rankings', 'Requests for mass-produced or AI-spun pages'],
+    },
+    cost: { toolCostMonthly: 25, notes: ['Monitoring tooling share + assistant subscriptions used for sampling. Verify current pricing and terms of use before approval.'] },
+    hours: { setup: { min: 10, max: 16 }, monthly: { min: 4, max: 6 } },
+    scopeLimits: ['One location', 'Prompt set of up to 20 queries sampled monthly', 'Up to 2 content pieces at setup, 1 per month after'],
+    exclusions: ['Guarantees of mention, ranking or placement in any AI answer', 'Paid placements', 'Full website rebuild'],
+    requiredInputs: ['Website edit access (delegated user)', 'Owner interview (45 min) and approval of drafts', 'List of top competitors (we will propose some)', 'Delegated GBP access'],
+    onboarding: ['Signed agreement + setup payment', 'Prompt set approved', 'Website/GBP access granted', 'Owner interview booked', 'Baseline sample recorded'],
+    reporting: ['Sampled prompt results with test conditions', 'Mentions and how the business is described, vs. competitors', 'Sources cited by assistants', 'Structured-data validation status', 'Content published', 'Explicit variability caveat'],
+    upgrades: [
+      { to: 'local-revenue-dominator', when: 'Discovery improves but conversion or follow-up gaps remain' },
+      { to: 'local-authority-content-studio', when: 'Client wants more than one content piece per month' },
+      { to: 'competitor-intelligence-pulse', when: 'Competitive category where monthly competitor tracking adds value' },
+    ],
+    offboarding: standardOffboarding,
+    compliance: ['Never guarantee placement in AI-generated answers', 'Report observations under recorded conditions; never present them as stable rankings', 'Original content only; no doorway pages or fabricated facts'],
+  },
+  {
+    id: 'reputation-revenue-engine',
+    code: 'C',
+    name: 'Reputation Revenue Engine™',
+    shortName: 'Reputation Revenue Engine',
+    stage: 'Get Chosen',
+    parts: ['reviews'],
+    tagline: 'Earn more honest reviews and respond to every one, on time.',
+    servicePage: 'reviews-reputation',
+    services: [
+      'Compliant review-request workflows',
+      'Review monitoring',
+      'Response drafting and approvals',
+      'Customer feedback collection',
+      'Testimonial collection with permission',
+      'Reputation reporting',
+    ],
+    price: proposed(397, 247),
+    customer: {
+      headline: 'Become the obvious, trusted choice.',
+      summary:
+        'We set up a simple routine that asks every customer for an honest review, watches for new reviews, drafts thoughtful responses for your approval, and collects testimonials only with permission. No incentives, no filtering out unhappy customers.',
+      whatYouGet: [
+        'Review requests sent to every eligible customer (not just happy ones)',
+        'Alerts for new reviews and drafted responses you approve with one tap',
+        'Private feedback collection that never blocks public reviews',
+        'Permission-based testimonial collection',
+        'A monthly reputation report',
+      ],
+      bestFor: 'Businesses doing good work whose review count or recency doesn’t show it.',
+    },
+    fulfillment: {
+      setup: [
+        'Run the Review and Reputation audit (volume, recency, rating, response rate vs. competitors).',
+        'Choose the request trigger (after job completion) and channel with the client; confirm consent basis.',
+        'Configure the request workflow to ask every eligible customer; no gating.',
+        'Set up monitoring and the approval queue for responses.',
+        'Create the testimonial permission form.',
+      ],
+      monthly: [
+        'Draft responses within 2 business days of new reviews; client approves; publish.',
+        'Monitor request volume and completion; fix workflow issues.',
+        'Prepare reputation report; route for approval.',
+      ],
+    },
+    eligibility: {
+      goodFit: ['Steady flow of completed jobs/appointments', 'Customer contact details collected with consent', 'Owner willing to approve responses promptly'],
+      notAFit: ['Requests to buy, incentivise, filter or remove legitimate reviews'],
+    },
+    cost: { toolCostMonthly: 20, passThrough: 'SMS sending (if used) is billed at cost.', notes: ['Review monitoring tool share. Verify current vendor pricing.'] },
+    hours: { setup: { min: 4, max: 6 }, monthly: { min: 2, max: 3.5 } },
+    scopeLimits: ['Up to 2 review platforms monitored', 'Up to 30 response drafts per month', 'One location'],
+    exclusions: ['Review removal services (only policy-violating reviews may be flagged through official channels)', 'Incentives or contests for reviews', 'Legal disputes'],
+    requiredInputs: ['Delegated GBP access', 'How completed jobs are recorded (CRM, booking tool or spreadsheet)', 'Approved brand voice for responses', 'Confirmation customers consented to be contacted'],
+    onboarding: ['Signed agreement + setup payment', 'Consent basis confirmed', 'Trigger + channel chosen', 'Response voice approved', 'Monitoring live'],
+    reporting: ['New reviews, rating trend, recency', 'Response rate and average response time', 'Requests sent vs. completed', 'Private feedback themes', 'Testimonials collected with permission'],
+    upgrades: [
+      { to: 'lead-rescue-booking-engine', when: 'Reputation is strong but inquiries are slipping through' },
+      { to: 'local-revenue-dominator', when: 'Multiple categories need work' },
+    ],
+    offboarding: standardOffboarding,
+    compliance: ['Do not incentivise reviews', 'Do not selectively request only positive reviews (no review gating)', 'Do not suppress negative feedback', 'Follow FTC rules on reviews and testimonials; use testimonials only with written permission'],
+  },
+  {
+    id: 'lead-rescue-booking-engine',
+    code: 'D',
+    name: 'Lead Rescue & Booking Engine™',
+    shortName: 'Lead Rescue & Booking Engine',
+    stage: 'Get Booked',
+    parts: ['followup'],
+    tagline: 'Answer faster, follow up every time, and book more of the leads you already get.',
+    servicePage: 'lead-recovery',
+    services: [
+      'Lead capture',
+      'Missed-call recovery where technically supported and legally permitted',
+      'Quote follow-up',
+      'Appointment workflow',
+      'CRM pipeline',
+      'Lead reactivation with applicable consent',
+      'Follow-up performance tracking',
+    ],
+    price: proposed(750, 397),
+    customer: {
+      headline: 'Stop losing jobs to slow or forgotten follow-up.',
+      summary:
+        'We connect your calls, forms and quotes to one simple pipeline, send timely follow-ups where you have permission, and make booking easy. You see which inquiries turned into appointments. Messaging and calling are billed at cost, and we tell you exactly how.',
+      whatYouGet: [
+        'Every inquiry captured in one pipeline',
+        'Missed-call text-back where your phone setup and the law allow it',
+        'Automatic, permission-based quote follow-ups',
+        'A booking flow customers can use 24/7',
+        'Tracking from inquiry to appointment',
+      ],
+      bestFor: 'Busy businesses where calls go to voicemail and quotes go cold.',
+    },
+    fulfillment: {
+      setup: [
+        'Run the Lead Capture and Follow-Up audit and CRM Readiness assessment.',
+        'Map inquiry sources; design the pipeline stages with the client.',
+        'Confirm consent language and opt-out handling; register business texting where required (e.g. A2P 10DLC).',
+        'Configure capture, missed-call recovery (if supported/permitted), quote follow-up and booking.',
+        'Test every path end-to-end with test numbers; client approves before go-live.',
+      ],
+      monthly: [
+        'Review follow-up performance and failed messages; adjust timing/content with approval.',
+        'Check opt-out/suppression handling.',
+        'Report usage costs transparently; prepare performance report.',
+      ],
+    },
+    eligibility: {
+      goodFit: ['Meaningful monthly inquiry volume', 'A phone system or number we can integrate with', 'Willing to collect and record consent'],
+      notAFit: ['Requests to text or call people without appropriate consent', 'Purchased contact lists'],
+    },
+    cost: { toolCostMonthly: 35, passThrough: 'SMS, calling minutes, phone numbers and carrier registration fees are usage-based and billed at cost. Estimated monthly usage is shown before go-live.', notes: ['CRM/automation seat share. Verify current vendor pricing.'] },
+    hours: { setup: { min: 8, max: 12 }, monthly: { min: 3, max: 5 } },
+    scopeLimits: ['Up to 3 inquiry sources', 'Up to 2 follow-up sequences', 'One booking calendar'],
+    exclusions: ['Usage-based messaging/calling costs (billed separately at cost)', 'Live answering services', 'Outreach to contacts without consent'],
+    requiredInputs: ['Phone provider details and delegated access', 'Current CRM/booking tool access (delegated)', 'Inquiry sources list', 'Approved message wording', 'Consent records for reactivation lists'],
+    onboarding: ['Signed agreement + setup payment', 'Usage-cost disclosure acknowledged', 'Consent + opt-out approach approved', 'Integrations authorised (no passwords in forms)', 'End-to-end test passed', 'Go-live approved'],
+    reporting: ['Inquiries by source', 'Time to first response', 'Follow-ups sent, replies, opt-outs', 'Appointments booked', 'Closed deals where the client documents them', 'Usage costs'],
+    upgrades: [
+      { to: 'revenue-reactivation-sprint', when: 'Client has a consented list of old leads or past quotes' },
+      { to: 'reputation-revenue-engine', when: 'Booked jobs are flowing; turn them into reviews' },
+      { to: 'ai-receptionist-chat', when: 'High after-hours volume' },
+    ],
+    offboarding: [...standardOffboarding, 'Release or port phone numbers per client instruction; export consent and opt-out records.'],
+    compliance: ['TCPA and state telemarketing rules: obtain appropriate consent for automated texts/calls', 'Honour opt-outs immediately; maintain suppression lists', 'Clearly disclose usage-based messaging and calling costs', 'Do not impersonate humans in automated messages'],
+  },
+  {
+    id: 'website-to-customer-conversion',
+    code: 'E',
+    name: 'Website-to-Customer Conversion™',
+    shortName: 'Website-to-Customer Conversion',
+    stage: 'Get Chosen',
+    parts: ['website'],
+    tagline: 'Turn more website visitors into calls, quotes and bookings.',
+    servicePage: 'website-conversion',
+    services: [
+      'Conversion-focused website refresh',
+      'Five core pages within defined scope',
+      'Mobile usability improvements',
+      'Clear CTAs',
+      'Local business structured data',
+      'Analytics and conversion tracking',
+      'Monthly improvements',
+    ],
+    price: proposed(1497, 297),
+    customer: {
+      headline: 'A website that makes it easy to choose you.',
+      summary:
+        'We refresh five core pages so customers instantly understand what you do, where you work and why to trust you, then make it effortless to call, request a quote or book on a phone. We track conversions and keep improving every month.',
+      whatYouGet: [
+        'Five conversion-focused core pages (e.g. Home, Services, About, Reviews, Contact)',
+        'Mobile-first layout with tap-to-call and clear calls-to-action',
+        'Local business structured data',
+        'Analytics and conversion tracking',
+        'A monthly improvement based on real data',
+      ],
+      bestFor: 'Businesses whose site looks dated, loads slowly or hides the phone number on mobile.',
+    },
+    fulfillment: {
+      setup: [
+        'Run the Website Conversion and Mobile Performance audits.',
+        'Agree the five pages, sitemap and content plan; collect assets.',
+        'Design and build within the client’s platform or an approved platform; client approves.',
+        'Add structured data, analytics and conversion events; test forms and tracking.',
+        'Launch with client approval; record baseline.',
+      ],
+      monthly: [
+        'Review conversion data; ship one approved improvement.',
+        'Check uptime, forms and tracking; fix issues.',
+        'Report changes and results without unsupported cause-and-effect claims.',
+      ],
+    },
+    eligibility: {
+      goodFit: ['Has a domain they control', 'Can supply real photos and service details', 'Willing to approve pages within agreed rounds'],
+      notAFit: ['E-commerce or complex web apps', 'Sites requiring more than five core pages at launch (quote add-on pages)'],
+    },
+    cost: { toolCostMonthly: 10, notes: ['Monitoring/forms tooling share. Hosting, domain and platform subscriptions are client-owned and excluded.'] },
+    hours: { setup: { min: 20, max: 30 }, monthly: { min: 3, max: 4 } },
+    scopeLimits: ['Five core pages', 'Two revision rounds per page', 'One monthly improvement'],
+    exclusions: ['Hosting, domain and platform fees', 'Copy for more than five pages (see Additional website pages)', 'Custom software or e-commerce', 'Stock photography licences unless agreed'],
+    requiredInputs: ['Domain/DNS access via delegated account or the client’s web contact', 'Brand assets and real photos', 'Service details and service areas', 'Analytics access (delegated)'],
+    onboarding: ['Signed agreement + setup payment', 'Platform and access confirmed', 'Content plan approved', 'Assets uploaded', 'Launch approved'],
+    reporting: ['Website visits', 'Calls, forms and bookings tracked', 'Conversion rate trend', 'Improvement shipped this month', 'Technical health'],
+    upgrades: [
+      { to: 'lead-rescue-booking-engine', when: 'More inquiries arrive; make sure every one is followed up' },
+      { to: 'additional-website-page', when: 'Client needs more service pages' },
+      { to: 'ai-discovery-accelerator', when: 'Site is ready to publish answer-focused content' },
+    ],
+    offboarding: [...standardOffboarding, 'Hand over website files, platform admin rights and documentation of tracking setup.'],
+    compliance: ['Accurate claims only; no fabricated testimonials or results', 'Licensed imagery only', 'Accessibility (WCAG) as a build standard'],
+  },
+  {
+    id: 'local-revenue-dominator',
+    code: 'F',
+    name: 'Local Revenue Dominator™',
+    shortName: 'Local Revenue Dominator',
+    stage: 'All three',
+    parts: ['maps', 'ai', 'reviews', 'website', 'followup'],
+    tagline: 'The complete Local Revenue System, run as one program.',
+    servicePage: undefined,
+    services: [
+      'Local SEO',
+      'AI discovery readiness',
+      'Reputation management',
+      'Website conversion optimization',
+      'Lead recovery',
+      'Follow-up automation',
+      'Client dashboard',
+      'Monthly strategy and optimization',
+    ],
+    price: proposed(2500, 997),
+    customer: {
+      headline: 'Get discovered, get chosen and get booked, with one team.',
+      summary:
+        'All five parts of the Local Revenue System working together: Maps visibility, AI discovery readiness, reputation, website conversion and lead follow-up, plus a client dashboard and a monthly strategy session. It replaces overlapping smaller plans when you upgrade.',
+      whatYouGet: [
+        'Everything in the five focused programs, coordinated',
+        'A client dashboard with visibility, reviews, leads and bookings',
+        'A monthly strategy and optimization session',
+        'One plan that replaces overlapping smaller retainers',
+      ],
+      bestFor: 'Established businesses with gaps in three or more areas and the capacity to handle more booked work.',
+    },
+    fulfillment: {
+      setup: ['Run the full Local Revenue Opportunity Scorecard', 'Sequence setup work across all five parts by impact', 'Stand up the client dashboard', 'Confirm all consents and access'],
+      monthly: ['Run the monthly cycles of each program', 'Hold the strategy session', 'Prepare the combined report; route for approval'],
+    },
+    eligibility: {
+      goodFit: ['Snapshot shows opportunities in three or more categories', 'Operational capacity for more booked work', 'Decision-maker available monthly'],
+      notAFit: ['Very early-stage businesses better served by one focused program first'],
+    },
+    cost: { toolCostMonthly: 80, passThrough: 'Messaging/calling usage billed at cost (see Lead Rescue).', notes: ['Combined tooling share. Verify current vendor pricing.'] },
+    hours: { setup: { min: 30, max: 45 }, monthly: { min: 12, max: 18 } },
+    scopeLimits: ['One location (see Additional locations)', 'Combined scope limits of programs A–E', 'One strategy session per month'],
+    exclusions: ['Usage-based messaging/calling costs', 'Paid advertising spend', 'Hosting, domain and platform fees'],
+    requiredInputs: ['All inputs listed for programs A–E', 'Monthly decision-maker availability'],
+    onboarding: ['Signed agreement + setup payment', 'Combined onboarding flow (only relevant questions)', 'All access delegated', 'Dashboard access issued', '30/60/90-day plan approved'],
+    reporting: ['Combined monthly report across all five parts', 'Dashboard always on', 'Quarterly business review'],
+    upgrades: [
+      { to: 'additional-location', when: 'Client operates more than one location' },
+      { to: 'local-authority-content-studio', when: 'Client wants to publish more original content' },
+      { to: 'competitor-intelligence-pulse', when: 'Highly competitive category' },
+    ],
+    offboarding: standardOffboarding,
+    compliance: ['All compliance rules of programs A–E apply', 'No guarantees of rankings, AI placement or revenue'],
+  },
+];
+
+export const addOns: AddOn[] = [
+  { id: 'revenue-reactivation-sprint', name: 'Revenue Reactivation Sprint', pricing: { kind: 'project-range', min: 497, max: 997 }, priceStatus: 'proposed', summary: 'A focused campaign to re-engage consented past leads, old quotes and past customers.', includes: ['List review and consent check', 'Segmented, permission-based sequence', 'Results summary'], eligibility: 'Client has a list with an applicable consent basis.', limits: ['One list/segment set per sprint', 'Usage costs billed at cost'], compliance: ['Applicable consent required; suppression list honoured'] },
+  { id: 'competitor-intelligence-pulse', name: 'Competitor Intelligence Pulse', pricing: { kind: 'monthly', amount: 149 }, priceStatus: 'proposed', summary: 'Monthly snapshot of competitors’ public visibility, reviews and offers.', includes: ['Up to 5 competitors', 'Public-data observations with dates and sources'], eligibility: 'Any active client.', limits: ['Public, legally usable data only'] },
+  { id: 'local-authority-content-studio', name: 'Local Authority Content Studio', pricing: { kind: 'monthly-range', min: 397, max: 697 }, priceStatus: 'proposed', summary: 'Original, expert-led content that answers real customer questions.', includes: ['2–4 pieces per month depending on tier', 'Owner interview-based drafting', 'Approval workflow'], eligibility: 'Client can provide expertise and approvals.', limits: ['No mass-produced or doorway content'] },
+  { id: 'seasonal-campaign-launch', name: 'Seasonal Campaign Launch', pricing: { kind: 'quoted', note: 'Priced per campaign' }, priceStatus: 'to-be-set', summary: 'A ready-to-run seasonal promotion across profile, site and follow-up.', includes: ['Offer framing', 'Landing section', 'Permission-based follow-up'], eligibility: 'Active clients.', limits: ['Ad spend excluded'] },
+  { id: 'additional-location', name: 'Additional location', pricing: { kind: 'quoted', note: 'Per location' }, priceStatus: 'to-be-set', summary: 'Extend a program to another legitimate location.', includes: ['Profile, citations and reporting for the location'], eligibility: 'Real, staffed location.', limits: ['No virtual offices or false service locations'] },
+  { id: 'advanced-integration', name: 'Advanced integration', pricing: { kind: 'quoted', note: 'Scoped per integration' }, priceStatus: 'to-be-set', summary: 'Custom connections between the client’s tools.', includes: ['Scoping', 'Build', 'Testing', 'Documentation'], eligibility: 'Documented APIs available.', limits: ['Third-party subscription costs excluded'] },
+  { id: 'additional-website-page', name: 'Additional website page', pricing: { kind: 'quoted', note: 'Per page' }, priceStatus: 'to-be-set', summary: 'More service or location pages with unique, useful content.', includes: ['Content', 'Design', 'Structured data'], eligibility: 'Website-to-Customer Conversion clients.', limits: ['Unique content only; no doorway pages'] },
+  { id: 'ai-receptionist-chat', name: 'AI receptionist / chat', pricing: { kind: 'quoted', note: 'Scoped per business' }, priceStatus: 'to-be-set', summary: 'An approved-knowledge AI assistant for calls or chat, delivered via Reale Concierge AI where appropriate.', includes: ['Approved knowledge base', 'Lead qualification', 'Booking handoff'], eligibility: 'Appropriate use case and approved scripts.', limits: ['Discloses that it is automated', 'Usage costs billed at cost'], compliance: ['Never impersonates a human', 'Consent rules for calls/texts apply'] },
+];
+
+export const offerById = (id: string) => offers.find((o) => o.id === id);
+export const addOnById = (id: string) => addOns.find((a) => a.id === id);
