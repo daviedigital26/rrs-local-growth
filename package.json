@@ -1,0 +1,38 @@
+{
+  "name": "rrs-local-growth",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Reale Revenue Systems — Local Growth Operating System (website, offers, Snapshot, scoring, sales and fulfillment tooling)",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "setup:offline": "bash scripts/link-offline-deps.sh",
+    "tokens": "tsx 01-Brand-System/Design-Tokens/build-tokens.ts",
+    "catalog": "tsx 03-Offers-and-Pricing/export-catalog.ts",
+    "register": "tsx 00-Project-Management/build-register.ts",
+    "assets": "tsx 08-Design-Assets/build-assets.ts",
+    "build:site": "tsx 02-Public-Website/scripts/build.tsx",
+    "build": "npm run tokens && npm run catalog && npm run assets && npm run build:site && npm run register",
+    "serve": "tsx 02-Public-Website/scripts/serve.ts",
+    "test": "node --import tsx --test \"**/*.test.ts\"",
+    "test:e2e": "tsx 15-Quality-Assurance/e2e/run-e2e.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck:core": "tsc -p tsconfig.core.json --noEmit",
+    "verify": "npm run build && npm run typecheck:core && npm test && npm run test:e2e"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "playwright-core": "1.63.0",
+    "sharp": "0.35.4",
+    "tsx": "4.23.12",
+    "typescript": "6.0.3"
+  }
+}

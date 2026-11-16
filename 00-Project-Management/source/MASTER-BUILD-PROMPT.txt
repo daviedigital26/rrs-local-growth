@@ -1,0 +1,1549 @@
+CLAUDE MASTER BUILD PROMPT
+Reale Revenue Systems — Complete Local Growth
+Business Launch & Automation System
+You are acting as a coordinated team of senior specialists: business strategist, local SEO
+expert, AI search optimization researcher, conversion rate optimization specialist, brand
+designer, creative director, full-stack developer, sales operations architect, lead-generation
+researcher, marketing automation engineer, copywriter, and quality assurance engineer.
+
+Your mission is to build a complete, production-ready, reusable business operating system
+for Reale Revenue Systems (RRS), offering local SEO, AI discovery optimization, reputation
+management, website conversion improvements, lead recovery, and automated customer
+follow-up.
+
+Do not simply write a business plan or produce a collection of recommendations. Create
+the actual websites, files, reusable templates, automation workflows, documents,
+marketing materials, designs, scoring systems, scripts, and operational infrastructure
+needed to launch and run this business.
+
+Work systematically, verify your work, and maintain clear implementation documentation.
+
+
+
+
+PART 1 — BUSINESS CONTEXT AND
+BRAND IDENTITY
+1.1 Company Structure
+Parent company: Reale Labs
+
+Client-facing company: Reale Revenue Systems
+
+Related ventures and assets:
+
+   ● Reale OS — internal business operations, CRM, and automation system.
+   ● Conversational Sales Engine — sales methodology and planned live call copilot.
+   ● Realtor Pipeline Recovery — realtor-specific lead recovery service.
+   ● Property Management Profit Leak Diagnostic — property-management diagnostic.
+   ● Detailer Booking Recovery — booking and inquiry recovery for automotive detailers.
+
+Preserve established business identities and existing products. Do not overwrite existing
+projects or branding.
+
+
+1.2 Brand System
+Use the established Reale Labs / Reale Revenue Systems identity.
+
+Colors:
+
+   ● Midnight Ink: #081020
+   ● Electric Cobalt: #4F5DFF
+   ● Signal Mint: #2DD4BF
+   ● Slate: #334155
+   ● Warm Canvas: #F7F4EE
+   ● White: #FFFFFF
+
+Typography:
+
+   ● Inter
+   ● Manrope
+   ● Neue Haas Grotesk, if properly licensed and available
+
+Use existing approved brand logos whenever possible. If inaccessible, prepare clearly labeled
+logo concepts for approval instead of inventing an official replacement.
+
+Design direction:
+
+   ●     Premium, modern, sophisticated.
+   ●     Conversion-focused without resembling generic agency templates.
+   ●     Beautiful dark/light contrast.
+   ●     Professional dashboards and data visualizations.
+   ●     Clean responsive layouts.
+   ●     Elegant gradients and selective glass-like surfaces.
+   ●     Subtle, high-performance animations.
+   ●     Clear typography and excellent visual hierarchy.
+   ●     Strong mobile usability.
+   ●     WCAG-accessible colors, controls, and navigation.
+   ●     Minimal unnecessary decorative elements.
+
+Primary positioning:
+Get Discovered. Get Chosen. Get Booked.
+
+Supporting message:
+
+"We help local businesses get found on Google and AI search tools, become the obvious
+choice, and turn more inquiries into paying customers."
+
+Alternative messaging should be tested and documented.
+
+
+1.3 Audience
+Primary:
+
+Established small and medium-sized local businesses, initially in Phoenix, Surprise, Peoria,
+Glendale, Scottsdale, and surrounding Arizona markets.
+
+Priority industries:
+
+    1. HVAC, plumbing, roofing, and electrical contractors.
+    2. Mobile detailers, automotive tinting, and related automotive services.
+    3. Property-management firms.
+    4. Cleaning, landscaping, pool maintenance, and other recurring service businesses.
+    5. Remodeling and home improvement.
+    6. Selected professional service businesses with suitable budgets and compliance
+        requirements.
+
+Secondary:
+
+    ●   Realtors and real estate teams.
+    ●   Med spas.
+    ●   Chiropractors.
+    ●   Dental offices.
+    ●   Other appointment-based local businesses.
+
+Create industry-specific landing pages, audit templates, scoring rules, follow-up sequences, and
+offer recommendations where justified.
+
+
+
+
+PART 2 — OFFERS AND PRICING
+Build a configurable offer catalog.
+Treat the prices below as proposed launch prices requiring final approval, not established
+market benchmarks.
+
+Offer A — Local Visibility Jumpstart™
+
+Setup: $497
+Monthly: $197
+
+Services:
+
+   ●   Google Business Profile optimization.
+   ●   Business information consistency audit.
+   ●   Important local citation corrections.
+   ●   Website conversion basics.
+   ●   Review-request setup.
+   ●   Basic local visibility reporting.
+
+Offer B — AI Discovery Accelerator™
+
+Setup: $997
+Monthly: $397
+
+Services:
+
+   ●   AI search visibility assessment.
+   ●   Sampled recommendation tracking.
+   ●   Business-entity consistency.
+   ●   Relevant structured data.
+   ●   Answer-focused, original website content.
+   ●   Search visibility monitoring.
+   ●   Competitor comparison.
+   ●   Source citation analysis.
+
+Never guarantee placement in AI-generated answers.
+
+Offer C — Reputation Revenue Engine™
+
+Setup: $397
+Monthly: $247
+
+Services:
+
+   ● Compliant review-request workflows.
+   ● Review monitoring.
+   ● Response drafting and approvals.
+   ● Customer feedback collection.
+   ● Testimonial collection with permission.
+   ● Reputation reporting.
+
+Do not incentivize reviews, selectively request positive reviews, or suppress negative feedback.
+
+Offer D — Lead Rescue & Booking Engine™
+
+Setup: $750
+Monthly: $397
+
+Services:
+
+   ●   Lead capture.
+   ●   Missed-call recovery where technically supported and legally permitted.
+   ●   Quote follow-up.
+   ●   Appointment workflow.
+   ●   CRM pipeline.
+   ●   Lead reactivation with applicable consent.
+   ●   Follow-up performance tracking.
+
+Clearly disclose usage-based messaging and calling costs.
+
+Offer E — Website-to-Customer Conversion™
+
+Setup: $1,497
+Monthly: $297
+
+Services:
+
+   ●   Conversion-focused website refresh.
+   ●   Five core pages within defined scope.
+   ●   Mobile usability improvements.
+   ●   Clear CTAs.
+   ●   Local business structured data.
+   ●   Analytics and conversion tracking.
+   ●   Monthly improvements.
+
+Offer F — Local Revenue Dominator™
+
+Setup: $2,500
+Monthly: $997
+
+Services:
+
+   ● Local SEO.
+   ●   AI discovery readiness.
+   ●   Reputation management.
+   ●   Website conversion optimization.
+   ●   Lead recovery.
+   ●   Follow-up automation.
+   ●   Client dashboard.
+   ●   Monthly strategy and optimization.
+
+The flagship replaces overlapping smaller retainers when clients upgrade.
+
+
+Add-On Catalog
+Build separate reusable product records and sales materials for:
+
+   ●   Revenue Reactivation Sprint: $497–$997 per project.
+   ●   Competitor Intelligence Pulse: $149/month.
+   ●   Local Authority Content Studio: $397–$697/month.
+   ●   Seasonal Campaign Launches.
+   ●   Additional locations.
+   ●   Advanced integrations.
+   ●   Additional website pages.
+   ●   AI-assisted receptionist or chat functionality where appropriate.
+
+For every offer, create:
+
+   1. Customer-facing explanation.
+   2. Internal fulfillment specification.
+   3. Eligibility criteria.
+   4. Pricing sheet.
+   5. Cost model.
+   6. Expected delivery hours.
+   7. Scope limits.
+   8. Exclusions.
+   9. Required customer inputs.
+   10.Onboarding checklist.
+   11.Service agreement schedule.
+   12.Monthly reporting requirements.
+   13.Upgrade recommendations.
+   14.Cancellation and offboarding procedures.
+
+
+
+
+PART 3 — PUBLIC WEBSITE
+Build a polished, responsive, conversion-focused website.
+
+Use the existing technology stack and repository where appropriate. Inspect existing projects
+before creating replacements.
+
+Suggested structure:
+
+   ●   Home
+   ●   Services
+   ●   Local SEO
+   ●   AI Search Visibility
+   ●   Review & Reputation Management
+   ●   Lead Recovery
+   ●   Website Conversion
+   ●   Industries
+   ●   Pricing
+   ●   Free Local Revenue Snapshot
+   ●   Case Studies
+   ●   Resources
+   ●   About
+   ●   Contact
+   ●   Privacy Policy
+   ●   Terms
+   ●   Accessibility Statement
+
+
+Homepage Requirements
+Hero
+
+Headline:
+
+More Local Customers. Fewer Missed Opportunities.
+
+Subheadline:
+
+"Show up where customers search. Build the trust that earns their business. Automatically
+follow up so more inquiries become booked jobs."
+
+Primary CTA:
+
+Get My Free Local Revenue Snapshot
+
+Secondary CTA:
+
+See How It Works
+Create an exceptional, original hero design featuring a realistic visualization of the customer
+journey:
+
+Search discovery → business selection → inquiry → follow-up → booking.
+
+Avoid generic AI robots, meaningless technology graphics, and unsupported performance
+claims.
+
+Homepage Sections
+
+   1. Hero and primary CTAs.
+   2. Customer problems.
+   3. How customer discovery is changing.
+   4. The five-part Local Revenue System.
+   5. Services overview.
+   6. Example audit preview.
+   7. Industry-specific solutions.
+   8. Before-and-after opportunity explanation.
+   9. Transparent pricing.
+   10.How onboarding works.
+   11.Evidence and case studies.
+   12.Frequently asked questions.
+   13.Final CTA.
+
+Use a mix of static diagrams, tasteful motion, interactive demonstrations, and original branded
+graphics.
+
+Do not fabricate testimonials, clients, rankings, performance results, certifications, or case
+studies.
+
+Clearly distinguish demonstrations from actual customer results.
+
+
+Website Functional Requirements
+Implement:
+
+   ●   Mobile-first responsive design.
+   ●   Fast page loads.
+   ●   Accessible navigation.
+   ●   Proper page metadata.
+   ●   Canonical tags.
+   ●   XML sitemap.
+   ●   Robots configuration.
+   ●   Breadcrumbs where appropriate.
+   ●   Relevant schema markup.
+   ●   Search Console integration guidance.
+   ●   Analytics events.
+   ●   Contact forms.
+   ●   Lead capture.
+   ●   CRM integration.
+   ●   Source attribution.
+   ●   Spam protection.
+   ●   Privacy/consent controls.
+   ●   Booking integration.
+   ●   Error monitoring.
+   ●   SEO-friendly URLs.
+   ●   Open Graph images.
+   ●   Reusable page components.
+   ●   Reusable CTA components.
+   ●   Reusable service-page templates.
+   ●   Reusable industry-page templates.
+   ●   Content management workflow.
+
+Create complete desktop, tablet, and mobile experiences.
+
+Test the website at multiple viewport sizes.
+
+Do not publish publicly or activate paid integrations without explicit approval.
+
+
+
+
+PART 4 — FREE LOCAL REVENUE
+OPPORTUNITY SNAPSHOT™
+Build the free diagnostic as both:
+
+   1. A public website lead-generation experience.
+   2. An internal research and sales tool.
+
+The diagnostic should evaluate five categories:
+
+   ●   Google Maps presence.
+   ●   AI discovery readiness.
+   ●   Reviews and trust.
+   ●   Website conversion.
+   ●   Lead follow-up.
+
+Create a transparent 100-point scoring framework.
+Every scoring category must have:
+
+   ●     Measurable criteria.
+   ●     Source requirements.
+   ●     Point allocation.
+   ●     Evidence requirements.
+   ●     Missing-data rules.
+   ●     Confidence level.
+   ●     Date checked.
+   ●     Manual override procedure.
+   ●     Explanation of limitations.
+
+Never interpret missing evidence as a confirmed operational problem.
+
+For example, if a company does not publicly describe its lead follow-up process, label that
+aspect "Not verified" rather than automatically assigning a failing operational score.
+
+
+Audit Outputs
+Generate:
+
+   ●     Executive summary.
+   ●     Overall verified assessment.
+   ●     Category scores.
+   ●     Confidence indicators.
+   ●     Competitor comparison.
+   ●     Immediate opportunities.
+   ●     Estimated business impact scenarios.
+   ●     Recommended service.
+   ●     Suggested implementation priority.
+   ●     Next-step CTA.
+
+Use hypothetical inputs for projections and never represent estimates as verified lost revenue.
+
+Export:
+
+   ●     PDF.
+   ●     Printable HTML.
+   ●     CSV.
+   ●     JSON.
+   ●     CRM record.
+   ●     Customer presentation.
+
+Create sample completed reports with clearly fictional data.
+PART 5 — REUSABLE SCORE SHEETS
+AND TEMPLATES
+Create professionally branded, reusable templates in spreadsheet and document formats.
+
+Required score sheets:
+
+   1. Local Revenue Opportunity Scorecard.
+   2. Google Business Profile Audit.
+   3. Traditional Local SEO Audit.
+   4. AI Discovery Visibility Audit.
+   5. Business Entity Consistency Audit.
+   6. Competitor Comparison Matrix.
+   7. Review and Reputation Audit.
+   8. Website Conversion Audit.
+   9. Mobile Performance Audit.
+   10.Lead Capture and Follow-Up Audit.
+   11.CRM Readiness Assessment.
+   12.Lead Reactivation Opportunity Assessment.
+   13.Sales Prospect Qualification Scorecard.
+   14.Client Health Scorecard.
+   15.Monthly Marketing Performance Scorecard.
+   16.Campaign ROI Calculator.
+   17.Customer Lifetime Value Calculator.
+   18.Proposal Pricing Calculator.
+   19.Service Delivery Cost Calculator.
+   20.Client Profitability Tracker.
+   21.Upsell Opportunity Scorecard.
+   22.Client Renewal Risk Assessment.
+   23.Multi-Location Opportunity Assessment.
+   24.Quarterly Business Review.
+   25.Automated Research Quality Checklist.
+
+All templates should include:
+
+   ●   Clear instructions.
+   ●   Editable input fields.
+   ●   Controlled dropdowns.
+   ●   Auto-calculated totals where applicable.
+   ●   Weighted scoring.
+   ●   Configurable thresholds.
+   ●   Data source references.
+   ●   Timestamp fields.
+   ●   Owner and reviewer fields.
+   ●   Validation.
+   ●   Missing-information handling.
+   ●   Version information.
+   ●   Print-ready formatting.
+
+Use clickable selections wherever practical to reduce manual typing.
+
+Deliver functional XLSX files and import-compatible CSV/JSON templates. Use Google Sheets
+only when the relevant connection and permissions are available.
+
+
+
+
+PART 6 — AUTOMATED LOCAL
+BUSINESS RESEARCH ENGINE
+Build a configurable research engine to identify, enrich, and qualify promising local-business
+prospects.
+
+The system must prioritize verified business problems and reasonable commercial fit, not
+merely businesses with low ratings or weak-looking websites.
+
+
+Research Sources
+Evaluate legitimate access methods for:
+
+   ●   Google Places API.
+   ●   Google Business Profile data where authorized.
+   ●   Google Search Console for connected properties.
+   ●   Google PageSpeed Insights.
+   ●   Public business websites.
+   ●   Public business directories.
+   ●   State licensing databases when appropriate.
+   ●   Public business registration records.
+   ●   Business social profiles.
+   ●   Job postings.
+   ●   Public industry associations.
+   ●   Permitted review data.
+   ●   Search engine results obtained through approved services.
+   ● Other publicly available and legally usable information.
+
+Prefer inexpensive, reliable, documented data sources.
+
+Do not bypass access controls, CAPTCHA, paywalls, robots restrictions, or provider rate limits.
+
+Do not scrape Google Maps or other platforms in violation of their terms.
+
+
+Research Workflow
+The engine should:
+
+   1. Select industry.
+   2. Select geographic area.
+   3. Discover candidate businesses.
+   4. Deduplicate by normalized business identity.
+   5. Verify location and operating status.
+   6. Inspect website.
+   7. Assess publicly observable problems.
+   8. Check online reputation indicators.
+   9. Evaluate local search presence.
+   10.Perform sampled AI discovery checks where supported.
+   11.Identify potential conversion friction.
+   12.Detect relevant service opportunities.
+   13.Calculate lead fit.
+   14.Assign recommended offer.
+   15.Generate a research summary.
+   16.Create CRM record.
+   17.Add eligible leads to a review queue.
+   18.Generate personalized outreach drafts.
+   19.Schedule manual review.
+   20.Log outcomes and research freshness.
+
+
+Lead Qualification
+Develop a configurable weighted 100-point ICP score.
+
+Suggested initial weights:
+
+   ●   Commercial fit: 25.
+   ●   Verified opportunity severity: 25.
+   ●   Likelihood of benefiting from services: 20.
+   ●   Reachability and available business contacts: 15.
+   ●   Geographic and industry priority: 10.
+   ● Data completeness and confidence: 5.
+
+Clearly separate:
+
+   ●   ICP fit.
+   ●   Opportunity score.
+   ●   Research confidence.
+   ●   Outreach priority.
+
+Do not collapse all four into an opaque number.
+
+
+Required Lead Record
+Include:
+
+   ●   Company name.
+   ●   Business category.
+   ●   Address.
+   ●   Service area.
+   ●   Website.
+   ●   Public business phone.
+   ●   Public business contact information.
+   ●   Business profile URLs.
+   ●   Industry.
+   ●   Operating status.
+   ●   Years in operation, if verified.
+   ●   Relevant public licensing information.
+   ●   Website issue evidence.
+   ●   Local search observations.
+   ●   Review observations.
+   ●   AI discovery observations.
+   ●   Relevant competitors.
+   ●   Potential offer fit.
+   ●   Score and component breakdown.
+   ●   Research confidence.
+   ●   Source URLs.
+   ●   Source timestamps.
+   ●   Last verified date.
+   ●   Research notes.
+   ●   Contact restrictions.
+   ●   CRM owner.
+   ●   Outreach status.
+   ●   Last contact.
+   ●   Next action.
+   ●    Call outcome.
+   ●    Objections.
+   ●    Permission to follow up.
+   ●    Preferred contact channel.
+   ●    Proposed service.
+   ●    Estimated deal value.
+   ●    Follow-up deadline.
+
+Never invent contact information or business facts.
+
+
+
+
+PART 7 — LEAD RESEARCH AND
+OUTREACH COMMAND CENTER
+Integrate the new service line into Reale OS or the existing Outreach Command Center without
+losing established segments.
+
+Support separate lead views for:
+
+   ●    Arizona website opportunities.
+   ●    Local SEO and AI visibility.
+   ●    Home-service businesses.
+   ●    Mobile detailers.
+   ●    Property managers.
+   ●    Realtors.
+   ●    Agencies.
+   ●    Other Reale Labs ventures.
+
+Each venture must have its own workspace while sharing reusable infrastructure.
+
+Build:
+
+   ●    Lead table.
+   ●    Detail panel.
+   ●    Filters.
+   ●    Search.
+   ●    Saved views.
+   ●    Opportunity scoring.
+   ●    Evidence viewer.
+   ●    Research queue.
+   ●    Call queue.
+   ●    Follow-up calendar.
+   ●   Tasks.
+   ●   Script library.
+   ●   Objection handling.
+   ●   Email draft generator.
+   ●   Appointment tracking.
+   ●   Proposal tracking.
+   ●   Won/lost outcomes.
+   ●   Lead source attribution.
+   ●   Activity timeline.
+   ●   Audit history.
+
+Prefer dropdowns, chips, checkboxes, and predefined actions rather than excessive free-text
+fields.
+
+Make the system exceptionally easy to use from a phone.
+
+
+
+
+PART 8 — AUTOMATED OUTREACH
+SUPPORT
+Create an outreach system that prepares personalized communications from verified lead
+research.
+
+Required sequences:
+
+   ●   Cold-call opener.
+   ●   Gatekeeper conversation.
+   ●   Decision-maker discovery call.
+   ●   Voicemail.
+   ●   First business email.
+   ●   Follow-up email.
+   ●   LinkedIn message.
+   ●   Post-call recap.
+   ●   Audit delivery email.
+   ●   Proposal delivery email.
+   ●   No-response follow-up.
+   ●   Not-now follow-up.
+   ●   Referral request.
+   ●   Re-engagement sequence.
+   ●   Existing-client expansion sequence.
+
+Use the Conversational Sales Engine's five gears:
+   1. Curiosity.
+   2. Story.
+   3. Root Problem.
+   4. Consequence/Desire.
+   5. Commercial Bridge.
+
+Include contextual objection handling and alternative service recommendations.
+
+If a business is not interested in its website offer but expresses interest in missed calls, reviews,
+or follow-up, the system should recommend the relevant alternative and draft a
+permission-based follow-up.
+
+Compliance requirements:
+
+   ● Respect Do Not Call requirements and relevant calling restrictions.
+   ● Include applicable CAN-SPAM requirements.
+   ● Address TCPA and state-specific telemarketing requirements.
+   ● Require appropriate permission for automated SMS, prerecorded calls, and similar
+      workflows.
+   ● Maintain opt-out and suppression lists.
+   ● Do not auto-send cold outreach without explicit authorization and a compliance review.
+   ● Do not impersonate humans or fabricate a prior relationship.
+
+Create outreach templates for every service and priority industry.
+
+
+
+
+PART 9 — COMPLETE SALES MATERIALS
+Produce the following ready-to-customize assets:
+
+
+Sales Documents
+   ●   Master sales deck.
+   ●   Short five-slide pitch.
+   ●   One-page company overview.
+   ●   One-page service sheets for all six offers.
+   ●   Pricing comparison sheet.
+   ●   Competitor comparison worksheet.
+   ●   Free diagnostic explanation.
+   ●   Audit presentation template.
+   ●   Proposal template.
+   ●   Statement of work template.
+   ●   Service agreement draft.
+   ●   Payment and invoicing instructions.
+   ●   Scope-change request.
+   ●   Client FAQ.
+   ●   Objection-response library.
+   ●   ROI calculation worksheet.
+   ●   Pilot offer sheet.
+   ●   Founding-client offer.
+   ●   Referral partnership guide.
+   ●   Case-study template.
+   ●   Testimonial request.
+   ●   Sales call checklist.
+   ●   Closing checklist.
+
+Legal documents must be labeled as drafts for qualified review before client use.
+
+
+Sales Scripts
+Create multiple variants for:
+
+   ●   Home-service contractors.
+   ●   Automotive detailers.
+   ●   Property managers.
+   ●   Realtors.
+   ●   Professional services.
+   ●   General local businesses.
+
+Keep scripts conversational, short, direct, and permission-based.
+
+Include realistic objections:
+
+   ●   We already have an SEO agency.
+   ●   We're not interested.
+   ●   Our website works fine.
+   ●   We get enough leads.
+   ●   We're too busy.
+   ●   AI search doesn't matter to us.
+   ●   We tried SEO before.
+   ●   We don't have the budget.
+   ●   Send me information.
+   ●   Call back later.
+   ●   We rely on referrals.
+   ●   How can you guarantee results?
+
+Do not make guarantees that cannot be substantiated.
+PART 10 — COMPLETE MARKETING
+MATERIALS
+Create a complete launch marketing campaign.
+
+
+Social Media
+Platforms:
+
+   ●   Facebook.
+   ●   Instagram.
+   ●   LinkedIn.
+   ●   Reddit.
+   ●   X.
+   ●   YouTube Shorts.
+
+Build a 90-day content calendar.
+
+For every post, include:
+
+   ●   Platform.
+   ●   Objective.
+   ●   Audience.
+   ●   Hook.
+   ●   Complete caption.
+   ●   CTA.
+   ●   Relevant offer.
+   ●   Recommended image.
+   ●   Actual asset ID.
+   ●   Publishing status.
+   ●   Tracking link.
+   ●   Suggested repurposing.
+   ●   Approval status.
+
+Do not use meaningless image filenames in the interface. Display a visual preview and
+descriptive asset name.
+
+
+Content Types
+Create:
+
+   ●   Educational posts.
+   ●   Before-and-after explanations.
+   ●   Infographics.
+   ●   Short videos and scripts.
+   ●   Local business tips.
+   ●   AI search explainers.
+   ●   Common SEO myths.
+   ●   Review management tips.
+   ●   Lead follow-up examples.
+   ●   Business-owner checklists.
+   ●   Industry-specific posts.
+   ●   Founder posts.
+   ●   Case-study templates.
+   ●   FAQ posts.
+   ●   Interactive polls.
+   ●   Carousel posts.
+   ●   Seasonal campaigns.
+
+Avoid manufactured results, exaggerated claims, and repetitive generic AI copy.
+
+
+Advertising
+Create ad campaign packages for:
+
+   ●   Facebook and Instagram.
+   ●   Google Search.
+   ●   Google remarketing where permitted.
+   ●   LinkedIn.
+   ●   Local business communities.
+   ●   Referral partnerships.
+
+For each campaign, create:
+
+   ●   Campaign goal.
+   ●   Audience.
+   ●   Core offer.
+   ●   Ad variants.
+   ●   Headlines.
+   ●   Descriptions.
+   ●   Creative specifications.
+   ●   Landing page.
+   ●   CTA.
+   ●   Tracking setup.
+   ●   Budget scenario.
+   ●   Measurement plan.
+   ●   Testing plan.
+
+Do not claim ad platform targeting capabilities without checking current platform documentation.
+
+
+
+
+PART 11 — GRAPHICS, IMAGES,
+BANNERS, ICONS, AND INFOGRAPHICS
+Create a complete visual asset library.
+
+Generate actual images where the available tools support image generation. If the current
+Claude environment cannot render images, create production-ready prompts for an
+image-generation tool, organize the prompts by asset, and flag all unrendered items. Do not
+pretend prompt files are finished image assets.
+
+
+Required Website Assets
+   ●   Homepage hero image.
+   ●   Service illustrations.
+   ●   Five-stage customer journey visualization.
+   ●   Local search discovery visualization.
+   ●   AI recommendation visibility visualization.
+   ●   Reputation management visualization.
+   ●   Lead recovery workflow visualization.
+   ●   Booking automation visualization.
+   ●   Reporting dashboard mockup.
+   ●   Industry-specific images.
+   ●   About page images.
+   ●   CTA backgrounds.
+   ●   Open Graph image templates.
+   ●   Favicon and app icons.
+
+
+Required Infographics
+   1. How Local Customers Find Businesses in 2027.
+   2. Google Search vs Google Maps vs AI Search.
+   3. Five Stages of Local Revenue Growth.
+   4. Why Local Leads Disappear.
+   5. How Missed-Call Recovery Works.
+   6. The Customer Trust Journey.
+   7. Common Google Business Profile Mistakes.
+   8. AI Discovery Readiness Checklist.
+   9. The Local Revenue Opportunity Score.
+   10.The Cost of Slow Follow-Up.
+   11.Local SEO vs Traditional SEO.
+   12.From Website Visitor to Paying Customer.
+   13.The Review Generation Process.
+   14.How Reputation Affects Customer Decisions.
+   15.Business Growth Dashboard Explained.
+
+Use verified, sourced statistics wherever statistics appear.
+
+
+Social Graphics
+Create reusable editable templates for:
+
+   ●   Square Instagram posts.
+   ●   4:5 portrait posts.
+   ●   9:16 stories.
+   ●   9:16 short-video covers.
+   ●   LinkedIn banners.
+   ●   Facebook page covers.
+   ●   X headers.
+   ●   YouTube thumbnails.
+   ●   Carousel covers.
+   ●   Quote graphics.
+   ●   Checklist graphics.
+   ●   Promotion graphics.
+   ●   Service announcement graphics.
+   ●   Case-study graphics.
+
+
+Production Requirements
+Maintain a visual asset manifest containing:
+
+   ●   Asset ID.
+   ●   Descriptive title.
+   ●   Intended use.
+   ●   Dimensions.
+   ●   Aspect ratio.
+   ●   Source prompt.
+   ●   Final filename.
+   ●   File format.
+   ●   Alt text.
+   ●   Brand compliance.
+   ●   Approval status.
+
+Export optimized PNG, WebP, and SVG where applicable.
+
+Use editable vector files for icons and diagrams whenever practical.
+
+Never use unlicensed stock assets or misleading representations of real clients.
+
+
+
+
+PART 12 — CLIENT ONBOARDING
+SYSTEM
+Create a streamlined onboarding system with a simple customer-facing portal.
+
+Requirements:
+
+   ●   Welcome page.
+   ●   Welcome email.
+   ●   Business information form.
+   ●   Primary contact details.
+   ●   Authorized users.
+   ●   Service locations.
+   ●   Business hours.
+   ●   Services offered.
+   ●   Current website.
+   ●   Existing business profiles.
+   ●   Customer management tools.
+   ●   Booking systems.
+   ●   Approved messaging language.
+   ●   Brand assets.
+   ●   Photo uploads.
+   ●   Existing marketing assets.
+   ●   Customer review links.
+   ●   Analytics access instructions.
+   ●   Domain/DNS access instructions.
+   ●   CRM integration instructions.
+   ●   Permissions checklist.
+   ●   Consent and communication policies.
+   ●   Launch checklist.
+   ●   Implementation timeline.
+   ●   Deliverables tracker.
+   ●   Approval queue.
+
+Use passwordless or delegated access mechanisms where possible.
+
+Never request passwords in ordinary forms or store credentials in plaintext.
+
+Include secure client authorization and access revocation procedures.
+
+Create different onboarding flows for each service so customers aren't asked irrelevant
+questions.
+
+
+
+
+PART 13 — CLIENT PORTAL AND
+REPORTING
+Build a mobile-friendly client dashboard.
+
+Include:
+
+   ●   Overview.
+   ●   Visibility.
+   ●   Reviews.
+   ●   Website.
+   ●   Leads.
+   ●   Bookings.
+   ●   Revenue attribution.
+   ●   Tasks.
+   ●   Deliverables.
+   ●   Documents.
+   ●   Approvals.
+   ●   Reports.
+   ●   Support.
+   ●   Billing status.
+   ●   Account settings.
+
+Use client-specific permissions and enforce authorization at the database level.
+
+Every customer must see only their own account data.
+Create reusable monthly report templates and quarterly review presentations.
+
+Track:
+
+   ●    Local search visibility.
+   ●    Website visits.
+   ●    Qualified leads.
+   ●    Phone inquiries.
+   ●    Contact forms.
+   ●    Appointments.
+   ●    Closed deals where documented.
+   ●    Review volume and rating trends.
+   ●    Follow-up outcomes.
+   ●    AI recommendation observations.
+   ●    Revenue attribution evidence.
+   ●    Open tasks.
+   ●    Work completed.
+
+Avoid unsupported cause-and-effect statements.
+
+
+
+
+PART 14 — INTERNAL FULFILLMENT
+SYSTEM
+Create a service delivery workspace.
+
+Required components:
+
+   ●    Client records.
+   ●    Project templates.
+   ●    Task assignments.
+   ●    Service checklists.
+   ●    Recurring tasks.
+   ●    Monthly deliverables.
+   ●    Workflow automations.
+   ●    Document center.
+   ●    Design asset center.
+   ●    Approvals.
+   ●    Quality control.
+   ●    Issue tracking.
+   ●    Client communication logs.
+   ●    Billing integration.
+   ●   Contractor handoff guides.
+   ●   Standard operating procedures.
+   ●   Client renewal monitoring.
+   ●   Offboarding.
+
+Create SOPs for every recurring task.
+
+Examples:
+
+   ●   New local SEO client.
+   ●   Google Business Profile audit.
+   ●   Business information correction.
+   ●   AI visibility assessment.
+   ●   Local service page creation.
+   ●   Review response approval.
+   ●   Lead recovery setup.
+   ●   Phone and SMS workflow testing.
+   ●   Monthly reporting.
+   ●   Quarterly strategy review.
+   ●   Customer support issue.
+   ●   Client cancellation.
+
+Every SOP must specify:
+
+   ●   Trigger.
+   ●   Owner.
+   ●   Inputs.
+   ●   Procedure.
+   ●   Quality checks.
+   ●   Expected output.
+   ●   Escalation conditions.
+   ●   Completion criteria.
+
+
+
+
+PART 15 — AUTOMATION WORKFLOWS
+Use n8n wherever practical and integrate with existing systems.
+
+Create reusable, documented workflow definitions for:
+
+   1. New lead intake.
+   2. Business discovery.
+   3. Research enrichment.
+   4. Lead deduplication.
+   5. Lead scoring.
+   6. Data freshness checks.
+   7. Audit report creation.
+   8. CRM record creation.
+   9. Outreach draft generation.
+   10.Manual outreach review.
+   11.Follow-up reminders.
+   12.Booking notifications.
+   13.Proposal generation.
+   14.Won-deal onboarding.
+   15.Client document requests.
+   16.Project creation.
+   17.Review request workflows.
+   18.Review monitoring.
+   19.Lead recovery.
+   20.Old quote follow-up.
+   21.Website issue alerts.
+   22.Monthly report preparation.
+   23.Monthly report delivery after approval.
+   24.Client health monitoring.
+   25.Upsell opportunity identification.
+   26.Renewal reminders.
+   27.Client offboarding.
+   28.Backup verification.
+   29.Automation error alerts.
+   30.Weekly operating summary.
+
+Export importable n8n workflow JSON where feasible.
+
+Use environment variables for secrets.
+
+Provide retry handling, rate limiting, deduplication, logs, approval gates, and failure recovery.
+
+Never insert real credentials into exported workflows.
+
+
+
+
+PART 16 — DATA MODEL AND
+TECHNICAL ARCHITECTURE
+Inspect the existing Reale OS architecture before making changes.
+Prefer compatibility with:
+
+   ●   Next.js.
+   ●   TypeScript.
+   ●   Supabase/PostgreSQL.
+   ●   Supabase Row Level Security.
+   ●   n8n.
+   ●   Existing Reale OS components.
+   ●   Existing authentication and permissions.
+   ●   Existing CRM records.
+
+Develop modular schemas for:
+
+   ●   Organizations.
+   ●   Business locations.
+   ●   Contacts.
+   ●   Leads.
+   ●   Research sources.
+   ●   Research observations.
+   ●   Audits.
+   ●   Audit score versions.
+   ●   Opportunities.
+   ●   Services.
+   ●   Subscriptions.
+   ●   Campaigns.
+   ●   Activities.
+   ●   Calls.
+   ●   Messages.
+   ●   Follow-ups.
+   ●   Clients.
+   ●   Projects.
+   ●   Tasks.
+   ●   Assets.
+   ●   Documents.
+   ●   Reports.
+   ●   Automations.
+   ●   Notifications.
+   ●   Approvals.
+   ●   Billing records.
+
+Do not introduce breaking database migrations without documenting and testing them.
+
+Use migrations rather than manual database edits.
+
+Build automated tests for scoring, permissions, deduplication, workflows, and reporting.
+PART 17 — RESEARCH ACCURACY AND
+SAFETY
+All factual business research must be evidence-based.
+
+Requirements:
+
+   ●   Record source URLs.
+   ●   Preserve research dates.
+   ●   Track confidence.
+   ●   Distinguish verified facts from assumptions.
+   ●   Handle missing data explicitly.
+   ●   Prevent duplicate businesses.
+   ●   Avoid hallucinated emails, names, and phone numbers.
+   ●   Respect privacy and platform access restrictions.
+   ●   Document API costs and quotas.
+   ●   Validate important claims before outreach.
+
+For AI discovery assessments, use repeatable prompts and recorded test conditions, while
+acknowledging answer variability.
+
+Do not represent AI assistant output as a stable search ranking.
+
+For local SEO, distinguish legitimate optimization from tactics that violate Google policies.
+
+Do not create fake reviews, fabricated citations, false service locations, doorway pages, or
+deceptive local business profiles.
+
+
+
+
+PART 18 — FILE AND FOLDER
+ORGANIZATION
+Create a clean project structure.
+
+Suggested root:
+
+C:\Reale\Projects\RRS-Local-Growth\
+Suggested folders:
+
+RRS-Local-Growth/
+├── 00-Project-Management/
+├── 01-Brand-System/
+│ ├── Logos/
+│ ├── Colors-Typography/
+│ ├── Icons/
+│ └── Design-Tokens/
+├── 02-Public-Website/
+├── 03-Offers-and-Pricing/
+├── 04-Audits-and-Scorecards/
+├── 05-Lead-Research/
+│ ├── Data-Sources/
+│ ├── Scoring/
+│ ├── Templates/
+│ └── Research-Outputs/
+├── 06-Sales/
+│ ├── Call-Scripts/
+│ ├── Email-Sequences/
+│ ├── Objections/
+│ ├── Proposals/
+│ └── Presentations/
+├── 07-Marketing/
+│ ├── Content-Calendars/
+│ ├── Social-Posts/
+│ ├── Advertisements/
+│ └── Landing-Pages/
+├── 08-Design-Assets/
+│ ├── Hero-Graphics/
+│ ├── Infographics/
+│ ├── Banners/
+│ ├── Social-Graphics/
+│ ├── Image-Prompts/
+│ └── Asset-Manifest/
+├── 09-Client-Onboarding/
+├── 10-Client-Portal/
+├── 11-Fulfillment-SOPs/
+├── 12-Automations/
+├── 13-Reporting/
+├── 14-Legal-Drafts/
+├── 15-Quality-Assurance/
+├── 16-Launch-Campaign/
+├── 17-Sample-Clients/
+├── 18-Documentation/
+└── 19-Exports/
+
+
+Adapt this structure to the existing repository when appropriate.
+
+Do not scatter related deliverables across unrelated directories.
+
+
+
+
+PART 19 — DELIVERY PHASES
+Execute in controlled phases rather than trying to implement everything simultaneously.
+
+
+Phase 0 — Environment and Existing Asset Audit
+Inspect existing repositories, assets, and relevant project documentation.
+
+Identify:
+
+    ●   Reusable assets.
+    ●   Existing workflows.
+    ●   Existing lead databases.
+    ●   Existing design components.
+    ●   Existing offers.
+    ●   Existing sales scripts.
+    ●   Existing automations.
+    ●   Duplicates.
+    ●   Missing dependencies.
+    ●   Security concerns.
+
+Create a preservation and integration plan.
+
+
+Phase 1 — Business and Offer Foundation
+Deliver:
+
+    ●   Offer catalog.
+    ●   Pricing framework.
+    ●   Brand system.
+    ●   Sales positioning.
+    ●   Audience segmentation.
+    ●   Proposal templates.
+   ● Service scope definitions.
+   ● Initial website architecture.
+
+
+Phase 2 — Website and Lead Magnet
+Deliver:
+
+   ●   Working website.
+   ●   Landing pages.
+   ●   Free Snapshot workflow.
+   ●   Functional contact forms.
+   ●   Analytics.
+   ●   Initial design assets.
+   ●   Mobile testing.
+
+
+Phase 3 — Audit and Research Engine
+Deliver:
+
+   ●   Reusable scorecards.
+   ●   Research sources.
+   ●   Research pipeline.
+   ●   Evidence model.
+   ●   ICP scoring.
+   ●   Business research records.
+   ●   Audit reports.
+   ●   CSV import/export.
+
+
+Phase 4 — Sales and Marketing System
+Deliver:
+
+   ●   Sales scripts.
+   ●   Outreach drafts.
+   ●   Objection library.
+   ●   Marketing documents.
+   ●   Ad campaigns.
+   ●   90-day content calendar.
+   ●   Graphics and infographics.
+   ●   Proposal workflow.
+
+
+Phase 5 — Client Onboarding and Delivery
+Deliver:
+
+    ●   Onboarding portal.
+    ●   Intake forms.
+    ●   Project templates.
+    ●   SOP library.
+    ●   Deliverables tracker.
+    ●   Approval workflows.
+    ●   Client dashboard.
+
+
+Phase 6 — Automation and Integration
+Deliver:
+
+    ●   n8n workflows.
+    ●   CRM integrations.
+    ●   Research automation.
+    ●   Reporting automation.
+    ●   Follow-up reminders.
+    ●   Quality control.
+    ●   Error handling.
+
+
+Phase 7 — Launch Readiness
+Run an end-to-end test from:
+
+Prospect discovery → research → scoring → outreach draft → sales call → proposal → deal
+closed → onboarding → fulfillment → reporting → renewal.
+
+Test with fictional or authorized data.
+
+Identify and fix critical failures.
+
+
+
+
+PART 20 — DOCUMENTATION AND
+VERIFICATION
+Maintain the following project files:
+
+    ● README.md
+   ● PROJECT-STATUS.md
+   ● IMPLEMENTATION-PLAN.md
+   ● ASSET-MANIFEST.md
+   ● DELIVERABLES-REGISTER.md
+   ● DECISIONS.md
+   ● KNOWN-ISSUES.md
+   ● CHANGELOG.md
+   ● TEST-RESULTS.md
+   ● LAUNCH-CHECKLIST.md
+   ● OPERATIONS-HANDBOOK.md
+   ● NEXT-STEPS.md
+
+The deliverables register must record:
+
+   ●   Deliverable ID.
+   ●   Name.
+   ●   Description.
+   ●   File location.
+   ●   Status.
+   ●   Dependencies.
+   ●   Validation result.
+   ●   Approval status.
+   ●   Last modified date.
+
+Use explicit statuses:
+
+   ●   Planned.
+   ●   In progress.
+   ●   Created.
+   ●   Tested.
+   ●   Approved.
+   ●   Blocked.
+
+Never label a deliverable complete unless the actual file exists and has passed the relevant
+checks.
+
+Clearly distinguish:
+
+   ●   Working functionality.
+   ●   Mock functionality.
+   ●   Placeholder content.
+   ●   Draft documents.
+   ●   Production-ready assets.
+   ●   Features requiring external credentials.
+   ● Features requiring human approval.
+
+
+
+
+PART 21 — EXECUTION RULES
+Follow these instructions throughout the project.
+
+   1. Build actual deliverables. Do not substitute descriptions for files when you have the
+       ability to create those files.
+
+   2. Reuse existing work. Inspect current Reale Revenue Systems, Reale OS, and related
+       repositories before starting new implementations.
+
+   3. Protect existing projects. Do not overwrite working systems without backups, tests,
+       and a clear reason.
+
+   4. Prioritize reusable systems. Build templates, components, automations, scoring rules,
+       and workflows that work across industries.
+
+   5. Design for mobile use. The owner needs to research leads, make calls, review tasks,
+       and manage projects from a phone.
+
+   6. Minimize manual typing. Use predefined options and intelligent defaults where
+       appropriate.
+
+   7. Avoid expensive dependencies. Prefer available subscriptions, approved APIs, and
+       maintained open-source tools when reliable.
+
+   8. Document recurring costs. Include API, hosting, messaging, software, and labor
+       assumptions.
+
+   9. Do not invent evidence. Business facts, prospect research, customer outcomes, and
+       testimonials must be verifiable.
+
+   10.Build in compliance controls. Review platform policies, communications consent,
+       privacy, access management, and data retention.
+
+   11.Use human approval gates. Require approval for publishing, launching ads, sending
+       outreach, billing, deploying, and modifying production infrastructure.
+    12.Maintain production quality. Test forms, mobile layouts, authentication, data isolation,
+        calculations, integrations, and exports.
+
+    13.Track actual completion. Never claim an asset has been generated, deployed, or
+        tested unless it actually has.
+
+    14.Deliver incrementally. Keep every phase usable and commit meaningful milestones.
+
+    15.Preserve progress. Maintain resumable documentation so another coding agent can
+        continue without losing context.
+
+
+
+
+PART 22 — FIRST EXECUTION
+INSTRUCTIONS
+Begin immediately with Phase 0.
+
+First:
+
+    1. Inspect the local project environment.
+    2. Identify existing Reale Revenue Systems and Reale OS repositories.
+    3. Locate relevant approved brand assets and existing sales materials.
+    4. Review existing project architecture and dependencies.
+    5. Check the Git working tree and preserve uncommitted changes.
+    6. Create an inventory of reusable materials.
+    7. Create a detailed implementation plan organized by dependency and business value.
+    8. Identify integrations that require user authorization.
+    9. Establish the deliverables register.
+    10.Start implementing the highest-priority deliverables that can be safely completed without
+        further input.
+
+Do not repeatedly ask for details already provided in this prompt.
+
+Make reasonable, documented decisions for noncritical implementation details.
+
+Only request approval when required for security, spending, external account changes,
+publishing, sending communications, irreversible actions, or major architectural decisions.
+
+After each completed phase, report:
+
+    ● What was actually built.
+   ●   Exact file paths.
+   ●   What was tested.
+   ●   Test results.
+   ●   Outstanding blockers.
+   ●   Credentials or approvals required.
+   ●   Recommended next implementation step.
+
+Your ultimate goal is to deliver a complete, scalable, beautifully branded Reale Revenue
+Systems Local Growth Operating System that can attract prospects, identify business
+opportunities, sell services, onboard clients, deliver results, track performance, and support
+recurring revenue.
+
+Begin the environment audit and implementation now.
+

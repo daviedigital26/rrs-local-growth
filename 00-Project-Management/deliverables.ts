@@ -1,0 +1,85 @@
+/**
+ * Deliverables register — single source of truth.
+ * `npm run register` renders DELIVERABLES-REGISTER.md from this file.
+ * `register.test.ts` fails if any Created/Tested/Approved item points at a missing file.
+ */
+
+export type Status = 'Planned' | 'In progress' | 'Created' | 'Tested' | 'Approved' | 'Blocked';
+export type Approval = 'Not required' | 'Pending' | 'Approved';
+/** Spec Part 20 classifications. */
+export type Flag =
+  | 'working'
+  | 'mock'
+  | 'placeholder'
+  | 'draft'
+  | 'production-ready'
+  | 'needs-credentials'
+  | 'needs-approval';
+
+export interface Deliverable {
+  id: string;
+  name: string;
+  description: string;
+  phase: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  paths: string[];
+  status: Status;
+  dependencies: string[];
+  validation: string;
+  approval: Approval;
+  flags: Flag[];
+  lastModified: string; // YYYY-MM-DD
+}
+
+const D = '2026-11-16';
+
+export const deliverables: Deliverable[] = [
+  // ── Phase 0 ────────────────────────────────────────────────────────────
+  { id: 'RRS-0-01', name: 'Phase 0 audit & preservation plan', description: 'Environment inspection, external asset inventory, duplicates, security, integration plan.', phase: 0, paths: ['00-Project-Management/PHASE-0-AUDIT.md'], status: 'Created', dependencies: [], validation: 'Reviewed against spec Part 19 Phase 0 checklist', approval: 'Not required', flags: ['working'], lastModified: D },
+  { id: 'RRS-0-02', name: 'Implementation plan', description: 'Phased plan ordered by dependency and business value.', phase: 0, paths: ['00-Project-Management/IMPLEMENTATION-PLAN.md'], status: 'Created', dependencies: ['RRS-0-01'], validation: 'Covers spec phases 0–7', approval: 'Pending', flags: ['needs-approval'], lastModified: D },
+  { id: 'RRS-0-03', name: 'Deliverables register', description: 'Data-driven register with file-existence enforcement.', phase: 0, paths: ['00-Project-Management/deliverables.ts', '00-Project-Management/DELIVERABLES-REGISTER.md', '00-Project-Management/register.test.ts'], status: 'In progress', dependencies: [], validation: 'register.test.ts passes', approval: 'Not required', flags: ['working'], lastModified: D },
+  { id: 'RRS-0-04', name: 'Project documentation set', description: 'README, status, decisions, known issues, changelog, test results, launch checklist, operations handbook, next steps, asset manifest.', phase: 0, paths: ['README.md', 'CLAUDE.md', '00-Project-Management/PROJECT-STATUS.md', '00-Project-Management/DECISIONS.md', '00-Project-Management/KNOWN-ISSUES.md', '00-Project-Management/CHANGELOG.md', '00-Project-Management/TEST-RESULTS.md', '00-Project-Management/LAUNCH-CHECKLIST.md', '00-Project-Management/NEXT-STEPS.md', '18-Documentation/OPERATIONS-HANDBOOK.md', '08-Design-Assets/Asset-Manifest/ASSET-MANIFEST.md'], status: 'In progress', dependencies: [], validation: 'All files exist (register test)', approval: 'Not required', flags: ['working'], lastModified: D },
+
+  // ── Phase 1 ────────────────────────────────────────────────────────────
+  { id: 'RRS-1-01', name: 'Design tokens', description: 'tokens.json → tokens.css + tokens.ts (colors, type, spacing, radius, shadow, motion).', phase: 1, paths: ['01-Brand-System/Design-Tokens/tokens.json', '01-Brand-System/Design-Tokens/build-tokens.ts', '01-Brand-System/Design-Tokens/tokens.css', '01-Brand-System/Design-Tokens/tokens.ts'], status: 'In progress', dependencies: [], validation: 'tokens.test.ts: WCAG contrast pairs, palette matches spec', approval: 'Not required', flags: ['working', 'production-ready'], lastModified: D },
+  { id: 'RRS-1-02', name: 'Brand guidelines', description: 'Palette roles, ratio rule, typography, logo usage, voice, do/don’t.', phase: 1, paths: ['01-Brand-System/BRAND-GUIDELINES.md'], status: 'In progress', dependencies: ['RRS-1-01'], validation: 'Matches spec Part 1.2', approval: 'Pending', flags: ['needs-approval'], lastModified: D },
+  { id: 'RRS-1-03', name: 'Logo concepts', description: 'Concept R marks + wordmark lockups, labelled pending approval. Not official.', phase: 1, paths: ['01-Brand-System/Logos/concepts/rrs-mark-concept-a.svg', '01-Brand-System/Logos/concepts/rrs-lockup-concept-a-dark.svg', '01-Brand-System/Logos/concepts/rrs-lockup-concept-a-light.svg', '01-Brand-System/Logos/concepts/README.md'], status: 'In progress', dependencies: ['RRS-1-01'], validation: 'Rendered to PNG preview via sharp', approval: 'Pending', flags: ['draft', 'needs-approval'], lastModified: D },
+  { id: 'RRS-1-04', name: 'Self-hosted Inter webfonts', description: 'Latin-subset WOFF files + OFL licence.', phase: 1, paths: ['02-Public-Website/public/fonts/OFL.txt', '02-Public-Website/public/fonts/inter-400.woff'], status: 'In progress', dependencies: [], validation: 'Loaded in Playwright screenshots', approval: 'Not required', flags: ['working'], lastModified: D },
+  { id: 'RRS-1-05', name: 'Offer catalog', description: 'Six offers × 14 required fields + add-on catalog, typed.', phase: 1, paths: ['03-Offers-and-Pricing/offer-catalog.ts', '03-Offers-and-Pricing/types.ts'], status: 'In progress', dependencies: [], validation: 'catalog.test.ts: spec prices, 14 fields per offer, no guarantee language', approval: 'Pending', flags: ['draft', 'needs-approval'], lastModified: D },
+  { id: 'RRS-1-06', name: 'Catalog exports', description: 'JSON export, human-readable catalog, pricing sheet, per-offer agreement schedules, cost model.', phase: 1, paths: ['03-Offers-and-Pricing/export-catalog.ts', '03-Offers-and-Pricing/exports/offer-catalog.json', '03-Offers-and-Pricing/exports/OFFER-CATALOG.md', '03-Offers-and-Pricing/exports/PRICING-SHEET.md', '03-Offers-and-Pricing/exports/COST-MODEL.md', '03-Offers-and-Pricing/exports/schedules/local-visibility-jumpstart.md'], status: 'In progress', dependencies: ['RRS-1-05'], validation: 'Generated by build; catalog tests', approval: 'Pending', flags: ['draft', 'needs-approval'], lastModified: D },
+  { id: 'RRS-1-07', name: 'Pricing framework', description: 'Pricing principles, upgrade/credit rules, usage-cost disclosure, open decisions.', phase: 1, paths: ['03-Offers-and-Pricing/PRICING-FRAMEWORK.md'], status: 'In progress', dependencies: ['RRS-1-05'], validation: 'Reviewed vs spec Part 2', approval: 'Pending', flags: ['draft', 'needs-approval'], lastModified: D },
+  { id: 'RRS-1-08', name: 'Positioning & audience segmentation', description: 'Positioning, messaging pillars, alternative messages to test, segment profiles.', phase: 1, paths: ['18-Documentation/POSITIONING-AND-AUDIENCE.md'], status: 'In progress', dependencies: [], validation: 'Reviewed vs spec Part 1.2–1.3', approval: 'Pending', flags: ['draft', 'needs-approval'], lastModified: D },
+  { id: 'RRS-1-09', name: 'Proposal template', description: 'Reusable proposal with merge fields. Draft for review.', phase: 1, paths: ['06-Sales/Proposals/PROPOSAL-TEMPLATE.md'], status: 'In progress', dependencies: ['RRS-1-05'], validation: 'Manual review', approval: 'Pending', flags: ['draft', 'needs-approval'], lastModified: D },
+  { id: 'RRS-1-10', name: 'Website architecture', description: 'Sitemap, URL scheme, templates, content model, SEO/schema/analytics plans, data flow.', phase: 1, paths: ['02-Public-Website/ARCHITECTURE.md'], status: 'In progress', dependencies: [], validation: 'Implemented by RRS-2-01..07', approval: 'Not required', flags: ['working'], lastModified: D },
+
+  // ── Phase 2 ────────────────────────────────────────────────────────────
+  { id: 'RRS-2-01', name: 'Static site build system', description: 'React SSR → static HTML, sitemap, robots, asset pipeline, local server.', phase: 2, paths: ['02-Public-Website/scripts/build.tsx', '02-Public-Website/scripts/serve.ts', '02-Public-Website/site.config.ts'], status: 'In progress', dependencies: ['RRS-1-01'], validation: 'Build succeeds; e2e suite', approval: 'Not required', flags: ['working'], lastModified: D },
+  { id: 'RRS-2-02', name: 'Component library', description: 'Layout, nav, footer, CTA, sections, cards, pricing, FAQ, breadcrumbs, journey visual, score card.', phase: 2, paths: ['02-Public-Website/src/components'], status: 'In progress', dependencies: ['RRS-2-01'], validation: 'Rendered in e2e at 3 viewports', approval: 'Not required', flags: ['working'], lastModified: D },
+  { id: 'RRS-2-03', name: 'Homepage', description: 'All 13 spec sections, journey hero, fictional audit preview.', phase: 2, paths: ['02-Public-Website/src/pages/home.tsx'], status: 'In progress', dependencies: ['RRS-2-02', 'RRS-1-05', 'RRS-2-06'], validation: 'e2e: overflow, h1, CTA links, demo labels', approval: 'Pending', flags: ['working', 'needs-approval'], lastModified: D },
+  { id: 'RRS-2-04', name: 'Service pages (5) + Services hub', description: 'Reusable service template driven by catalog.', phase: 2, paths: ['02-Public-Website/src/pages/service.tsx', '02-Public-Website/src/content/services.ts'], status: 'In progress', dependencies: ['RRS-2-02', 'RRS-1-05'], validation: 'e2e + SEO checks', approval: 'Pending', flags: ['working', 'needs-approval'], lastModified: D },
+  { id: 'RRS-2-05', name: 'Pricing page', description: 'Six offers, add-ons, usage-cost disclosure, proposed-price status.', phase: 2, paths: ['02-Public-Website/src/pages/pricing.tsx'], status: 'In progress', dependencies: ['RRS-1-05'], validation: 'e2e: prices match catalog', approval: 'Pending', flags: ['working', 'needs-approval'], lastModified: D },
+  { id: 'RRS-2-06', name: 'Snapshot scoring framework & engine', description: '100-pt / 5-category framework with sources, evidence, missing-data rules, confidence, overrides.', phase: 2, paths: ['04-Audits-and-Scorecards/snapshot/framework.ts', '04-Audits-and-Scorecards/snapshot/engine.ts', '04-Audits-and-Scorecards/snapshot/engine.test.ts', '04-Audits-and-Scorecards/snapshot/METHODOLOGY.md'], status: 'In progress', dependencies: [], validation: 'engine.test.ts', approval: 'Pending', flags: ['working', 'needs-approval'], lastModified: D },
+  { id: 'RRS-2-07', name: 'Snapshot lead-magnet page', description: 'Chip-based request flow, follow-up self-check, consent, attribution, preview mode.', phase: 2, paths: ['02-Public-Website/src/pages/snapshot.tsx', '02-Public-Website/public/js/site.js'], status: 'In progress', dependencies: ['RRS-2-06', 'RRS-2-01'], validation: 'e2e: validation, honeypot, step flow, preview message', approval: 'Pending', flags: ['working', 'needs-credentials', 'needs-approval'], lastModified: D },
+  { id: 'RRS-2-08', name: 'Sample Snapshot report (fictional)', description: 'Completed report for a clearly fictional business, computed by the engine.', phase: 2, paths: ['17-Sample-Clients/fictional-hvac-snapshot.json', '02-Public-Website/src/pages/sample-report.tsx'], status: 'In progress', dependencies: ['RRS-2-06'], validation: 'Engine output snapshot + demo-label test', approval: 'Not required', flags: ['mock'], lastModified: D },
+  { id: 'RRS-2-09', name: 'Industry pages', description: 'Hub + priority-industry pages from a reusable template; links to existing offers.', phase: 2, paths: ['02-Public-Website/src/content/industries.ts', '02-Public-Website/src/pages/industry.tsx'], status: 'In progress', dependencies: ['RRS-2-02'], validation: 'e2e + uniqueness check (no doorway duplicates)', approval: 'Pending', flags: ['working', 'needs-approval'], lastModified: D },
+  { id: 'RRS-2-10', name: 'About, Contact, Case Studies, Resources', description: 'Honest company pages; case studies page states none published yet.', phase: 2, paths: ['02-Public-Website/src/pages/about.tsx', '02-Public-Website/src/pages/contact.tsx', '02-Public-Website/src/pages/case-studies.tsx', '02-Public-Website/src/pages/resources.tsx'], status: 'In progress', dependencies: ['RRS-2-02'], validation: 'e2e', approval: 'Pending', flags: ['working', 'placeholder', 'needs-approval'], lastModified: D },
+  { id: 'RRS-2-11', name: 'Legal pages (drafts)', description: 'Privacy, Terms, Accessibility statement. DRAFT — qualified review required.', phase: 2, paths: ['02-Public-Website/src/pages/legal.tsx'], status: 'In progress', dependencies: [], validation: 'Rendered; not legally reviewed', approval: 'Pending', flags: ['draft', 'needs-approval'], lastModified: D },
+  { id: 'RRS-2-12', name: 'SEO plumbing', description: 'Titles, descriptions, canonical, OG, JSON-LD, breadcrumbs, sitemap.xml, robots.txt.', phase: 2, paths: ['02-Public-Website/src/lib/seo.tsx'], status: 'In progress', dependencies: ['RRS-2-01'], validation: 'seo checks in e2e', approval: 'Not required', flags: ['working'], lastModified: D },
+  { id: 'RRS-2-13', name: 'Open Graph image + favicons', description: 'OG template PNG and favicon set rendered from SVG (concept mark).', phase: 2, paths: ['08-Design-Assets/build-assets.ts', '02-Public-Website/public/og/og-default.png', '02-Public-Website/public/favicon.svg'], status: 'In progress', dependencies: ['RRS-1-03'], validation: 'Rendered via sharp', approval: 'Pending', flags: ['draft', 'needs-approval'], lastModified: D },
+  { id: 'RRS-2-14', name: 'Website QA suite', description: 'Playwright e2e at 375/768/1280, overflow, links, SEO, forms, demo labels, screenshots.', phase: 2, paths: ['15-Quality-Assurance/e2e/run-e2e.ts'], status: 'In progress', dependencies: ['RRS-2-01'], validation: 'See TEST-RESULTS.md', approval: 'Not required', flags: ['working'], lastModified: D },
+  { id: 'RRS-2-15', name: 'Form submission endpoint (n8n)', description: 'Snapshot + contact intake webhook → CRM.', phase: 2, paths: [], status: 'Blocked', dependencies: ['RRS-2-07'], validation: '—', approval: 'Pending', flags: ['needs-credentials', 'needs-approval'], lastModified: D },
+  { id: 'RRS-2-16', name: 'Analytics, booking, Search Console, hosting', description: 'Provider accounts + config. Guidance written; nothing activated.', phase: 2, paths: ['18-Documentation/INTEGRATIONS-GUIDE.md'], status: 'Blocked', dependencies: [], validation: '—', approval: 'Pending', flags: ['needs-credentials', 'needs-approval'], lastModified: D },
+
+  // ── Phase 3–7 (planned) ───────────────────────────────────────────────
+  { id: 'RRS-3-01', name: '25 reusable scorecards (XLSX + CSV/JSON)', description: 'Spec Part 5 list.', phase: 3, paths: [], status: 'Planned', dependencies: ['RRS-2-06'], validation: '—', approval: 'Not required', flags: [], lastModified: D },
+  { id: 'RRS-3-02', name: 'Research engine + evidence model', description: 'Spec Part 6 workflow, documented APIs only.', phase: 3, paths: [], status: 'Planned', dependencies: ['RRS-3-04'], validation: '—', approval: 'Pending', flags: ['needs-credentials'], lastModified: D },
+  { id: 'RRS-3-03', name: 'ICP scoring (4 separated scores)', description: 'Fit / opportunity / confidence / priority. Adapts the existing PM scorer.', phase: 3, paths: [], status: 'Planned', dependencies: [], validation: '—', approval: 'Not required', flags: [], lastModified: D },
+  { id: 'RRS-3-04', name: 'Reale OS integration review', description: 'Inspect schema/auth before the data model.', phase: 3, paths: [], status: 'Blocked', dependencies: [], validation: '—', approval: 'Pending', flags: ['needs-credentials'], lastModified: D },
+  { id: 'RRS-3-05', name: 'Snapshot exports (PDF/HTML/CSV/JSON/CRM/deck)', description: 'Spec Part 4 exports.', phase: 3, paths: [], status: 'Planned', dependencies: ['RRS-2-06'], validation: '—', approval: 'Not required', flags: [], lastModified: D },
+  { id: 'RRS-4-01', name: 'Sales scripts, outreach & objection library', description: 'Five gears, 12 objections, per-industry variants, compliance controls.', phase: 4, paths: [], status: 'Planned', dependencies: ['RRS-1-05'], validation: '—', approval: 'Pending', flags: [], lastModified: D },
+  { id: 'RRS-4-02', name: 'Sales documents', description: 'Deck, one-pagers, SOW, agreement draft, etc.', phase: 4, paths: [], status: 'Planned', dependencies: ['RRS-1-05'], validation: '—', approval: 'Pending', flags: [], lastModified: D },
+  { id: 'RRS-4-03', name: 'Marketing campaign & 90-day calendar', description: 'Spec Part 10.', phase: 4, paths: [], status: 'Planned', dependencies: [], validation: '—', approval: 'Pending', flags: [], lastModified: D },
+  { id: 'RRS-4-04', name: 'Visual asset library + manifest', description: 'Spec Part 11.', phase: 4, paths: [], status: 'Planned', dependencies: ['RRS-1-01'], validation: '—', approval: 'Pending', flags: [], lastModified: D },
+  { id: 'RRS-5-01', name: 'Onboarding portal & SOP library', description: 'Spec Parts 12–14.', phase: 5, paths: [], status: 'Planned', dependencies: ['RRS-3-04'], validation: '—', approval: 'Pending', flags: [], lastModified: D },
+  { id: 'RRS-6-01', name: 'n8n workflow library (30)', description: 'Spec Part 15.', phase: 6, paths: [], status: 'Planned', dependencies: ['RRS-2-15'], validation: '—', approval: 'Pending', flags: ['needs-credentials'], lastModified: D },
+  { id: 'RRS-7-01', name: 'End-to-end launch test', description: 'Spec Phase 7.', phase: 7, paths: [], status: 'Planned', dependencies: [], validation: '—', approval: 'Pending', flags: [], lastModified: D },
+];

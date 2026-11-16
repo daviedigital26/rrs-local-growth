@@ -1,0 +1,11 @@
+node_modules/
+02-Public-Website/dist/
+15-Quality-Assurance/screenshots/*.png
+!15-Quality-Assurance/screenshots/.gitkeep
+19-Exports/*.zip
+19-Exports/*.bundle
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store

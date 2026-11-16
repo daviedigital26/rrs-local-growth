@@ -1,0 +1,11 @@
+{
+  "//": "Strict type-check of the framework-free business logic (tokens, offers, scoring, register). Runs offline without @types/react. The full tsconfig.json also checks .tsx once `npm install` is possible.",
+  "extends": "./tsconfig.json",
+  "include": [
+    "01-Brand-System/Design-Tokens/*.ts",
+    "03-Offers-and-Pricing/*.ts",
+    "04-Audits-and-Scorecards/snapshot/*.ts",
+    "00-Project-Management/*.ts",
+    "02-Public-Website/site.config.ts"
+  ]
+}
