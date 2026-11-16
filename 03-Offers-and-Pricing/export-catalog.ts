@@ -4,20 +4,14 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { LABOR_COST_PER_HOUR, TARGET_GROSS_MARGIN, addOnById, addOns, offerById, offers } from './offer-catalog.ts';
 import { flagshipComparison, margins } from './cost-model.ts';
-import type { AddOn } from './types.ts';
+import { addOnPrice, usd } from './format.ts';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const out = join(here, 'exports');
 mkdirSync(join(out, 'schedules'), { recursive: true });
 
-const usd = (n: number) => `$${n.toLocaleString('en-US')}`;
 const list = (xs: string[]) => xs.map((x) => `- ${x}`).join('\n');
 const pct = (n: number) => `${(n * 100).toFixed(0)}%`;
-export const addOnPrice = (a: AddOn) =>
-  a.pricing.kind === 'project-range' ? `${usd(a.pricing.min)}–${usd(a.pricing.max)} per project`
-  : a.pricing.kind === 'monthly' ? `${usd(a.pricing.amount)}/month`
-  : a.pricing.kind === 'monthly-range' ? `${usd(a.pricing.min)}–${usd(a.pricing.max)}/month`
-  : a.pricing.note;
 const nameOf = (id: string) => offerById(id)?.name ?? addOnById(id)?.name ?? id;
 const stamp = 'Generated from `offer-catalog.ts` by `npm run catalog`. Edit the source, not this file.';
 
