@@ -21,6 +21,8 @@ const t0 = Date.now();
 rmSync(dist, { recursive: true, force: true });
 mkdirSync(dist, { recursive: true });
 cpSync(join(web, 'public'), dist, { recursive: true });
+// Fictional sample exports → /downloads/ (served as files; see sample report page)
+cpSync(join(root, '17-Sample-Clients/exports'), join(dist, 'downloads'), { recursive: true, filter: (f) => !f.endsWith('.manifest.json') });
 
 const hash = (s: string) => createHash('sha256').update(s).digest('hex').slice(0, 10);
 

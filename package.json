@@ -21,9 +21,13 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "typecheck:core": "tsc -p tsconfig.core.json --noEmit",
     "verify": "npm run build && npm run typecheck:core && npm test && npm run test:e2e",
-    "framework": "tsx 04-Audits-and-Scorecards/snapshot/export-methodology.ts"
+    "framework": "tsx 04-Audits-and-Scorecards/snapshot/export-methodology.ts",
+    "snapshot:export": "tsx 04-Audits-and-Scorecards/snapshot/report/export-cli.ts",
+    "samples": "tsx 04-Audits-and-Scorecards/snapshot/report/export-cli.ts 17-Sample-Clients/fictional-hvac-snapshot.json --out 17-Sample-Clients/exports --stable"
   },
   "dependencies": {
+    "pdf-lib": "1.17.1",
+    "pptxgenjs": "4.0.1",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
@@ -31,7 +35,9 @@
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "ajv": "6.15.0",
     "esbuild": "0.28.2",
+    "jszip": "3.10.1",
     "playwright-core": "1.63.0",
     "sharp": "0.35.4",
     "tsx": "4.23.12",

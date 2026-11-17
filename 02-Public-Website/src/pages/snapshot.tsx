@@ -6,7 +6,7 @@ import { config } from '../../site.config.ts';
 import { industries } from '../content/industries.ts';
 import { CONSENT_CONTACT, CONSENT_SMS } from '../lib/lead-payload.ts';
 import { faqSchema, serviceSchema, type PageMeta } from '../lib/seo.tsx';
-import { sampleData, sampleResult } from '../lib/sample.ts';
+import { sampleData, sampleDownloads, sampleReport, sampleResult } from '../lib/sample.ts';
 import { CheckList, CtaBand, CtaLink, DemoLabel, Faq, Icon, PageHero, Section, SectionHead } from '../components/ui.tsx';
 import { CategoryCards, ScoreCard } from '../components/visuals.tsx';
 
@@ -280,8 +280,6 @@ export const sampleReportMeta: PageMeta = {
 export function SampleReportPage() {
   const r = sampleResult;
   const rec = r.recommendation.offer ? offerById(r.recommendation.offer)! : null;
-  const best = [...r.categories].filter((c) => c.ratio !== null).sort((a, b) => b.ratio! - a.ratio!)[0]!;
-  const nv = r.categories.reduce((s, c) => s + c.notVerified.length, 0);
   const catName = (id: string) => categories.find((c) => c.id === id)!.name;
   const scenarios = impactScenarios(sampleData.scenarioInputs);
   return (
@@ -294,7 +292,14 @@ export function SampleReportPage() {
         <div className="split split--top">
           <div>
             <SectionHead id="exec" eyebrow="Executive summary" title="Overall verified assessment" />
-            <p className="report-p">{r.business.name} earned <b>{Math.round(r.overall.earned * 10) / 10}</b> of <b>{r.overall.verifiedPoints}</b> verifiable points, for a verified score of <b>{r.overall.verifiedScore}/100</b> ({Math.round(r.overall.coverage * 100)}% of points verifiable, {r.overall.confidence} confidence). The strongest category is <b>{best.name}</b>. The largest verified opportunities are in {r.recommendation.priorities.map(catName).join(', ')}. {nv} items couldn’t be verified from public information and weren’t counted.</p>
+            <p className="report-p">{sampleReport.summary}</p>
+            <h3 className="h-sm" id="downloads">Download this sample</h3>
+            <ul className="downloads" aria-labelledby="downloads">
+              {sampleDownloads.map((d) => (
+                <li key={d.href}><a href={d.href} download="" data-cta={`download-${d.kind}`}><Icon name="doc" size={18} /><span><b>{d.label}</b><small>{d.note} · {d.size}</small></span></a></li>
+              ))}
+            </ul>
+            <p className="muted-note">Every Snapshot can be exported in these formats. All files for this sample are fictional and labelled as such.</p>
           </div>
           <ScoreCard result={r} />
         </div>

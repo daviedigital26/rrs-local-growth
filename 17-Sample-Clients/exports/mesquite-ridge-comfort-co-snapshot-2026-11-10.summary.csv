@@ -1,0 +1,7 @@
+business,fictional,report_date,scope,score_out_of,score,points_earned,points_verified,points_applicable,coverage_pct,confidence,not_verified_items
+Mesquite Ridge Comfort Co.,TRUE,2026-11-10,Overall (verified),100,51,47.5,93,100,93,High,2
+Mesquite Ridge Comfort Co.,TRUE,2026-11-10,Google Maps presence,20,11.5,11.5,20,20,100,High,0
+Mesquite Ridge Comfort Co.,TRUE,2026-11-10,AI discovery readiness,20,6,6,20,20,100,High,0
+Mesquite Ridge Comfort Co.,TRUE,2026-11-10,Reviews & trust,20,13.8,13.8,20,20,100,High,0
+Mesquite Ridge Comfort Co.,TRUE,2026-11-10,Website conversion,20,10.5,10.5,20,20,100,High,0
+Mesquite Ridge Comfort Co.,TRUE,2026-11-10,Lead follow-up,20,8.8,5.8,13,20,65,Medium,2

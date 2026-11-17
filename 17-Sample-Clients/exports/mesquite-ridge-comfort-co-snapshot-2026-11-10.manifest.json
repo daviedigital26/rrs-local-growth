@@ -1,0 +1,50 @@
+{
+  "business": "Mesquite Ridge Comfort Co.",
+  "fictional": true,
+  "reportDate": "2026-11-10",
+  "generatedAt": "2026-11-10T12:00:00.000Z",
+  "files": [
+    {
+      "file": "mesquite-ridge-comfort-co-snapshot-2026-11-10.html",
+      "format": "html",
+      "bytes": 138376,
+      "sha256": "64164aa2c291207072fa7bfa3849887bd94123f14e025982314cdb62b7327667"
+    },
+    {
+      "file": "mesquite-ridge-comfort-co-snapshot-2026-11-10.criteria.csv",
+      "format": "csv",
+      "bytes": 5379,
+      "sha256": "adeb6ef44fa4c7349fafb710d582f252eba62cc0205e4546ddda4abc26638126"
+    },
+    {
+      "file": "mesquite-ridge-comfort-co-snapshot-2026-11-10.summary.csv",
+      "format": "csv",
+      "bytes": 697,
+      "sha256": "373899a5a8c5839debdf84ee0d3925d78bff1e4a345a21403ff8d8f1162630ae"
+    },
+    {
+      "file": "mesquite-ridge-comfort-co-snapshot-2026-11-10.json",
+      "format": "json",
+      "bytes": 19984,
+      "sha256": "a2478004d8a24eff19450544f026e589e90e38eef2c3534ce4a82e637381436e"
+    },
+    {
+      "file": "mesquite-ridge-comfort-co-snapshot-2026-11-10.crm.json",
+      "format": "crm",
+      "bytes": 2202,
+      "sha256": "fa47f0e4371d6e91551e52457af752333cfc66cb3f1604454e334bdec61a88dc"
+    },
+    {
+      "file": "mesquite-ridge-comfort-co-snapshot-2026-11-10.pptx",
+      "format": "pptx",
+      "bytes": 60474,
+      "sha256": "9d57377471eb0e59fb76a0932def84b25f8e832b25d55ea88622265badde2c9b"
+    },
+    {
+      "file": "mesquite-ridge-comfort-co-snapshot-2026-11-10.pdf",
+      "format": "pdf",
+      "bytes": 132000,
+      "sha256": "82c35ca51e770f4559b433b87ed76883263bc4b7e86813ef077bb9a00430a94a"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "schema": "rrs.crm.snapshot-record/1",
+  "record_type": "snapshot_audit",
+  "fictional": true,
+  "company_name": "Mesquite Ridge Comfort Co.",
+  "business_category": "HVAC",
+  "service_area": "Surprise, AZ",
+  "website": null,
+  "public_business_phone": null,
+  "contact": {
+    "name": null,
+    "email": null,
+    "phone": null
+  },
+  "dedupe_key": "name:mesquite ridge comfort|area:surprise az",
+  "scores": {
+    "snapshot_verified_score": 51,
+    "snapshot_coverage_pct": 93,
+    "research_confidence": "high",
+    "icp_fit": null,
+    "outreach_priority": null,
+    "categories": {
+      "maps": {
+        "score_out_of_20": 11.5,
+        "confidence": "high",
+        "not_verified": 0
+      },
+      "ai": {
+        "score_out_of_20": 6,
+        "confidence": "high",
+        "not_verified": 0
+      },
+      "reviews": {
+        "score_out_of_20": 13.8,
+        "confidence": "high",
+        "not_verified": 0
+      },
+      "website": {
+        "score_out_of_20": 10.5,
+        "confidence": "high",
+        "not_verified": 0
+      },
+      "followup": {
+        "score_out_of_20": 8.8,
+        "confidence": "medium",
+        "not_verified": 2
+      }
+    }
+  },
+  "opportunity_categories": [
+    "ai",
+    "followup",
+    "website",
+    "maps"
+  ],
+  "proposed_service": "Local Revenue Dominator™",
+  "proposed_service_id": "local-revenue-dominator",
+  "estimated_deal_value": {
+    "setup": 2500,
+    "monthly": 997,
+    "price_status": "proposed"
+  },
+  "evidence": {
+    "sources": 24,
+    "not_verified_items": 2,
+    "last_verified": "2026-11-10",
+    "overrides": 0
+  },
+  "research_notes": "Mesquite Ridge Comfort Co. earned 47.5 of 93 verifiable points, a verified score of 51/100 (93% of points verifiable, high confidence). The strongest category is Reviews & trust. The largest verified opportunities are in AI discovery readiness, Lead follow-up, Website conversion, Google Maps presence. 2 items couldn’t be verified from public information and weren’t counted.",
+  "lead_source": null,
+  "outreach_status": "not_contacted",
+  "next_action": "Manual review of Snapshot before any delivery or outreach",
+  "report_date": "2026-11-10",
+  "framework_version": "1.0.0"
+}

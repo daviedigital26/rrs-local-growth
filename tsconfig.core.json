@@ -8,6 +8,10 @@
     "08-Design-Assets/*.ts",
     "01-Brand-System/Logos/concepts/*.ts",
     "00-Project-Management/*.ts",
-    "02-Public-Website/site.config.ts"
+    "02-Public-Website/site.config.ts",
+    "04-Audits-and-Scorecards/snapshot/report/model.ts",
+    "04-Audits-and-Scorecards/snapshot/report/formats.ts",
+    "04-Audits-and-Scorecards/snapshot/report/pdf.ts",
+    "04-Audits-and-Scorecards/snapshot/report/pptx.ts"
   ]
 }

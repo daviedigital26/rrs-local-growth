@@ -52,3 +52,9 @@ Primary buttons are Electric Cobalt with white text (4.8:1 contrast). Signal Min
 
 ### D-015 · 2026-11-16 · Analytics through a provider-agnostic event layer
 Pages emit named events (`cta_click`, `snapshot_step`, `snapshot_submit`, `contact_submit`) to `window.dataLayer`. The provider script (Plausible or GA4) only loads when it's configured *and* consent rules allow it.
+
+### D-016 · 2026-11-17 · Customer decks use Arial
+Generated `.pptx` decks use Arial throughout. Inter isn't installed with PowerPoint, so a client opening the deck would get substituted fonts with different widths, and text could overflow. Brand colours, layouts and the concept mark still apply. **Reversible:** change `FONT` in `pptx.ts`.
+
+### D-017 · 2026-11-17 · One report model feeds every export
+All six Snapshot formats, and the website's sample report text, render from `report/model.ts`, so numbers can't drift between formats. CSV cells that a spreadsheet would execute (`= + - @`) are prefixed with an apostrophe (formula-injection guard). PDF metadata dates are pinned to the report date when `--stable` is used, so committed samples only change when their content changes.

@@ -9,7 +9,7 @@ const dist = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist');
 const TYPES: Record<string, string> = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.woff': 'font/woff', '.woff2': 'font/woff2',
-  '.xml': 'application/xml', '.txt': 'text/plain; charset=utf-8', '.webmanifest': 'application/manifest+json',
+  '.xml': 'application/xml', '.pdf': 'application/pdf', '.csv': 'text/csv; charset=utf-8', '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation', '.txt': 'text/plain; charset=utf-8', '.webmanifest': 'application/manifest+json',
 };
 
 export function startServer(port = Number(process.argv[2] ?? 4321)) {

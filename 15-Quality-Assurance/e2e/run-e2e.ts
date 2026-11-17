@@ -74,6 +74,9 @@ try {
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
   const page = await ctx.newPage();
   const titles = new Set<string>();
+  await page.goto(`${BASE}/free-snapshot/sample-report/`);
+  const dlCount = await page.$$eval('.downloads a[href^="/downloads/"]', (as) => as.length);
+  check('[downloads] sample report offers all 6 export formats', dlCount === 6, `${dlCount}`);
   const industryParas: Record<string, string[]> = {};
   for (const r of routes) {
     await page.goto(BASE + r.meta.path, { waitUntil: 'domcontentloaded' });
@@ -121,6 +124,14 @@ try {
   // ── Internal links + anchors ─────────────────────────────────────────────
   for (const href of internalLinks) {
     const [path, hash] = href.split('#');
+    if (/\.(pdf|pptx|csv|json|html?)$/.test(path ?? '') && !(path ?? '').endsWith('index.html')) {
+      const res = await ctx.request.get(BASE + path);
+      const type = res.headers()['content-type'] ?? '';
+      check(`[downloads] ${href} served`, res.status() === 200 && (await res.body()).length > 500, `status ${res.status()}`);
+      if (path!.endsWith('.pdf')) check(`[downloads] ${href} is a PDF`, type.includes('application/pdf') && (await res.body()).subarray(0, 5).toString() === '%PDF-');
+      if (path!.endsWith('.pptx')) check(`[downloads] ${href} is a PPTX (zip)`, type.includes('presentationml') && (await res.body()).subarray(0, 2).toString() === 'PK');
+      continue;
+    }
     const url = BASE + (path || '/');
     const res = await page.goto(url, { waitUntil: 'domcontentloaded' });
     const is404 = (await page.title()).startsWith('Page not found');
