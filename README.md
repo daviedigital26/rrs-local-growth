@@ -4,7 +4,7 @@
 
 This is the build repo for Reale Revenue Systems (RRS), the client-facing company of Reale Labs. It holds the public website, the offer catalog, the free **Local Revenue Opportunity Snapshot™**, scoring frameworks, and, in later phases, the research engine, sales command center, onboarding portal and n8n workflows.
 
-> **Status:** Phase 0–1 complete; Phase 2 (website + Snapshot) foundation built. **Nothing is deployed.** See `00-Project-Management/PROJECT-STATUS.md`.
+> **Status:** Phases 0–1 complete; Phase 2 (website, Snapshot capture, exports) feature-complete and tested, not connected. **Nothing is deployed.** See `00-Project-Management/PROJECT-STATUS.md`.
 
 ## Start here
 
@@ -26,8 +26,14 @@ npm run setup:offline  # Claude Code cloud sessions without network (links prein
 npm run build        # tokens → catalog exports → assets → website → register
 npm run serve        # http://localhost:4321
 npm test             # unit tests (scoring, catalog, tokens, register)
-npm run test:e2e     # Playwright: 3 viewports, links, SEO, forms, screenshots
+npm run test:e2e     # Playwright: 3 viewports, links, SEO, forms, mobile, screenshots
+npm run test:e2e:connected  # forms against a local mock intake + GA4 consent build
 npm run verify       # all of the above
+
+npm run snapshot:new -- lead.json          # website request → research draft (git-ignored)
+npm run snapshot:export -- draft.json      # → PDF, HTML, CSV, JSON, CRM record, PPTX
+npm run samples                            # regenerate the fictional sample exports
+npm run workflows                          # regenerate the n8n intake workflow (inactive)
 ```
 
 The website builds to `02-Public-Website/dist/`, which is plain static files you can host anywhere. Configuration comes from environment variables (see `.env.example`). With nothing configured, forms run in **preview mode** and send nothing.

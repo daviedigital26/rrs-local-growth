@@ -12,11 +12,13 @@ Nothing below is done unless ticked. **Go-live requires explicit owner approval.
 ## Accounts & configuration (env vars in hosting, never in git)
 - [ ] Domain purchased → `SITE_URL` set (this removes noindex and opens robots.txt)
 - [ ] Hosting project created; build `npm run build`; publish dir `02-Public-Website/dist`
-- [ ] `FORM_ENDPOINT` (n8n webhook) set; intake workflow tested end-to-end with test data
-- [ ] Server-side validation, dedupe, rate-limit and spam checks live in n8n
+- [ ] n8n workflow imported, env vars set (`RRS_CRM_WEBHOOK_URL`, `RRS_NOTIFY_WEBHOOK_URL`), Allowed Origins set to the real domain
+- [ ] `FORM_ENDPOINT` set; test submission received in CRM; retry does not duplicate
+- [ ] Decide where PDF exports run (needs Chromium)
+- [ ] Rate limiting on the webhook (n8n/hosting); validation, dedupe and spam checks are already in the workflow
 - [ ] `PUBLIC_EMAIL` / `PUBLIC_PHONE` set (optional)
 - [ ] `BOOKING_URL` set (optional)
-- [ ] Analytics chosen; GA4 only with a consent banner
+- [ ] Analytics chosen; for GA4 confirm the consent banner text with counsel
 - [ ] Error monitoring endpoint (optional)
 
 ## Quality

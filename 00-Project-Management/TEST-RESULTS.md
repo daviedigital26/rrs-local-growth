@@ -1,34 +1,72 @@
 # Test Results
 
-**Run:** 2026-11-16, Claude Code cloud session (Node 22.23, Chromium via Playwright-core 1.63). Re-run everything with `npm run verify`.
+**Run:** 2026-11-17, on a fresh clone of `feature/phase-2-completion` from GitHub (Node 22.23, Chromium via Playwright-core 1.63, offline dependency links). Command: `npm run verify`. Exit 0, working tree clean afterwards.
 
 ## Summary
 | Suite | Command | Result |
 |---|---|---|
-| Unit tests | `npm test` | **31/31 pass** |
-| Strict type-check (framework-free modules) | `npm run typecheck:core` | **Pass** |
-| Build | `npm run build` | **Pass**: 26 pages, 489 KB HTML total (home 52 KB / 11 KB gz), CSS 47 KB (9.6 KB gz), JS 11.7 KB (4.3 KB gz) |
-| End-to-end | `npm run test:e2e` | **776/776 pass** in ~72 s (`15-Quality-Assurance/e2e/last-run.json`) |
+| Build | `npm run build` | **Pass**: 26 pages; CSS 49 KB (≈10 KB gz); JS 15.6 KB (5.7 KB gz); n8n workflow generated (inactive) |
+| Strict type-check | `npm run typecheck:core` | **Pass**: tokens, catalog, Snapshot engine, report model/CSV/CRM/PDF/PPTX, intake, n8n builder, mock |
+| Unit tests | `npm test` | **48/48 pass** |
+| E2E, preview mode | `npm run test:e2e` | **801/801 pass** (~77 s) |
+| E2E, connected + consent | `npm run test:e2e:connected` | **32/32 pass** (~51 s) |
 
-## Unit tests
-- **Tokens (4):** palette equals spec; 23 WCAG contrast pairs meet their minimums; known-failing pairs stay unapproved; derived colours are valid.
-- **Offer catalog (9):** spec prices A–F; spec service lists complete; approval recorded before `approved`; all 14 artefacts populated; add-on prices; upgrade paths valid; no guarantee/hype language in customer copy; compliance rules present (AI placement, review gating/incentives, usage costs); cost model maths.
-- **Snapshot engine (13):** framework integrity (5×20, unique IDs, complete criteria, "not sure" options); **missing evidence never scored 0**; all-Not-verified → no score/offer; unchecked → Not verified + warning; minimum coverage hides numbers; not-applicable leaves the denominator; overrides keep the original and require reason + evidence; stale evidence lowers confidence; validation rejects bad input; recommendation mapping incl. flagship; fictional sample = 51/100 at 93% coverage; hypothetical scenarios; owner self-check.
-- **Register (5):** unique IDs; Created/Tested files exist; Tested items have a validation note; dependencies valid; nothing Approved without owner approval.
+## Unit tests (48)
+- **Tokens (4), catalog (9), engine (13), register (5):** unchanged since Phase 1, see `CHANGELOG.md`.
+- **Report exports (9):**
+  - model numbers match the engine; insufficient evidence gives no score
+  - CSV escaping + **formula-injection guard**
+  - a Not verified cell is blank, never 0
+  - summary CSV; full JSON flags
+  - **CRM record validates against `crm-record.schema.json`**, with ICP fit/priority null and no guessed phone
+  - HTML is self-contained, with no external requests and HTML-injection escaped
+  - **PDF**: real file, Letter size, 3–10 pages, `pdftotext` finds the key content
+  - **PPTX**: 9 slides, native charts, no ZIP folder entries, fictional label on every slide
+- **Intake (8):**
+  - valid request normalised (email, E.164 phone, domain, unknown fields stripped, bad concern/self-check values dropped)
+  - 8 invalid cases rejected with specific errors
+  - spam (honeypot, under 3 s) dropped; missing timing accepted but flagged
+  - contact form path; normalisers and dedupe keys
+  - lead → research draft (no assumed facts; a draft never shows a score)
+  - n8n workflow is inactive, has no credentials, is wired correctly and uses env-var URLs
+  - **the embedded n8n code runs standalone and matches the TypeScript validator**
 
-## End-to-end coverage (per page × 375/768/1280 unless noted)
-HTTP 200 · no console errors · **no horizontal overflow** · webfonts loaded · demos labelled fictional · tap targets ≥ 40 px (mobile) · one h1 · unique titles · description length · canonical · OG image · valid JSON-LD · all inputs labelled · skip link · no skipped heading levels · industry pages have unique copy (doorway guard) · every internal link and anchor resolves · sitemap/robots/manifest/OG/`_headers` served · CSP present · robots disallows indexing in preview · pricing page shows every catalog price.
+## E2E: preview mode (801)
+Everything from Phase 1 still passes (26 pages × 3 viewports: overflow, fonts, demo labels, tap targets, SEO, headings, labels, links, prices, forms, spam, calculator, nav, no-JS), plus:
+- **Downloads:** the sample report offers all 6 formats; each is served with the right type (PDF/PPTX magic bytes).
+- **Contact channel rules:** choosing "Text" requires a phone number and SMS consent.
+- **Mobile (15):**
+  - sticky CTA: hidden at the top, appears after scrolling, ≥44 px and inside the viewport, steps aside at the footer and CTA bands, leads to the Snapshot form, absent on the Snapshot page and on desktop
+  - keyboard hints present
+  - next step scrolls the form into view
+  - answers restored after a reload, on the same step
+  - consent is never restored
+  - Start over clears everything
 
-**Flows:** Snapshot step validation, "Other" city, invalid website/email, SMS consent toggle, self-check scoring with Not verified, successful preview submission, analytics events, first-touch UTM capture, honeypot silently dropped, sub-3-second submissions treated as spam, contact form validation and success, link prefill (`?industry=`, `?topic=`), calculator maths, mobile nav open/close/Escape **and the panel filling the screen (scrolled and unscrolled)**, first Tab focuses the skip link, no-JS fallback shows all steps and the nav.
+## E2E: connected + consent (32)
+- **Connected:** a site copy is built with `FORM_ENDPOINT` → a local mock running the same validator as n8n.
+  - CSP allows only self + the intake origin
+  - invalid input never sent
+  - one request from the site origin (CORS)
+  - **the server accepts the real browser payload**, with every field normalised: business, contact/consent text, self-check, interest, attribution, timing
+  - analytics records "sent"
+  - **endpoint failure** shows a retry message, keeps the answers and re-enables the button
+  - **the retry succeeds with the same dedupe key** (no duplicate lead)
+  - contact form accepted with its topic
+- **Consent (GA4 build, Google intercepted):**
+  - banner on first visit
+  - zero Google requests before a choice
+  - sticky CTA hidden while the banner is open
+  - Decline is remembered and nothing loads
+  - Cookie settings reopens the banner
+  - Allow loads the tag and forwards site events
+  - Allow is remembered
+  - CSP widened only in the GA4 build
 
-## Issues found and fixed during testing
-1. Sample report overflowed 165 px on mobile (grid min-content from a wide table) → `min-width: 0` on grid children.
-2. The mobile nav panel was clipped to the header when opened on a scrolled page (`backdrop-filter` creates a containing block) → removed the filter while open, plus a computed top offset. Regression test added.
-3. Home description too long (188) and accessibility description too short (67) → rewritten.
-4. Industry pages shared an identical CTA paragraph → made industry-specific, and the doorway check ignores CTA bands.
+## Manual QA this round
+- PDF pages and all 9 slides rendered and reviewed. Fixed: a stranded heading, wrapped dates, half-empty pages, title/tag collisions, rounded chart labels, inconsistent title alignment.
+- The deck passed the OOXML validator after stripping ZIP folder entries (the validator warned those break opening in some cloud apps).
+- Mobile screenshots reviewed: sticky CTA, restored-answers note, consent banner.
 
 ## Not yet tested (and why)
-- Real submissions to n8n/CRM (no endpoint approved).
-- Real-device testing on iOS Safari / Android Chrome (cloud session). Chromium emulation only.
-- Screen-reader walkthrough and axe-core audit (K-09).
-- Lighthouse/PageSpeed scores (needs a deployed URL).
+Live n8n import and run (not approved yet) · real submissions to a CRM · real-device iOS/Android (Chromium emulation only) · screen-reader/axe audit · Lighthouse on a deployed URL.

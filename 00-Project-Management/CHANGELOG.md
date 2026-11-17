@@ -1,6 +1,15 @@
 # Changelog
 
-All dates 2026-11-16 (branch `feature/phase-1-foundation`).
+## Phase 2 completion — 2026-11-17 (branch `feature/phase-2-completion`)
+- **Baseline fixes:** the catalog export is deterministic (content hash, not a date), and the e2e run log is untracked, so `verify` leaves a clean tree.
+- **Exportable Snapshot reports:** one report model feeds printable HTML, PDF (Chromium, page-numbered, pinned metadata), criteria + summary CSV (formula-injection guard), full JSON, CRM record + JSON Schema, and a 9-slide editable deck with native charts. CLI: `snapshot:export`, `samples`. Fictional sample exports are downloadable on the site.
+- **Lead capture pipeline:** a server-side validator shared by n8n, tests and the mock; lead → research draft (`snapshot:new`); n8n intake workflow (inactive, no credentials, env-var URLs). The client enforces phone + SMS consent for phone/text and sends spam signals. Connected-mode e2e runs against a mock intake, including failure and retry dedupe. Research outputs are git-ignored.
+- **Mobile + consent:** sticky mobile Snapshot CTA, saved form progress (never consent), step scroll, keyboard hints, GA4 consent banner with consent-gated loading.
+- **Tests:** 48 unit tests, 801 preview e2e checks, 32 connected + consent checks.
+
+---
+
+Phase 0–2 foundation, 2026-11-16 (branch `feature/phase-1-foundation`):
 
 ## Phase 2 — Website & lead magnet
 - 26-page static site (React 19 SSR + TypeScript), mobile-first, with a self-hosted Inter font.
