@@ -7,11 +7,11 @@
 |---|---|---|
 | Build | `npm run build` | **Pass**: 26 pages; CSS 49 KB (≈10 KB gz); JS 15.6 KB (5.7 KB gz); n8n workflow generated (inactive) |
 | Strict type-check | `npm run typecheck:core` | **Pass**: tokens, catalog, Snapshot engine, report model/CSV/CRM/PDF/PPTX, intake, n8n builder, mock |
-| Unit tests | `npm test` | **48/48 pass** |
+| Unit tests | `npm test` | **54/54 pass** |
 | E2E, preview mode | `npm run test:e2e` | **801/801 pass** (~77 s) |
 | E2E, connected + consent | `npm run test:e2e:connected` | **32/32 pass** (~51 s) |
 
-## Unit tests (48)
+## Unit tests (54)
 - **Tokens (4), catalog (9), engine (13), register (5):** unchanged since Phase 1, see `CHANGELOG.md`.
 - **Report exports (9):**
   - model numbers match the engine; insufficient evidence gives no score
@@ -30,6 +30,14 @@
   - lead → research draft (no assumed facts; a draft never shows a score)
   - n8n workflow is inactive, has no credentials, is wired correctly and uses env-var URLs
   - **the embedded n8n code runs standalone and matches the TypeScript validator**
+
+- **Scorecard workbook (6):**
+  - committed template matches the framework version and defaults to Not verified
+  - **lossless round trip** (Snapshot → workbook → import) with identical scores
+  - **LibreOffice recalc: Summary formulas equal the engine** for every category and overall (51/100, 93%), 0 formula errors (174 formulas); the blank workbook shows "Not enough evidence"
+  - invalid rows refused with exact cell references: missing result, disallowed evidence type, bad date, override without reviewer, missing note, partial owner numbers
+  - accepts real dates, US dates, reviewer overrides (flowing into the engine audit trail) and Not applicable
+  - a website lead becomes a prefilled workbook
 
 ## E2E: preview mode (801)
 Everything from Phase 1 still passes (26 pages × 3 viewports: overflow, fonts, demo labels, tap targets, SEO, headings, labels, links, prices, forms, spam, calculator, nav, no-JS), plus:

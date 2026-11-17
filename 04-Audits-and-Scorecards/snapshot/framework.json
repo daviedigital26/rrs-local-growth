@@ -13,6 +13,13 @@
     "sampled_test": 0.6,
     "owner_reported": 0.6
   },
+  "evidenceLabels": {
+    "public_observation": "Public observation",
+    "api_data": "Documented API data",
+    "sampled_test": "Sampled test (recorded conditions)",
+    "owner_reported": "Owner-reported",
+    "authorized_test": "Authorised test"
+  },
   "categories": [
     {
       "id": "maps",

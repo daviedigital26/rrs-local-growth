@@ -26,7 +26,10 @@
     "samples": "tsx 04-Audits-and-Scorecards/snapshot/report/export-cli.ts 17-Sample-Clients/fictional-hvac-snapshot.json --out 17-Sample-Clients/exports --stable",
     "workflows": "tsx 12-Automations/n8n/build-workflows.ts",
     "snapshot:new": "tsx 05-Lead-Research/intake/snapshot-new-cli.ts",
-    "test:e2e:connected": "tsx 15-Quality-Assurance/e2e/run-connected.ts"
+    "test:e2e:connected": "tsx 15-Quality-Assurance/e2e/run-connected.ts",
+    "scorecard:new": "tsx 04-Audits-and-Scorecards/scorecards/scorecard-cli.ts new",
+    "scorecard:import": "tsx 04-Audits-and-Scorecards/scorecards/scorecard-cli.ts import",
+    "scorecards": "tsx 04-Audits-and-Scorecards/scorecards/scorecard-cli.ts templates"
   },
   "dependencies": {
     "pdf-lib": "1.17.1",

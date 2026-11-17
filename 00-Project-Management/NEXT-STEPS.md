@@ -14,7 +14,7 @@
 | 9 | Share the Reale OS repo + legacy assets (Profit Leak Audit XLSX, PM scorer + 44-company list, playbooks) | Phase 3 without duplication | Access |
 
 ## B. Recommended next implementation steps (no external services needed)
-1. **Local Revenue Opportunity Scorecard (XLSX)**, generated from `framework.ts`: tier dropdowns, Not verified handling, evidence/source/date columns, owner/reviewer, totals that match the engine. Plus an XLSX → Snapshot JSON importer, so research can be filled in a spreadsheet on a phone and exported straight to the six report formats.
+1. ~~Scorecard workbook + importer~~ **Done 2026-11-17.** Try it: ask a Claude Code session for the sample scorecard, open it on your phone, change a result, and send it back for import.
 2. **ICP scoring** with four separate outputs (fit / opportunity / confidence / priority), filling the CRM record's `icp_fit` and `outreach_priority`.
 3. **Evidence + lead data model** as SQL migration drafts (Supabase), for review against Reale OS before anything is applied.
 4. **Ad/landing pages** for the message tests (M1–M4), noindex, for later campaigns.

@@ -1,0 +1,2 @@
+# Python dependency for the Scorecard workbook builder/importer (04-Audits-and-Scorecards/scorecards)
+openpyxl==3.1.5

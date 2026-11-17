@@ -58,3 +58,13 @@ Generated `.pptx` decks use Arial throughout. Inter isn't installed with PowerPo
 
 ### D-017 · 2026-11-17 · One report model feeds every export
 All six Snapshot formats, and the website's sample report text, render from `report/model.ts`, so numbers can't drift between formats. CSV cells that a spreadsheet would execute (`= + - @`) are prefixed with an apostrophe (formula-injection guard). PDF metadata dates are pinned to the report date when `--stable` is used, so committed samples only change when their content changes.
+
+### D-018 · 2026-11-17 · Scorecard workbooks built with Python openpyxl, generated from framework.json
+No Node XLSX library was available offline. openpyxl is mature and standard for writing data validation, conditional formatting and formulas. The builder reads `framework.json` (generated from `framework.ts`), so criteria are never retyped, and the importer re-validates through the TypeScript engine. Requires Python 3 + openpyxl (`requirements.txt`). Workbook formulas use only Excel-2007-era functions (SUMIFS, COUNTIFS, IFERROR, MID/FIND), so they calculate the same in Excel, Google Sheets and LibreOffice. Result levels use text labels like "Half (50%)" so phone apps can't silently convert them to numbers.
+
+### D-019 · 2026-11-17 · Phone workflow goes through chat, not git
+Filled scorecards and research drafts contain personal contact details, so they stay in git-ignored folders. From a phone, the flow is:
+1. Claude generates the workbook in the session and sends it to you.
+2. You fill it in Google Sheets or Excel.
+3. You attach it back to the chat.
+4. Claude imports it, exports the six formats, and sends back the PDF and deck.

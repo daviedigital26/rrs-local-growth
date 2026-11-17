@@ -26,5 +26,5 @@ for (const c of categories) {
     ...c.criteria.map((x) => `| ${x.label} | ${x.points} | ${x.measure} | ${Object.entries(x.tiers).sort((a, b) => Number(b[0]) - Number(a[0])).map(([t, d]) => `${Math.round(Number(t) * 100)}%: ${d}`).join('<br>')} | ${x.sources.join('; ')} | ${x.evidence} | ${x.missingData} | ${x.freshnessDays} d |`), '');
 }
 writeFileSync(join(here, 'METHODOLOGY.md'), md.join('\n'));
-writeFileSync(join(here, 'framework.json'), JSON.stringify({ version: FRAMEWORK_VERSION, thresholds: THRESHOLDS, evidenceWeights: EVIDENCE_WEIGHT, categories }, null, 2));
+writeFileSync(join(here, 'framework.json'), JSON.stringify({ version: FRAMEWORK_VERSION, thresholds: THRESHOLDS, evidenceWeights: EVIDENCE_WEIGHT, evidenceLabels: EVIDENCE_LABEL, categories }, null, 2));
 console.log('framework: METHODOLOGY.md + framework.json written');

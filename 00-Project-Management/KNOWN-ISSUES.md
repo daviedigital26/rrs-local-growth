@@ -21,3 +21,5 @@
 | K-18 | Low | PDF export needs Chromium wherever it runs (not inside n8n's Code node) | Production PDF needs a worker, CI job or local run | Decide where exports run (Phase 6) |
 | K-19 | Low | Saved Snapshot progress uses `sessionStorage`, so it survives reloads and app switches but not a closed tab (by design: shared devices) | Minor | — |
 | K-20 | Info | JS is 15.6 KB minified / 5.7 KB gzipped (budget raised to 20 KB) | None | — |
+| K-21 | Low | The Scorecard workbook is checked with openpyxl + LibreOffice, but hasn't been opened in the Google Sheets / Excel **mobile apps** here. Dropdowns, formulas and conditional formatting use widely supported features. | A phone app might show a dropdown or format slightly differently | Owner: open the sample workbook on your phone once and report anything odd |
+| K-22 | Info | Scorecard tools need Python 3 + openpyxl (`requirements.txt`). The LibreOffice parity test skips where LibreOffice isn't installed. | Setup step on new machines | Documented in README |

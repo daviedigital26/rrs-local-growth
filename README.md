@@ -20,7 +20,7 @@ This is the build repo for Reale Revenue Systems (RRS), the client-facing compan
 ## Run it
 
 ```bash
-npm install          # normal environments
+npm install          # normal environments (+ Python 3 with openpyxl for scorecards: pip install -r 04-Audits-and-Scorecards/scorecards/requirements.txt)
 npm run setup:offline  # Claude Code cloud sessions without network (links preinstalled packages)
 
 npm run build        # tokens → catalog exports → assets → website → register
@@ -30,7 +30,10 @@ npm run test:e2e     # Playwright: 3 viewports, links, SEO, forms, mobile, scree
 npm run test:e2e:connected  # forms against a local mock intake + GA4 consent build
 npm run verify       # all of the above
 
-npm run snapshot:new -- lead.json          # website request → research draft (git-ignored)
+npm run scorecard:new -- lead.json         # website request (or blank) → prefilled Scorecard workbook (git-ignored)
+npm run scorecard:import -- card.xlsx --export  # filled workbook → validated Snapshot → all six report formats
+npm run scorecards                         # regenerate the blank template + fictional sample workbook
+npm run snapshot:new -- lead.json          # website request → research draft JSON (git-ignored)
 npm run snapshot:export -- draft.json      # → PDF, HTML, CSV, JSON, CRM record, PPTX
 npm run samples                            # regenerate the fictional sample exports
 npm run workflows                          # regenerate the n8n intake workflow (inactive)

@@ -1,5 +1,17 @@
 # Changelog
 
+## Scorecard workbook — 2026-11-17 (branch `feature/phase-2-completion`)
+- **Local Revenue Opportunity Scorecard (XLSX)** generated from the framework:
+  - per-row dropdowns (status; only the result levels each criterion defines; allowed evidence types)
+  - live Summary formulas that match the engine
+  - Start here guide with a legend and example row
+  - Competitors, Quick wins and Owner numbers tabs
+  - fit-to-width printing
+- **Importer:** turns a filled workbook into a Snapshot. It validates every row and cites the exact cell to fix, accepts phone-style dates and reviewer overrides, and re-checks everything with the engine. With `--export` it produces all six report formats.
+- **Commands:** `scorecard:new` (blank, or prefilled from a website lead incl. owner answers), `scorecard:import`, `scorecards`.
+- **Committed:** blank template and filled fictional sample workbook.
+- **Tests:** 6 new (lossless round trip, LibreOffice formula parity with 0 errors, cell-cited validation, phone-style input, lead prefill). Unit total 54.
+
 ## Phase 2 completion — 2026-11-17 (branch `feature/phase-2-completion`)
 - **Baseline fixes:** the catalog export is deterministic (content hash, not a date), and the e2e run log is untracked, so `verify` leaves a clean tree.
 - **Exportable Snapshot reports:** one report model feeds printable HTML, PDF (Chromium, page-numbered, pinned metadata), criteria + summary CSV (formula-injection guard), full JSON, CRM record + JSON Schema, and a 9-slide editable deck with native charts. CLI: `snapshot:export`, `samples`. Fictional sample exports are downloadable on the site.
