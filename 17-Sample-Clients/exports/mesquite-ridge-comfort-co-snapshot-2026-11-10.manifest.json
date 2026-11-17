@@ -31,14 +31,14 @@
     {
       "file": "mesquite-ridge-comfort-co-snapshot-2026-11-10.crm.json",
       "format": "crm",
-      "bytes": 2202,
-      "sha256": "fa47f0e4371d6e91551e52457af752333cfc66cb3f1604454e334bdec61a88dc"
+      "bytes": 2533,
+      "sha256": "acbf484979fe9f00b4563239b6042156d4502bfde7cac28d521273af303e7e21"
     },
     {
       "file": "mesquite-ridge-comfort-co-snapshot-2026-11-10.pptx",
       "format": "pptx",
-      "bytes": 60474,
-      "sha256": "9d57377471eb0e59fb76a0932def84b25f8e832b25d55ea88622265badde2c9b"
+      "bytes": 63537,
+      "sha256": "1a94ae945aafd1bad3c8515ef1b7b8d12a79c08320fc7f3b9eb5114da014e52e"
     },
     {
       "file": "mesquite-ridge-comfort-co-snapshot-2026-11-10.pdf",

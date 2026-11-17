@@ -33,6 +33,9 @@ npm run verify       # all of the above
 npm run scorecard:new -- lead.json         # website request (or blank) → prefilled Scorecard workbook (git-ignored)
 npm run scorecard:import -- card.xlsx --export  # filled workbook → validated Snapshot → all six report formats
 npm run scorecards                         # regenerate the blank template + fictional sample workbook
+npm run leads:score -- batch.json tracker.csv --checked 2026-09-01  # tracker batches/CSV, leads, Snapshots → ranked call list (git-ignored)
+npm run leads:sample                       # regenerate the fictional sample call list
+npm run icp:docs                           # regenerate ICP-METHODOLOGY.md from icp-config.ts
 npm run snapshot:new -- lead.json          # website request → research draft JSON (git-ignored)
 npm run snapshot:export -- draft.json      # → PDF, HTML, CSV, JSON, CRM record, PPTX
 npm run samples                            # regenerate the fictional sample exports

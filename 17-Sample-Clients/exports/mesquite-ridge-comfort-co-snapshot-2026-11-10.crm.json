@@ -17,8 +17,18 @@
     "snapshot_verified_score": 51,
     "snapshot_coverage_pct": 93,
     "research_confidence": "high",
-    "icp_fit": null,
-    "outreach_priority": null,
+    "icp_fit": {
+      "score": null,
+      "label": "Not enough evidence",
+      "coverage_pct": 18,
+      "config_version": "icp-2026.11-1"
+    },
+    "outreach_priority": {
+      "band": "research_first",
+      "label": "Research first",
+      "points": 24,
+      "next_action": "Research first: verify commercial fit, likely to benefit, reachability before any outreach."
+    },
     "categories": {
       "maps": {
         "score_out_of_20": 11.5,

@@ -68,3 +68,14 @@ Filled scorecards and research drafts contain personal contact details, so they 
 2. You fill it in Google Sheets or Excel.
 3. You attach it back to the chat.
 4. Claude imports it, exports the six formats, and sends back the PDF and deck.
+
+### D-020 · 2026-11-17 · ICP priority: verified problems first; the old tracker score is kept for reference
+The spec's 100-point weighted score is the **outreach priority** and is always shown with its six parts, next to three separate results: ICP fit, verified opportunity and research confidence. Two rules keep it honest:
+1. **P1 needs a verified opportunity of at least 30.** In the PM Lead Scorer, any 50–600-review firm rated 3.8–4.6 scored exactly 60 (hot) with no complaint found.
+2. **National franchises top out at P2.** This keeps the tracker's intent: deprioritised, not hidden.
+
+The property-management bands are the tracker's own, converted to ratios. Everything else (other industries, geography credits, reachability split, freshness) is a labelled starting assumption to tune with call outcomes. The exact legacy score stays in every export, so the owner can compare call orders. **Reversible:** all values live in `icp-config.ts`.
+
+### D-021 · 2026-11-17 · Store our observations, not third-party review text
+Review excerpts are scanned for complaint themes at scoring time. The research engine (RRS-3-02) should store the source reference, the theme found and our own dated note, and should not keep copies of third-party review text. See K-23.
+

@@ -34,6 +34,19 @@
 
 The blank template is also in the repo: `04-Audits-and-Scorecards/scorecards/Local-Revenue-Opportunity-Scorecard.xlsx`. A filled fictional example is `17-Sample-Clients/fictional-hvac-scorecard.xlsx`.
 
+## Scoring and ranking leads from your phone
+1. In your PM Lead Scorer, tap **Export CSV**. Attach that file to a Claude Code chat, plus any lead batches you still have as JSON (the format Claude gave you for "Import New Batch"). Say when each batch was pulled, if you know.
+2. Ask: *"Score these leads."* Claude runs `npm run leads:score -- batch.json pm-leads-export.csv --checked YYYY-MM-DD` and sends back the call list (`.csv`, opens in Google Sheets).
+3. The list is sorted by **priority**: Inbound → P1 → P2 → P3 → Research first, then in-progress, declined and do-not-contact at the bottom. Every row shows four separate results:
+   - **ICP fit**: right size, type and area
+   - **Opportunity**: a verified problem, with the review phrase that shows it
+   - **Research confidence**: how much to trust it; undated or old data lowers it
+   - **Priority points**: the 100-point score, with its six parts in the *why* column
+4. **next_action** tells you what to do, e.g. *"Call first; opening angle: reviews mention calls or messages go unanswered."* Always confirm the detail on the call. A review sample is a lead, not proof.
+5. Your old score stays in `old_tracker_score` / `old_tracker_tier` for comparison. Call statuses and notes from the tracker are kept: declined leads drop to the bottom, booked audits show as *In progress*.
+
+Real lead lists are written only to `05-Lead-Research/Research-Outputs/` (git-ignored). The command refuses any other folder inside the repo. How the scores work: `05-Lead-Research/Scoring/ICP-METHODOLOGY.md`.
+
 ## Producing a Snapshot (works today, no external services)
 1. Save the website request as `lead.json`, or once n8n is live, take the lead record from the CRM.
 2. Run `npm run snapshot:new -- lead.json`. It creates `05-Lead-Research/Research-Outputs/<business>-<date>.snapshot.json`, which is git-ignored because it holds personal details.

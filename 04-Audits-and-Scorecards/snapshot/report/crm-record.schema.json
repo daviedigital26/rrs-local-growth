@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://reale-revenue-systems/schemas/crm-snapshot-record-1.json",
   "title": "RRS CRM Snapshot record v1",
-  "description": "Import shape for Reale OS / any CRM. Scores stay separate; ICP fit and outreach priority are filled by the Phase 3 engine, never guessed.",
+  "description": "Import shape for Reale OS / any CRM. Scores stay separate; ICP fit and outreach priority come from the ICP engine (null score = not enough evidence, never guessed).",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema", "record_type", "fictional", "company_name", "business_category", "service_area", "website", "public_business_phone", "contact", "dedupe_key", "scores", "opportunity_categories", "proposed_service", "proposed_service_id", "estimated_deal_value", "evidence", "research_notes", "lead_source", "outreach_status", "next_action", "report_date", "framework_version"],
@@ -27,8 +27,14 @@
         "snapshot_verified_score": { "type": ["integer", "null"], "minimum": 0, "maximum": 100 },
         "snapshot_coverage_pct": { "type": "integer", "minimum": 0, "maximum": 100 },
         "research_confidence": { "enum": ["high", "medium", "low", "insufficient"] },
-        "icp_fit": { "type": "null" },
-        "outreach_priority": { "type": "null" },
+        "icp_fit": {
+          "type": "object", "additionalProperties": false, "required": ["score", "label", "coverage_pct", "config_version"],
+          "properties": { "score": { "type": ["integer", "null"], "minimum": 0, "maximum": 100 }, "label": { "type": "string" }, "coverage_pct": { "type": "integer", "minimum": 0, "maximum": 100 }, "config_version": { "type": "string" } }
+        },
+        "outreach_priority": {
+          "type": "object", "additionalProperties": false, "required": ["band", "label", "points", "next_action"],
+          "properties": { "band": { "enum": ["p1", "p2", "p3", "research_first", "inbound", "in_progress", "closed", "do_not_contact", "disqualified"] }, "label": { "type": "string" }, "points": { "type": "integer", "minimum": 0, "maximum": 100 }, "next_action": { "type": "string" } }
+        },
         "categories": {
           "type": "object",
           "required": ["maps", "ai", "reviews", "website", "followup"],

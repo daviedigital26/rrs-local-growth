@@ -21,7 +21,7 @@ export async function exportAll(m: ReportModel, formats: readonly Format[] = FOR
   }
   if (formats.includes('json')) out.push({ name: `${base}.json`, format: 'json', data: Buffer.from(reportJson(m)) });
   if (formats.includes('crm')) out.push({ name: `${base}.crm.json`, format: 'crm', data: Buffer.from(JSON.stringify(crmRecord(m), null, 2) + '\n') });
-  if (formats.includes('pptx')) out.push({ name: `${base}.pptx`, format: 'pptx', data: await buildDeck(m) });
+  if (formats.includes('pptx')) out.push({ name: `${base}.pptx`, format: 'pptx', data: await buildDeck(m, { stable: opts.stable }) });
   if (formats.includes('pdf')) {
     const browser = await chromium.launch();
     try {

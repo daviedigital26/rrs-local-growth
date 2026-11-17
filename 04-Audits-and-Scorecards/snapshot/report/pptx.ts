@@ -4,6 +4,7 @@
  * Fonts: Arial everywhere, so it renders identically on client machines without Inter
  * (DECISIONS D-016).
  */
+import { createHash } from 'node:crypto';
 import JSZip from 'jszip';
 import PptxGenJS from 'pptxgenjs';
 import sharp from 'sharp';
@@ -21,7 +22,11 @@ async function markPng(): Promise<string> {
   return `image/png;base64,${buf.toString('base64')}`;
 }
 
-export async function buildDeck(m: ReportModel): Promise<Buffer> {
+/**
+ * `stable: true` makes the file byte-identical across runs (fixed timestamps from the report
+ * date, deterministic section ids) so committed samples don't change on every rebuild.
+ */
+export async function buildDeck(m: ReportModel, opts: { stable?: boolean } = {}): Promise<Buffer> {
   const pres = new PptxGenJS();
   pres.layout = 'LAYOUT_16x9'; // 10 × 5.625 in
   pres.theme = { headFontFace: FONT, bodyFontFace: FONT };
@@ -204,19 +209,33 @@ export async function buildDeck(m: ReportModel): Promise<Buffer> {
   s.addNotes(`Framework v${m.result.frameworkVersion}. Full criteria are in the printable report and on the methodology page.`);
 
   const raw = (await pres.write({ outputType: 'nodebuffer' })) as Buffer;
-  return stripFolderEntries(raw);
+  return repack(raw, opts.stable ? `${m.reportDate}T00:00:00Z` : null);
 }
+
+const ZIP_DATE = new Date('2026-01-01T00:00:00Z');
+const guidFrom = (seed: string) => {
+  const h = createHash('sha1').update(seed).digest('hex');
+  return `{${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20, 32)}}`;
+};
+const pinCoreDates = (xml: string, iso: string) => xml.replace(/(<dcterms:(?:created|modified)[^>]*>)[^<]*(<\/dcterms:(?:created|modified)>)/g, `$1${iso}$2`);
 
 /**
  * pptxgenjs writes directory entries into the ZIP; some cloud viewers (incl. co-editing
- * services) refuse such files. Re-pack with file entries only, preserving order.
+ * services) refuse such files. Re-pack with file entries only, preserving order. With a
+ * stable date, also pin document dates, section ids and the embedded chart workbooks.
  */
-async function stripFolderEntries(buf: Buffer): Promise<Buffer> {
+async function repack(buf: Buffer, stableIso: string | null): Promise<Buffer> {
   const src = await JSZip.loadAsync(buf);
   const dst = new JSZip();
   for (const [name, entry] of Object.entries(src.files)) {
     if (entry.dir) continue;
-    dst.file(name, await entry.async('nodebuffer'), { createFolders: false, date: new Date('2026-01-01T00:00:00Z') });
+    let data: Buffer = await entry.async('nodebuffer');
+    if (stableIso) {
+      if (/docProps\/core\.xml$/.test(name)) data = Buffer.from(pinCoreDates(data.toString('utf8'), stableIso));
+      else if (name === 'ppt/presentation.xml') data = Buffer.from(data.toString('utf8').replace(/(<p14:section name="([^"]*)" id=")\{[^}]+\}/g, (_m, pre: string, section: string) => `${pre}${guidFrom(`rrs-section:${section}`)}`));
+      else if (/\.xlsx$/.test(name)) data = await repack(data, stableIso);
+    }
+    dst.file(name, data, { createFolders: false, date: ZIP_DATE });
   }
   return dst.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE', compressionOptions: { level: 9 } });
 }

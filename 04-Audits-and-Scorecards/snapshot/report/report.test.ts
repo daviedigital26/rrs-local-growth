@@ -98,8 +98,13 @@ test('crm: record validates against the published schema and keeps scores separa
   const rec = crmRecord(model);
   const ok = ajv.validate(schema, rec);
   assert.ok(ok, JSON.stringify(ajv.errors));
-  assert.equal(rec.scores.icp_fit, null, 'ICP fit is Phase 3: never guessed');
-  assert.equal(rec.scores.outreach_priority, null);
+  // A Snapshot alone doesn't establish size, ownership or contacts: fit is not guessed.
+  assert.equal(rec.scores.icp_fit.score, null, 'ICP fit needs verified fit evidence');
+  assert.equal(rec.scores.icp_fit.label, 'Not enough evidence');
+  assert.equal(rec.scores.outreach_priority.band, 'research_first');
+  assert.match(rec.scores.outreach_priority.next_action, /^Research first/);
+  const inbound = crmRecord(buildReport({ ...sample, lead: { contactName: 'Sam (fictional)', email: 'sam@example.invalid', source: 'website' } }));
+  assert.equal(inbound.scores.outreach_priority.band, 'inbound', 'a website request is answered, not cold-called');
   assert.equal(rec.public_business_phone, null, 'phone only from verified research');
   assert.equal(rec.outreach_status, 'not_contacted');
   assert.match(rec.dedupe_key, /^name:mesquite ridge comfort/);
@@ -142,4 +147,14 @@ test('exports: PDF and PPTX are real, readable files with the right content', as
   const all = (await Promise.all(slides.map((n) => zip.file(n)!.async('string')))).join('\n');
   for (const s of ['Mesquite Ridge Comfort Co.', 'Fictional sample: not a real business', 'HYPOTHETICAL', 'Local Revenue Dominator']) assert.ok(all.includes(s), `PPTX missing "${s}"`);
   assert.ok(names.some((n) => n.startsWith('ppt/charts/')), 'native charts present');
+
+  // --stable pins everything that otherwise changes per run (committed samples stay unchanged).
+  // (pptxgenjs numbers charts with a process-wide counter, so compare pinned parts, not bytes.)
+  const again = await JSZip.loadAsync((await exportAll(model, ['pptx'], { stable: true }))[0]!.data);
+  const core = await zip.file('docProps/core.xml')!.async('string');
+  assert.match(core, new RegExp(`<dcterms:created[^>]*>${model.reportDate}T00:00:00Z<`));
+  assert.equal(await again.file('docProps/core.xml')!.async('string'), core);
+  assert.equal(await again.file('ppt/presentation.xml')!.async('string'), await zip.file('ppt/presentation.xml')!.async('string'), 'section ids are deterministic');
+  const embedded = await JSZip.loadAsync(await zip.file(names.find((n) => /embeddings\/.*\.xlsx$/.test(n))!)!.async('nodebuffer'));
+  assert.ok(Object.values(embedded.files).every((f) => !f.dir && f.date.toISOString() === '2026-01-01T00:00:00.000Z'), 'embedded chart workbooks are pinned');
 });

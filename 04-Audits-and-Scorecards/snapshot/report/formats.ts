@@ -1,4 +1,7 @@
 /** Pure data exports: JSON, CSV (criteria + summary), CRM record. */
+import { scoreProspect } from '../../../05-Lead-Research/Scoring/icp-engine.ts';
+import type { PriorityBand } from '../../../05-Lead-Research/Scoring/icp-config.ts';
+import { fromSnapshotModel } from '../../../05-Lead-Research/Scoring/prospect.ts';
 import { confidenceLabel, type ReportModel } from './model.ts';
 
 // ── CSV ──────────────────────────────────────────────────────────────────
@@ -68,8 +71,9 @@ export function reportJson(m: ReportModel): string {
 /**
  * CRM-ready lead/audit record (spec Part 6 "Required Lead Record", Snapshot subset).
  * Scores are kept SEPARATE (spec: never collapse fit, opportunity, confidence and
- * priority into one opaque number). ICP fit and outreach priority are computed in
- * Phase 3 and are null here rather than guessed.
+ * priority into one opaque number). ICP fit and outreach priority come from the ICP
+ * engine using only what the Snapshot records; with too little evidence ICP fit is
+ * null ("Not enough evidence") and priority is "research first", never guessed.
  */
 export interface CrmRecord {
   schema: 'rrs.crm.snapshot-record/1';
@@ -86,8 +90,8 @@ export interface CrmRecord {
     snapshot_verified_score: number | null;
     snapshot_coverage_pct: number;
     research_confidence: string;
-    icp_fit: null;
-    outreach_priority: null;
+    icp_fit: { score: number | null; label: string; coverage_pct: number; config_version: string };
+    outreach_priority: { band: PriorityBand; label: string; points: number; next_action: string };
     categories: Record<string, { score_out_of_20: number | null; confidence: string; not_verified: number }>;
   };
   opportunity_categories: string[];
@@ -114,6 +118,7 @@ export function crmRecord(m: ReportModel): CrmRecord {
   const sources = m.rows.filter((r) => r.evidenceType !== null).length;
   const lastVerified = m.rows.map((r) => r.checkedAt).filter(Boolean).sort().at(-1) ?? m.reportDate;
   const domain = normDomain(m.lead?.website);
+  const icp = scoreProspect(fromSnapshotModel(m), { asOf: m.reportDate });
   return {
     schema: 'rrs.crm.snapshot-record/1',
     record_type: 'snapshot_audit',
@@ -129,8 +134,8 @@ export function crmRecord(m: ReportModel): CrmRecord {
       snapshot_verified_score: o.verifiedScore,
       snapshot_coverage_pct: Math.round(o.coverage * 100),
       research_confidence: o.confidence,
-      icp_fit: null,
-      outreach_priority: null,
+      icp_fit: { score: icp.fit.score, label: icp.fit.label, coverage_pct: Math.round(icp.fit.coverage * 100), config_version: icp.config_version },
+      outreach_priority: { band: icp.priority.band, label: icp.priority.label, points: icp.priority.points, next_action: icp.priority.next_action },
       categories: Object.fromEntries(m.result.categories.map((c) => [c.id, { score_out_of_20: c.display, confidence: c.confidence, not_verified: c.notVerified.length }])),
     },
     opportunity_categories: m.priorities.map((p) => p.id),

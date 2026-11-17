@@ -1,27 +1,27 @@
 # Test Results
 
-**Run:** 2026-11-17, on a fresh clone of `feature/phase-2-completion` from GitHub (Node 22.23, Chromium via Playwright-core 1.63, offline dependency links). Command: `npm run verify`. Exit 0, working tree clean afterwards.
+**Run:** 2026-11-17 on `feature/phase-3-icp-scoring` (Node 22.23, Chromium via Playwright-core 1.63, offline dependency links). Command: `npm run verify`. Exit 0; the build regenerates only committed, deterministic files.
 
 ## Summary
 | Suite | Command | Result |
 |---|---|---|
 | Build | `npm run build` | **Pass**: 26 pages; CSS 49 KB (≈10 KB gz); JS 15.6 KB (5.7 KB gz); n8n workflow generated (inactive) |
-| Strict type-check | `npm run typecheck:core` | **Pass**: tokens, catalog, Snapshot engine, report model/CSV/CRM/PDF/PPTX, intake, n8n builder, mock |
-| Unit tests | `npm test` | **54/54 pass** |
-| E2E, preview mode | `npm run test:e2e` | **801/801 pass** (~77 s) |
-| E2E, connected + consent | `npm run test:e2e:connected` | **32/32 pass** (~51 s) |
+| Strict type-check | `npm run typecheck:core` | **Pass**: tokens, catalog, Snapshot engine, report model/CSV/CRM/PDF/PPTX, intake, ICP scoring, n8n builder, mock |
+| Unit tests | `npm test` | **68/68 pass** |
+| E2E, preview mode | `npm run test:e2e` | **801/801 pass** (~80 s) |
+| E2E, connected + consent | `npm run test:e2e:connected` | **32/32 pass** (~52 s) |
 
-## Unit tests (54)
+## Unit tests (68)
 - **Tokens (4), catalog (9), engine (13), register (5):** unchanged since Phase 1, see `CHANGELOG.md`.
 - **Report exports (9):**
   - model numbers match the engine; insufficient evidence gives no score
   - CSV escaping + **formula-injection guard**
   - a Not verified cell is blank, never 0
   - summary CSV; full JSON flags
-  - **CRM record validates against `crm-record.schema.json`**, with ICP fit/priority null and no guessed phone
+  - **CRM record validates against `crm-record.schema.json`**, with ICP fit "Not enough evidence" + "Research first" for a Snapshot alone, "Inbound" for a website request, and no guessed phone
   - HTML is self-contained, with no external requests and HTML-injection escaped
   - **PDF**: real file, Letter size, 3–10 pages, `pdftotext` finds the key content
-  - **PPTX**: 9 slides, native charts, no ZIP folder entries, fictional label on every slide
+  - **PPTX**: 9 slides, native charts, no ZIP folder entries, fictional label on every slide; `--stable` pins dates, section ids and embedded chart workbooks (committed samples are byte-identical across runs)
 - **Intake (8):**
   - valid request normalised (email, E.164 phone, domain, unknown fields stripped, bad concern/self-check values dropped)
   - 8 invalid cases rejected with specific errors
@@ -78,3 +78,18 @@ Everything from Phase 1 still passes (26 pages × 3 viewports: overflow, fonts, 
 
 ## Not yet tested (and why)
 Live n8n import and run (not approved yet) · real submissions to a CRM · real-device iOS/Android (Chromium emulation only) · screen-reader/axe audit · Lighthouse on a deployed URL.
+
+- **ICP scoring (14):**
+  - config: spec weights total 100
+  - **legacy port identical to the original tracker function**: on fixtures here, and on all **46/46** real seed leads (run locally against a verbatim copy of the original; the real data is git-ignored and not committed)
+  - review signals: themes count once; negated praise, previous-company and comparison sentences ignored; negation stops at a comma ("not returned, delays…" still counts the delay)
+  - **missing evidence is Not verified** (null, never 0); a checked clean sample is a real 0, labelled honestly
+  - P1 needs a verified problem; franchise capped at P2; gates: do not contact > disqualified > declined > in progress > inbound > research first; no-calls → email first
+  - freshness: fresh > undated > stale; units managed replace the review proxy; weights configurable
+  - imports: item-cited errors, CSV header check, status + notes, JSON + CSV merge (dated facts win)
+  - call list CSV: phone display format, formula-injection guard
+  - drift guards: committed fictional call list and `ICP-METHODOLOGY.md` match a fresh run
+
+## Real-data check (not committed)
+The 46-lead seed from the owner's PM Lead Scorer, scored as of 2026-11-17 (pull date unknown, so undated): **P1 11 · P2 23 · P3 12**. The old tracker had 19 hot · 15 warm · 12 cold. All 11 P1 leads have a verified complaint theme. 8 of the 19 old "hot" leads had none: 7 scored exactly 60 on size + rating alone, and 1 scored 68 only because of a complaint about its *previous* manager. All 8 now sit in P2 with *"no problem verified yet"*. The other 11 old-hot leads are exactly the new P1 list.
+

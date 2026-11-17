@@ -1,5 +1,21 @@
 # Changelog
 
+## ICP scoring — 2026-11-17 (branch `feature/phase-3-icp-scoring`)
+- **Four separate scores per business:** ICP fit, verified opportunity, research confidence, and outreach priority (the configurable 100-point score with spec weights 25/25/20/15/10/5, always shown with its six parts). Missing evidence is Not verified: it earns no points and is never shown as a zero.
+- **Built on the owner's PM Lead Scorer:** its review-count size bands, rating band, pain scale and franchise rule carry over as ratios. An exact port of the old score is shown alongside (`old_tracker_score`); it matches the original on all 46 seed leads.
+- **Fixes to the old logic:**
+  - P1 needs a verified problem (size + rating alone used to score exactly 60 = hot)
+  - complaint themes count once ("cancel" + "canceled" was 2 hits)
+  - praise with a negation is ignored ("no voicemail runaround")
+  - sentences about a previous manager or other companies are skipped
+  - franchises are capped at P2
+- **Gates:** do not contact, disqualified, declined, in progress, inbound (reply personally) and research first.
+- **Imports:** tracker JSON batches, the tracker's CSV export (keeps Status + Notes, merged by business), website leads and Snapshots. Command: `leads:score` writes a phone-friendly call list (CSV) and full JSON, and refuses to write real lead data into committed folders.
+- **CRM record:** `icp_fit` and `outreach_priority` are now filled. A Snapshot alone gives "Not enough evidence" / "Research first", never a guess.
+- **Methodology:** `ICP-METHODOLOGY.md` is generated from the config (`icp:docs`), with a drift test.
+- **Deterministic decks:** `--stable` deck exports pin dates, section ids and embedded chart workbooks, so committed samples no longer change on every rebuild.
+- **Tests:** 14 new ICP tests plus a deck-stability check. Unit total 68.
+
 ## Scorecard workbook — 2026-11-17 (branch `feature/phase-2-completion`)
 - **Local Revenue Opportunity Scorecard (XLSX)** generated from the framework:
   - per-row dropdowns (status; only the result levels each criterion defines; allowed evidence types)

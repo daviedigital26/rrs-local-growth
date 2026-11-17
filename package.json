@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Reale Revenue Systems \u2014 Local Growth Operating System (website, offers, Snapshot, scoring, sales and fulfillment tooling)",
+  "description": "Reale Revenue Systems — Local Growth Operating System (website, offers, Snapshot, scoring, sales and fulfillment tooling)",
   "engines": {
     "node": ">=20"
   },
@@ -14,7 +14,7 @@
     "register": "tsx 00-Project-Management/build-register.ts",
     "assets": "tsx 08-Design-Assets/build-assets.ts",
     "build:site": "tsx 02-Public-Website/scripts/build.tsx",
-    "build": "npm run tokens && npm run catalog && npm run framework && npm run workflows && npm run assets && npm run build:site && npm run register",
+    "build": "npm run tokens && npm run catalog && npm run framework && npm run icp:docs && npm run workflows && npm run assets && npm run build:site && npm run register",
     "serve": "tsx 02-Public-Website/scripts/serve.ts",
     "test": "node --import tsx --test \"**/*.test.ts\"",
     "test:e2e": "tsx 15-Quality-Assurance/e2e/run-e2e.ts",
@@ -22,6 +22,7 @@
     "typecheck:core": "tsc -p tsconfig.core.json --noEmit",
     "verify": "npm run build && npm run typecheck:core && npm test && npm run test:e2e && npm run test:e2e:connected",
     "framework": "tsx 04-Audits-and-Scorecards/snapshot/export-methodology.ts",
+    "icp:docs": "tsx 05-Lead-Research/Scoring/methodology.ts",
     "snapshot:export": "tsx 04-Audits-and-Scorecards/snapshot/report/export-cli.ts",
     "samples": "tsx 04-Audits-and-Scorecards/snapshot/report/export-cli.ts 17-Sample-Clients/fictional-hvac-snapshot.json --out 17-Sample-Clients/exports --stable",
     "workflows": "tsx 12-Automations/n8n/build-workflows.ts",
@@ -29,7 +30,9 @@
     "test:e2e:connected": "tsx 15-Quality-Assurance/e2e/run-connected.ts",
     "scorecard:new": "tsx 04-Audits-and-Scorecards/scorecards/scorecard-cli.ts new",
     "scorecard:import": "tsx 04-Audits-and-Scorecards/scorecards/scorecard-cli.ts import",
-    "scorecards": "tsx 04-Audits-and-Scorecards/scorecards/scorecard-cli.ts templates"
+    "scorecards": "tsx 04-Audits-and-Scorecards/scorecards/scorecard-cli.ts templates",
+    "leads:score": "tsx 05-Lead-Research/Scoring/score-cli.ts",
+    "leads:sample": "tsx 05-Lead-Research/Scoring/score-cli.ts 17-Sample-Clients/fictional-pm-lead-batch.json 17-Sample-Clients/fictional-pm-tracker-export.csv --checked 2026-11-10 --as-of 2026-11-17 --out 17-Sample-Clients/lead-scoring --name fictional-pm-call-list"
   },
   "dependencies": {
     "pdf-lib": "1.17.1",
