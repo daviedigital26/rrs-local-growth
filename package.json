@@ -20,7 +20,7 @@
     "test:e2e": "tsx 15-Quality-Assurance/e2e/run-e2e.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "typecheck:core": "tsc -p tsconfig.core.json --noEmit",
-    "verify": "npm run build && npm run typecheck:core && npm test && npm run test:e2e && npm run test:e2e:connected",
+    "verify": "npm run build && npm run typecheck:core && npm test && npm run test:e2e && npm run test:e2e:connected && npm run test:e2e:queue",
     "framework": "tsx 04-Audits-and-Scorecards/snapshot/export-methodology.ts",
     "icp:docs": "tsx 05-Lead-Research/Scoring/methodology.ts",
     "snapshot:export": "tsx 04-Audits-and-Scorecards/snapshot/report/export-cli.ts",
@@ -28,11 +28,14 @@
     "workflows": "tsx 12-Automations/n8n/build-workflows.ts",
     "snapshot:new": "tsx 05-Lead-Research/intake/snapshot-new-cli.ts",
     "test:e2e:connected": "tsx 15-Quality-Assurance/e2e/run-connected.ts",
+    "test:e2e:queue": "tsx 15-Quality-Assurance/e2e/run-queue.ts",
     "scorecard:new": "tsx 04-Audits-and-Scorecards/scorecards/scorecard-cli.ts new",
     "scorecard:import": "tsx 04-Audits-and-Scorecards/scorecards/scorecard-cli.ts import",
     "scorecards": "tsx 04-Audits-and-Scorecards/scorecards/scorecard-cli.ts templates",
     "leads:score": "tsx 05-Lead-Research/Scoring/score-cli.ts",
-    "leads:sample": "tsx 05-Lead-Research/Scoring/score-cli.ts 17-Sample-Clients/fictional-pm-lead-batch.json 17-Sample-Clients/fictional-pm-tracker-export.csv --checked 2026-11-10 --as-of 2026-11-17 --out 17-Sample-Clients/lead-scoring --name fictional-pm-call-list"
+    "leads:queue": "tsx 06-Sales/Call-Queue/queue-cli.ts build",
+    "leads:outcomes": "tsx 06-Sales/Call-Queue/queue-cli.ts outcomes",
+    "leads:sample": "tsx 05-Lead-Research/Scoring/score-cli.ts 17-Sample-Clients/fictional-pm-lead-batch.json 17-Sample-Clients/fictional-pm-tracker-export.csv --checked 2026-11-10 --as-of 2026-11-17 --out 17-Sample-Clients/lead-scoring --name fictional-pm-call-list && tsx 06-Sales/Call-Queue/queue-cli.ts build 17-Sample-Clients/fictional-pm-lead-batch.json 17-Sample-Clients/fictional-pm-tracker-export.csv --checked 2026-11-10 --as-of 2026-11-17 --out 17-Sample-Clients/lead-scoring --name fictional-call-queue"
   },
   "dependencies": {
     "pdf-lib": "1.17.1",

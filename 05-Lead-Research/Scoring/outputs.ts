@@ -14,13 +14,14 @@ export function displayPhone(e164: string | null): string {
 }
 
 const STATUS_LABEL: Record<ProspectRecord['outreach']['status'], string> = {
-  not_contacted: 'Not contacted', attempted: 'Attempted', contacted: 'Contacted', audit_booked: 'Audit booked', declined: 'Declined', customer: 'Customer',
+  not_contacted: 'Not contacted', attempted: 'Attempted', contacted: 'Talked', audit_booked: 'Audit booked', audit_delivered: 'Audit delivered',
+  build_sold: 'Build sold', retainer_active: 'Retainer active', declined: 'Declined', customer: 'Customer',
 };
 
 export const CALL_LIST_COLUMNS = [
   'rank', 'priority', 'priority_points', 'company', 'city', 'phone', 'website', 'next_action',
   'icp_fit', 'fit_label', 'opportunity', 'opportunity_label', 'research_confidence', 'confidence_pct',
-  'why', 'review_signals', 'ownership', 'rating', 'reviews', 'outreach_status', 'notes',
+  'why', 'review_signals', 'ownership', 'rating', 'reviews', 'outreach_status', 'next_follow_up', 'deal_value', 'notes',
   'old_tracker_score', 'old_tracker_tier', 'last_verified', 'fictional', 'prospect_id',
 ] as const;
 
@@ -31,7 +32,7 @@ export function callListCsv(ranked: Array<{ result: IcpResult; prospect: Prospec
       i + 1, r.priority.label, r.priority.points, p.name, p.city, displayPhone(p.phone), p.website, r.priority.next_action,
       r.fit.score, r.fit.label, r.opportunity.score, r.opportunity.label, r.confidence.label, r.confidence.pct,
       why, r.pain?.themes.map((t) => `${t.label}: “${t.phrase}”`).join(' | ') ?? '', p.ownership ? `${p.ownership.value.replace('_', ' ')}${p.ownership_label ? ` (${p.ownership_label})` : ''}` : 'not verified',
-      p.rating?.value ?? '', p.review_count?.value ?? '', STATUS_LABEL[p.outreach.status], p.outreach.notes,
+      p.rating?.value ?? '', p.review_count?.value ?? '', STATUS_LABEL[p.outreach.status], p.outreach.follow_up ?? '', p.outreach.deal_value ?? '', p.outreach.notes,
       r.legacy?.score ?? '', r.legacy?.tier ?? '', r.last_verified ?? 'undated', p.fictional, p.prospect_id,
     ]);
   });

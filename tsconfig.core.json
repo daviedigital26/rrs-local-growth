@@ -17,6 +17,10 @@
     "12-Automations/n8n/*.ts",
     "15-Quality-Assurance/mock-intake/*.ts",
     "04-Audits-and-Scorecards/scorecards/scorecard.ts",
-    "04-Audits-and-Scorecards/scorecards/scorecard.test.ts"
+    "04-Audits-and-Scorecards/scorecards/scorecard.test.ts",
+    "05-Lead-Research/Scoring/*.ts",
+    "06-Sales/Call-Queue/*.ts",
+    "06-Sales/Call-Scripts/*.ts",
+    "06-Sales/Objections/*.ts"
   ]
 }

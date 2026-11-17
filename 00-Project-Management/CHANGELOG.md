@@ -1,5 +1,24 @@
 # Changelog
 
+## Call queue — 2026-11-17 (branch `feature/phase-3-icp-scoring`)
+- **Phone call queue** (`06-Sales/Call-Queue`):
+  - "Now calling" card: tap-to-call + copy, the business's local time and calling window, the opening angle from verified reviews, verify-first flags, a script
+  - 10 one-tap outcomes with undo; follow-ups set automatically (1/2/3/5 business days; parked after 5 unanswered)
+  - callbacks, appointments and deal values; Up next / Done today
+  - follow-up calendar, pipeline by stage with $ totals, research list, search and filters
+  - full details sheet; results by priority / review signal / old tier; settings
+  - call-log export/import, pipeline CSV, do-not-contact list
+- **Two ways to run it:** a standalone file (saves in the browser) or a private hosted page (leads beside the page, outcomes in an owner-only database that Claude can read back). It falls back to device storage if sync is unavailable.
+- **Script library** (`06-Sales/Call-Scripts`, `06-Sales/Objections`):
+  - five-gear cold-call opener, gatekeeper, voicemail, first email, no-response and not-now follow-ups, post-call recap, LinkedIn note
+  - 6 objection replies; interest → alternative offer with a permission-based follow-up
+  - only verified review themes are mentioned; no prices, statistics or client stories
+  - every email has the postal address + opt-out, with a warning when the address is missing
+- **Outcomes loop:** `rrs.call-log/1` with a JSON Schema. `leads:score` applies call logs: declined and do-not-call leave the list, wrong numbers go to research, bookings become in progress. `leads:outcomes` shows whether priorities predict results.
+- **Tracker v2 import:** the newer PM Lead Scorer export (`Audit Booked`, `Audit Delivered`, `Build Sold`, `Retainer Active`, `NextFollowUp`, `DealValue`, `LastActivity`, no `Notes`) now imports. The old importer rejected it.
+- **New commands:** `leads:queue` (standalone page, `--hosted` bundle, `--app`), `leads:outcomes`, `test:e2e:queue` (in `verify`).
+- **Strict type-check** now covers `05-Lead-Research/Scoring` and `06-Sales` directly.
+
 ## ICP scoring — 2026-11-17 (branch `feature/phase-3-icp-scoring`)
 - **Four separate scores per business:** ICP fit, verified opportunity, research confidence, and outreach priority (the configurable 100-point score with spec weights 25/25/20/15/10/5, always shown with its six parts). Missing evidence is Not verified: it earns no points and is never shown as a zero.
 - **Built on the owner's PM Lead Scorer:** its review-count size bands, rating band, pain scale and franchise rule carry over as ratios. An exact port of the old score is shown alongside (`old_tracker_score`); it matches the original on all 46 seed leads.

@@ -47,6 +47,18 @@ The blank template is also in the repo: `04-Audits-and-Scorecards/scorecards/Loc
 
 Real lead lists are written only to `05-Lead-Research/Research-Outputs/` (git-ignored). The command refuses any other folder inside the repo. How the scores work: `05-Lead-Research/Scoring/ICP-METHODOLOGY.md`.
 
+## Working the call queue (phone)
+Open **Call Queue** from your claude.ai artifacts. It is private to you.
+1. **Settings** (Results tab): add your name, callback number and mailing address, then pick what to ask for (free Snapshot or paid audit). Scripts and emails fill these in.
+2. **Queue tab:** call the lead on the card. It shows the business's local time, the opening angle and what to verify. Tap **Show script** if you want the words.
+3. Tap what happened. Next tries are scheduled for you (1, 2, 3 and 5 business days; after 5 unanswered calls a lead is parked). **Call back** and **Audit booked** ask for a date. **Not now** asks whether they agreed to a check-back. **Do not call** is permanent. Every outcome has **Undo**.
+4. **Pipeline tab:** the next 14 days of follow-ups, deals by stage with $ totals, leads that need research (wrong or missing numbers) and parked leads (**Reopen** brings one back).
+5. **Results tab:** calls, conversations, bookings and wins by priority and by review signal. Once a priority has 20+ calls, ask Claude to run `leads:outcomes` and tune the scoring.
+
+Outcomes save to your account, so they follow you between phone and computer. If the page ever says *Saved on this device only*, tap **Download call log** before switching devices. To re-score with what happened, ask Claude to *"pull my call log and re-score"*. New lead batches get added to the same queue; outcomes are kept.
+
+Nothing is sent or dialled automatically. Emails are drafts to copy into your own mail app.
+
 ## Producing a Snapshot (works today, no external services)
 1. Save the website request as `lead.json`, or once n8n is live, take the lead record from the CRM.
 2. Run `npm run snapshot:new -- lead.json`. It creates `05-Lead-Research/Research-Outputs/<business>-<date>.snapshot.json`, which is git-ignored because it holds personal details.

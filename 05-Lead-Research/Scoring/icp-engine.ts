@@ -201,6 +201,10 @@ function confidenceOf(parts: ComponentResult[], p: ProspectRecord, pain: PainSig
   return { label, pct: round(s * 100), coverage, quality, notes, ratio: s };
 }
 
+const IN_PROGRESS: Partial<Record<ProspectRecord['outreach']['status'], string>> = {
+  audit_booked: 'Audit booked', audit_delivered: 'Audit delivered', build_sold: 'Customer (build sold)', retainer_active: 'Customer (retainer)', customer: 'Customer',
+};
+
 const BAND_LABEL: Record<PriorityBand, string> = {
   inbound: 'Inbound: reply', p1: 'P1: call first', p2: 'P2: call next', p3: 'P3: low priority', research_first: 'Research first',
   in_progress: 'In progress', closed: 'Closed (declined)', do_not_contact: 'Do not contact', disqualified: 'Disqualified',
@@ -237,7 +241,7 @@ export function scoreProspect(p: ProspectRecord, opts: { asOf: string; config?: 
   if (p.contact_restrictions.includes('do_not_contact')) { band = 'do_not_contact'; gate = 'On the do-not-contact list'; }
   else if (p.operating_status?.value === 'closed') { band = 'disqualified'; gate = 'Business marked closed'; }
   else if (p.outreach.status === 'declined') { band = 'closed'; gate = 'Declined'; }
-  else if (p.outreach.status === 'audit_booked' || p.outreach.status === 'customer') { band = 'in_progress'; gate = p.outreach.status === 'customer' ? 'Customer' : 'Audit booked'; }
+  else if (IN_PROGRESS[p.outreach.status]) { band = 'in_progress'; gate = IN_PROGRESS[p.outreach.status]!; }
   else if (p.origin === 'inbound') { band = 'inbound'; gate = 'Inbound request'; }
   else if (conf.label === 'insufficient') { band = 'research_first'; gate = 'Not enough verified information'; }
   else if (points >= cfg.bands.p1 && (oppScore ?? 0) >= cfg.bands.p1MinOpportunity) band = 'p1';
@@ -270,7 +274,7 @@ function nextAction(band: PriorityBand, p: ProspectRecord, parts: ComponentResul
     case 'do_not_contact': return 'Do not contact (suppression list).';
     case 'disqualified': return 'Business marked closed; no outreach.';
     case 'closed': return 'Declined; no further outreach unless they reach out.';
-    case 'in_progress': return p.outreach.status === 'customer' ? 'Existing customer; handle through account management.' : 'Audit booked; prepare the Snapshot.';
+    case 'in_progress': return /^(customer|build_sold|retainer_active)$/.test(p.outreach.status) ? 'Existing customer; handle through account management.' : p.outreach.status === 'audit_delivered' ? 'Audit delivered; follow up on the proposal.' : 'Audit booked; prepare the Snapshot.';
     case 'inbound': return 'Inbound request: review it and reply personally (no automated outreach).';
     case 'research_first': return `Research first: verify ${parts.filter((c) => c.status === 'not_verified').map((c) => c.label.toLowerCase()).join(', ')} before any outreach.`;
   }

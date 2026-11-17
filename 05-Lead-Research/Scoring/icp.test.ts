@@ -25,7 +25,7 @@ const batch = () => JSON.parse(readFileSync(BATCH, 'utf8')) as Array<Record<stri
 const one = (over: Record<string, unknown>, checkedAt: string | null = CHECKED): ProspectRecord => {
   const r = fromLegacyBatch([{ name: 'Test Homes (fictional)', city: 'Phoenix, AZ', phone: '+1 602-555-0199', rating: 4.3, reviewCount: 200, chain: null, reviews: ['Great team.', 'Fine.'], ...over }], { checkedAt });
   assert.deepEqual(r.errors, []);
-  return r.prospects[0];
+  return r.prospects[0]!;
 };
 const score = (p: ProspectRecord, asOf = AS_OF) => scoreProspect(p, { asOf });
 const comp = (r: IcpResult, id: string) => r.components.find((c) => c.id === id)!;
@@ -71,7 +71,7 @@ test('review signals: themes count once, praise and other companies are ignored'
   assert.deepEqual(real.themes.map((t) => t.theme), ['unanswered', 'slow']);
   assert.equal(real.reviewsWithComplaints, 1);
   assert.equal(real.sampleSize, 2);
-  assert.match(real.themes[0].phrase, /not returned/);
+  assert.match(real.themes[0]!.phrase, /not returned/);
   assert.ok(Math.abs(real.ratio - 16 / 26) < 1e-9, 'two full-relevance themes = 16 of 26 points (legacy scale)');
 });
 
@@ -114,9 +114,9 @@ test('priority gates: franchise cap, do-not-contact, declined, booked, closed, i
 
   const base = one({ reviews: ['No call back for a week.'] });
   const gated = (patch: Partial<ProspectRecord>) => score({ ...structuredClone(base), ...patch }).priority.band;
-  assert.equal(gated({ contact_restrictions: ['do_not_contact'], outreach: { status: 'audit_booked', notes: '', last_contact: null } }), 'do_not_contact');
-  assert.equal(gated({ outreach: { status: 'declined', notes: '', last_contact: null } }), 'closed');
-  assert.equal(gated({ outreach: { status: 'audit_booked', notes: '', last_contact: null } }), 'in_progress');
+  assert.equal(gated({ contact_restrictions: ['do_not_contact'], outreach: { status: 'audit_booked', notes: '', last_contact: null, follow_up: null, deal_value: null } }), 'do_not_contact');
+  assert.equal(gated({ outreach: { status: 'declined', notes: '', last_contact: null, follow_up: null, deal_value: null } }), 'closed');
+  assert.equal(gated({ outreach: { status: 'audit_booked', notes: '', last_contact: null, follow_up: null, deal_value: null } }), 'in_progress');
   assert.equal(gated({ operating_status: { value: 'closed', kind: 'public_observation', checked_at: CHECKED } }), 'disqualified');
   assert.match(score({ ...structuredClone(base), contact_restrictions: ['no_calls'] }).priority.next_action, /^Email first/);
 
@@ -131,7 +131,7 @@ test('priority gates: franchise cap, do-not-contact, declined, booked, closed, i
   const p = fromWebLead(lead.record!);
   assert.equal(p.origin, 'inbound');
   assert.deepEqual(p.contact_restrictions, ['no_sms']);
-  assert.equal(p.observations[0].kind, 'owner_reported');
+  assert.equal(p.observations[0]!.kind, 'owner_reported');
   const r = score(p);
   assert.equal(r.priority.band, 'inbound');
   assert.equal(comp(r, 'reachability').ratio, 1);
@@ -158,7 +158,7 @@ test('units managed (when known) replace the review-count size proxy', () => {
   const withUnits = { ...structuredClone(big), units_managed: { value: 900, kind: 'owner_reported' as const, checked_at: CHECKED } };
   const r = score(withUnits);
   assert.equal(comp(r, 'commercial_fit').ratio, 0.25);
-  assert.match(comp(r, 'commercial_fit').reasons[0], /900 units managed, well above target/);
+  assert.match(comp(r, 'commercial_fit').reasons[0]!, /900 units managed, well above target/);
 });
 
 test('weights are configurable without code changes', () => {
@@ -172,7 +172,7 @@ test('weights are configurable without code changes', () => {
 });
 
 test('import: tracker batch validation errors name the item; CSV keeps status and notes', () => {
-  assert.equal(fromLegacyBatch({}).errors[0].message, 'expected a JSON array of leads');
+  assert.equal(fromLegacyBatch({}).errors[0]!.message, 'expected a JSON array of leads');
   const bad = fromLegacyBatch([{ name: 'A (fictional)', rating: 7 }, { city: 'Mesa, AZ' }, { name: 'B (fictional)', reviewCount: 2.5, reviews: 'text' }], { checkedAt: '11/10/2026' });
   assert.deepEqual(bad.errors.map((e) => `${e.where}: ${e.message}`), [
     'options: checked date must be YYYY-MM-DD, got "11/10/2026"',
@@ -181,13 +181,13 @@ test('import: tracker batch validation errors name the item; CSV keeps status an
     'item 3 (B (fictional)): reviewCount must be a whole number',
     'item 3 (B (fictional)): reviews must be a list of text excerpts',
   ]);
-  assert.match(fromLegacyBatch([{ name: 'x' }]).warnings[0].message, /no pull date/);
-  assert.match(fromLegacyCsv('Name,City\nA,B\n').errors[0].message, /missing column "phone"/);
+  assert.match(fromLegacyBatch([{ name: 'x' }]).warnings[0]!.message, /no pull date/);
+  assert.match(fromLegacyCsv('Name,City\nA,B\n').errors[0]!.message, /missing column "phone"/);
 
   const csv = fromLegacyCsv(readFileSync(EXPORT_CSV, 'utf8'));
   assert.deepEqual(csv.errors, []);
   assert.deepEqual(csv.prospects.map((p) => p.outreach.status), ['attempted', 'declined', 'audit_booked']);
-  assert.equal(csv.prospects[0].outreach.notes, 'Left voicemail, try mornings (fictional note)');
+  assert.equal(csv.prospects[0]!.outreach.notes, 'Left voicemail, try mornings (fictional note)');
   assert.deepEqual(parseCsv('a,"b ""q"", c"\r\n\r\n1,2\n'), [['a', 'b "q", c'], ['1', '2']]);
 
   const merged = mergeProspects([...fromLegacyBatch(batch(), { checkedAt: CHECKED }).prospects, ...csv.prospects]);
@@ -207,8 +207,8 @@ test('outputs: call list CSV is phone-friendly and formula-injection safe', () =
   const csv = callListCsv(scoreAll([p], { asOf: AS_OF }));
   const rows = parseCsv(csv);
   assert.deepEqual(rows[0], [...CALL_LIST_COLUMNS]);
-  assert.equal(rows[1][3], `'=HYPERLINK("http://x") (fictional)`);
-  assert.equal(rows[1][5], '(602) 555-0199');
+  assert.equal(rows[1]![3], `'=HYPERLINK("http://x") (fictional)`);
+  assert.equal(rows[1]![5], '(602) 555-0199');
 });
 
 test('sample: committed fictional call list matches a fresh run', () => {
@@ -228,8 +228,8 @@ test('cli: real data can only be written to Research-Outputs or outside the repo
   assert.equal(unsafeOutputDir('/tmp/rrs-out'), false);
   const snap = loadInput(join(root, '17-Sample-Clients/fictional-hvac-snapshot.json'), {});
   assert.deepEqual(snap.errors, []);
-  assert.equal(snap.prospects[0].industry, 'home-services');
-  assert.equal(snap.prospects[0].snapshot?.verified_score, 51);
+  assert.equal(snap.prospects[0]!.industry, 'home-services');
+  assert.equal(snap.prospects[0]!.snapshot?.verified_score, 51);
 });
 
 test('docs: ICP-METHODOLOGY.md is generated from the config and up to date', () => {

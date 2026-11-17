@@ -6,12 +6,13 @@
 | Suite | Command | Result |
 |---|---|---|
 | Build | `npm run build` | **Pass**: 26 pages; CSS 49 KB (≈10 KB gz); JS 15.6 KB (5.7 KB gz); n8n workflow generated (inactive) |
-| Strict type-check | `npm run typecheck:core` | **Pass**: tokens, catalog, Snapshot engine, report model/CSV/CRM/PDF/PPTX, intake, ICP scoring, n8n builder, mock |
-| Unit tests | `npm test` | **68/68 pass** |
+| Strict type-check | `npm run typecheck:core` | **Pass**: tokens, catalog, Snapshot engine, report model/CSV/CRM/PDF/PPTX, intake, ICP scoring, call queue + scripts (incl. the browser app), n8n builder, mock |
+| Unit tests | `npm test` | **79/79 pass** |
 | E2E, preview mode | `npm run test:e2e` | **801/801 pass** (~80 s) |
-| E2E, connected + consent | `npm run test:e2e:connected` | **32/32 pass** (~52 s) |
+| E2E, connected + consent | `npm run test:e2e:connected` | **32/32 pass** (~51 s) |
+| E2E, call queue | `npm run test:e2e:queue` | **46/46 pass** (~6 s) |
 
-## Unit tests (68)
+## Unit tests (79)
 - **Tokens (4), catalog (9), engine (13), register (5):** unchanged since Phase 1, see `CHANGELOG.md`.
 - **Report exports (9):**
   - model numbers match the engine; insufficient evidence gives no score
@@ -92,4 +93,30 @@ Live n8n import and run (not approved yet) · real submissions to a CRM · real-
 
 ## Real-data check (not committed)
 The 46-lead seed from the owner's PM Lead Scorer, scored as of 2026-11-17 (pull date unknown, so undated): **P1 11 · P2 23 · P3 12**. The old tracker had 19 hot · 15 warm · 12 cold. All 11 P1 leads have a verified complaint theme. 8 of the 19 old "hot" leads had none: 7 scored exactly 60 on size + rating alone, and 1 scored 68 only because of a complaint about its *previous* manager. All 8 now sit in P2 with *"no problem verified yet"*. The other 11 old-hot leads are exactly the new P1 list.
+
+- **Call queue (11):**
+  - business days; local time per state (California an hour behind Arizona in winter); calling window
+  - cadence 1/2/3/5 business days, parked after 5 unanswered; a conversation resets it
+  - stages only move forward on outcomes; do-not-call is permanent; "not now" without permission = declined
+  - queue order: due (overdue first) → new by priority, open-now-first by the business's local time; gated leads excluded
+  - stats, pipeline/closed $, follow-up calendar
+  - call log: JSON Schema, validation, idempotent merge, suppression list
+  - **scripts honest by construction**: no prices, statistics, guarantees or client stories; only verified themes; "one review" never becomes "a couple"; opt-out on every email; address warning
+  - scoring loop: declined → closed, do-not-call → do not contact, wrong number → no phone, booked → in progress
+  - tracker v2 CSV (Audit/Build/Retainer stages, follow-up, value, last activity)
+  - data embedded safely (`</script>` can't break out); outcomes report
+
+## Call queue browser test (46)
+Fictional sample at 375px and 1280px, light and dark, time frozen at Tue 17 Nov 2026 10:30 AM Phoenix:
+- no script errors, no sideways scroll, ≥44px targets, fictional label
+- Call link dials the right number; local time + window shown; opening angle quotes the verified phrase
+- log / **undo** / **reload persists**; every outcome that needs details (audit date + value, callback date incl. refusing an empty date, do not call, wrong number) until the queue is clear
+- pipeline: calendar, stage + $, research list, declined/DNC counts
+- search; details sheet (4 scores, scripts, objection reply, alternative offer, timeline, Escape closes)
+- settings persist into scripts
+- call log downloads **schema-valid** with the do-not-contact list; pipeline CSV; import on a "second device" merges; a bad log is refused
+- hosted layout (page + `leads.json` over HTTP) loads and says where it saves
+
+## Hosted queue (owner's real leads), checked 2026-11-17
+Published privately (read: owner). Database rules: `calls`, `settings`, `leads`, read and write owner only. Claude can read the database (empty `calls` listing). A probe write as owner succeeded; the same write at a lower role was refused; the probe was deleted. The in-page database calls can only run inside claude.ai (K-27).
 

@@ -200,7 +200,9 @@
         "outreach": {
           "status": "attempted",
           "notes": "Left voicemail, try mornings (fictional note)",
-          "last_contact": null
+          "last_contact": null,
+          "follow_up": null,
+          "deal_value": null
         },
         "legacy": {
           "name": "Saguaro Lane Property Co. (fictional)",
@@ -401,7 +403,9 @@
         "outreach": {
           "status": "not_contacted",
           "notes": "",
-          "last_contact": null
+          "last_contact": null,
+          "follow_up": null,
+          "deal_value": null
         },
         "legacy": {
           "name": "Sunbelt Leasing Partners (fictional)",
@@ -607,7 +611,9 @@
         "outreach": {
           "status": "not_contacted",
           "notes": "",
-          "last_contact": null
+          "last_contact": null,
+          "follow_up": null,
+          "deal_value": null
         },
         "legacy": {
           "name": "Desert Key Homes Franchise Office (fictional)",
@@ -813,7 +819,9 @@
         "outreach": {
           "status": "not_contacted",
           "notes": "",
-          "last_contact": null
+          "last_contact": null,
+          "follow_up": null,
+          "deal_value": null
         },
         "legacy": {
           "name": "Ironwood Residential (fictional)",
@@ -979,7 +987,9 @@
         "outreach": {
           "status": "not_contacted",
           "notes": "",
-          "last_contact": null
+          "last_contact": null,
+          "follow_up": null,
+          "deal_value": null
         },
         "legacy": {
           "name": "Ocotillo Management Group (fictional)",
@@ -1171,7 +1181,9 @@
         "outreach": {
           "status": "audit_booked",
           "notes": "",
-          "last_contact": null
+          "last_contact": null,
+          "follow_up": null,
+          "deal_value": null
         },
         "legacy": {
           "name": "Copper Mesa Rentals (fictional)",
@@ -1365,7 +1377,9 @@
         "outreach": {
           "status": "declined",
           "notes": "Happy with current setup (fictional note)",
-          "last_contact": null
+          "last_contact": null,
+          "follow_up": null,
+          "deal_value": null
         },
         "legacy": {
           "name": "Palo Verde Property Care (fictional)",

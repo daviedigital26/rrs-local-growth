@@ -79,3 +79,17 @@ The property-management bands are the tracker's own, converted to ratios. Everyt
 ### D-021 · 2026-11-17 · Store our observations, not third-party review text
 Review excerpts are scanned for complaint themes at scoring time. The research engine (RRS-3-02) should store the source reference, the theme found and our own dated note, and should not keep copies of third-party review text. See K-23.
 
+### D-022 · 2026-11-17 · Call queue: event log, hosted privately, owner-only data
+Outcomes are an **append-only event log**. A lead's state is always recomputed from its imported start plus its events, so undo = delete one event, and the same log replays into scoring (`leads:score`) and results (`leads:outcomes`). One logic module runs in the page, the CLI and the tests.
+
+The owner's working queue is a **private hosted page**:
+- leads sit in `leads.json` beside the page (republished when lists change)
+- outcomes and settings go in the page's database, with rules limiting read and write to the owner, so they follow him across devices and Claude can read the log back
+- without the database, the page saves on the device and says so
+
+The same page also builds as a standalone file for local use and tests.
+
+**Outcome-driven stage moves only go forward.** A missed call never undoes a booking. Do-not-call is never undone by a later outcome; only an explicit stage change can.
+
+The calling window (8 AM–5 PM local, weekdays) is a courtesy, not a legal rule (see K-26).
+

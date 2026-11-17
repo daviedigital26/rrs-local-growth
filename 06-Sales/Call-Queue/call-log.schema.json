@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://realerevenuesystems.com/schemas/call-log-1.json",
+  "title": "RRS call log (rrs.call-log/1)",
+  "description": "Append-only call queue events plus the do-not-contact list. Exported from the call queue; accepted by leads:score and leads:outcomes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "exported_at", "queue_version", "events", "suppression"],
+  "properties": {
+    "schema": { "const": "rrs.call-log/1" },
+    "exported_at": { "type": "string", "format": "date-time" },
+    "queue_version": { "type": "string" },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "lead", "at", "type"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^ev_" },
+          "lead": { "type": "string", "pattern": "^prs_" },
+          "at": { "type": "string", "format": "date-time" },
+          "type": { "enum": ["outcome", "stage", "follow_up", "value", "note", "service", "channel", "permission", "reopen"] },
+          "outcome": { "enum": ["no_answer", "voicemail", "gatekeeper", "callback", "interested", "audit_booked", "not_now", "not_interested", "wrong_number", "do_not_call"] },
+          "stage": { "enum": ["not_contacted", "attempted", "contacted", "audit_booked", "audit_delivered", "build_sold", "retainer_active", "declined", "do_not_contact"] },
+          "date": { "type": ["string", "null"], "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "value": { "type": ["number", "null"], "minimum": 0 },
+          "note": { "type": "string", "maxLength": 2000 },
+          "objection": { "enum": ["have_system", "no_budget", "send_info", "too_busy", "happy", "who_are_you"] },
+          "permission": { "type": "boolean" },
+          "service": { "type": "string" },
+          "channel": { "enum": ["phone", "email", "text"] }
+        }
+      }
+    },
+    "suppression": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["lead", "name", "phone"],
+        "properties": { "lead": { "type": "string" }, "name": { "type": "string" }, "phone": { "type": ["string", "null"] } }
+      }
+    }
+  }
+}

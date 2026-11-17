@@ -1,0 +1,689 @@
+{
+  "schema": "rrs.call-queue/1",
+  "as_of": "2026-11-17",
+  "icp_version": "icp-2026.11-1",
+  "queue_version": "queue-2026.11-1",
+  "fictional": true,
+  "leads": [
+    {
+      "id": "prs_1yjbj6i",
+      "name": "Saguaro Lane Property Co. (fictional)",
+      "city": "Surprise, AZ",
+      "state": "AZ",
+      "phone": "+16235550101",
+      "website": null,
+      "industry": "property-management",
+      "band": "p1",
+      "band_label": "P1: call first",
+      "points": 81,
+      "fit": 100,
+      "fit_label": "Strong fit",
+      "opportunity": 62,
+      "opportunity_label": "Clear opportunity",
+      "confidence": "high",
+      "confidence_pct": 87,
+      "next_action": "Call first; already attempted, so follow up; opening angle: reviews mention calls or messages go unanswered.",
+      "themes": [
+        {
+          "id": "unanswered",
+          "label": "calls or messages go unanswered",
+          "phrase": "…leak and got no call back for a week…",
+          "relevance": 1
+        },
+        {
+          "id": "slow",
+          "label": "slow responses or long delays",
+          "phrase": "…week, then it took 5 days to send anyone",
+          "relevance": 1
+        }
+      ],
+      "review_sample": {
+        "size": 2,
+        "with_complaints": 1
+      },
+      "parts": [
+        {
+          "label": "Commercial fit",
+          "points": 25,
+          "weight": 25,
+          "reasons": [
+            "Size (review count as proxy): 210 reviews, established but not oversized (50–600 reviews)"
+          ]
+        },
+        {
+          "label": "Verified opportunity",
+          "points": 15,
+          "weight": 25,
+          "reasons": [
+            "Reviews (1 of 2 sampled reviews): calls or messages go unanswered (“…leak and got no call back for a week…”); slow responses or long delays (“…week, then it took 5 days to send anyone”)"
+          ]
+        },
+        {
+          "label": "Likely to benefit",
+          "points": 20,
+          "weight": 20,
+          "reasons": [
+            "Rating 4.3: solid with room to improve (3.8–4.6)",
+            "Ownership not verified (no chain or franchise flag on file)"
+          ]
+        },
+        {
+          "label": "Reachability",
+          "points": 6,
+          "weight": 15,
+          "reasons": [
+            "On file: phone",
+            "Not on file: email, website, decision-maker name"
+          ]
+        },
+        {
+          "label": "Industry & area priority",
+          "points": 10,
+          "weight": 10,
+          "reasons": [
+            "Industry: property-management (primary target)",
+            "Area: Surprise, AZ (primary Phoenix-area market)"
+          ]
+        },
+        {
+          "label": "Data completeness & confidence",
+          "points": 4,
+          "weight": 5,
+          "reasons": [
+            "high research confidence (87%)"
+          ]
+        }
+      ],
+      "ownership": null,
+      "franchise": false,
+      "rating": 4.3,
+      "reviews": 210,
+      "old_score": 76,
+      "old_tier": "hot",
+      "last_verified": "2026-11-10",
+      "fictional": true,
+      "start": {
+        "stage": "attempted",
+        "follow_up": null,
+        "value": null,
+        "notes": "Left voicemail, try mornings (fictional note)",
+        "last_activity": null
+      }
+    },
+    {
+      "id": "prs_05qcd2v",
+      "name": "Sunbelt Leasing Partners (fictional)",
+      "city": "San Diego, CA",
+      "state": "CA",
+      "phone": "+16195550107",
+      "website": null,
+      "industry": "property-management",
+      "band": "p1",
+      "band_label": "P1: call first",
+      "points": 71,
+      "fit": 95,
+      "fit_label": "Strong fit",
+      "opportunity": 31,
+      "opportunity_label": "Some opportunity",
+      "confidence": "high",
+      "confidence_pct": 87,
+      "next_action": "Call first; opening angle: reviews mention slow responses or long delays.",
+      "themes": [
+        {
+          "id": "slow",
+          "label": "slow responses or long delays",
+          "phrase": "It took 6 days to hear anything…",
+          "relevance": 1
+        }
+      ],
+      "review_sample": {
+        "size": 2,
+        "with_complaints": 1
+      },
+      "parts": [
+        {
+          "label": "Commercial fit",
+          "points": 25,
+          "weight": 25,
+          "reasons": [
+            "Size (review count as proxy): 60 reviews, established but not oversized (50–600 reviews)"
+          ]
+        },
+        {
+          "label": "Verified opportunity",
+          "points": 8,
+          "weight": 25,
+          "reasons": [
+            "Reviews (1 of 2 sampled reviews): slow responses or long delays (“It took 6 days to hear anything…”)"
+          ]
+        },
+        {
+          "label": "Likely to benefit",
+          "points": 20,
+          "weight": 20,
+          "reasons": [
+            "Rating 3.9: solid with room to improve (3.8–4.6)",
+            "Ownership not verified (no chain or franchise flag on file)"
+          ]
+        },
+        {
+          "label": "Reachability",
+          "points": 6,
+          "weight": 15,
+          "reasons": [
+            "On file: phone",
+            "Not on file: email, website, decision-maker name"
+          ]
+        },
+        {
+          "label": "Industry & area priority",
+          "points": 8,
+          "weight": 10,
+          "reasons": [
+            "Industry: property-management (primary target)",
+            "Area: San Diego, CA (expansion market)"
+          ]
+        },
+        {
+          "label": "Data completeness & confidence",
+          "points": 4,
+          "weight": 5,
+          "reasons": [
+            "high research confidence (87%)"
+          ]
+        }
+      ],
+      "ownership": null,
+      "franchise": false,
+      "rating": 3.9,
+      "reviews": 60,
+      "old_score": 68,
+      "old_tier": "hot",
+      "last_verified": "2026-11-10",
+      "fictional": true,
+      "start": {
+        "stage": "not_contacted",
+        "follow_up": null,
+        "value": null,
+        "notes": "",
+        "last_activity": null
+      }
+    },
+    {
+      "id": "prs_13n8hg1",
+      "name": "Desert Key Homes Franchise Office (fictional)",
+      "city": "Peoria, AZ",
+      "state": "AZ",
+      "phone": "+16235550103",
+      "website": null,
+      "industry": "property-management",
+      "band": "p2",
+      "band_label": "P2: call next",
+      "points": 65,
+      "fit": 85,
+      "fit_label": "Strong fit",
+      "opportunity": 31,
+      "opportunity_label": "Some opportunity",
+      "confidence": "high",
+      "confidence_pct": 83,
+      "next_action": "Call after P1 leads; opening angle: reviews mention calls or messages go unanswered; franchise, so confirm who chooses their tools.",
+      "themes": [
+        {
+          "id": "unanswered",
+          "label": "calls or messages go unanswered",
+          "phrase": "Radio silence after move-in, nobody…",
+          "relevance": 1
+        }
+      ],
+      "review_sample": {
+        "size": 2,
+        "with_complaints": 1
+      },
+      "parts": [
+        {
+          "label": "Commercial fit",
+          "points": 25,
+          "weight": 25,
+          "reasons": [
+            "Size (review count as proxy): 330 reviews, established but not oversized (50–600 reviews)"
+          ]
+        },
+        {
+          "label": "Verified opportunity",
+          "points": 8,
+          "weight": 25,
+          "reasons": [
+            "Reviews (1 of 2 sampled reviews): calls or messages go unanswered (“Radio silence after move-in, nobody…”)"
+          ]
+        },
+        {
+          "label": "Likely to benefit",
+          "points": 12,
+          "weight": 20,
+          "reasons": [
+            "Rating 4.1: solid with room to improve (3.8–4.6)",
+            "Ownership: national franchise (Example Home Partners); likely already on corporate systems, so confirm the local owner chooses tools before pitching"
+          ]
+        },
+        {
+          "label": "Reachability",
+          "points": 6,
+          "weight": 15,
+          "reasons": [
+            "On file: phone",
+            "Not on file: email, website, decision-maker name"
+          ]
+        },
+        {
+          "label": "Industry & area priority",
+          "points": 10,
+          "weight": 10,
+          "reasons": [
+            "Industry: property-management (primary target)",
+            "Area: Peoria, AZ (primary Phoenix-area market)"
+          ]
+        },
+        {
+          "label": "Data completeness & confidence",
+          "points": 4,
+          "weight": 5,
+          "reasons": [
+            "high research confidence (83%)"
+          ]
+        }
+      ],
+      "ownership": "national franchise (Example Home Partners (national franchise))",
+      "franchise": true,
+      "rating": 4.1,
+      "reviews": 330,
+      "old_score": 52,
+      "old_tier": "warm",
+      "last_verified": "2026-11-10",
+      "fictional": true,
+      "start": {
+        "stage": "not_contacted",
+        "follow_up": null,
+        "value": null,
+        "notes": "",
+        "last_activity": null
+      }
+    },
+    {
+      "id": "prs_18fo9im",
+      "name": "Ironwood Residential (fictional)",
+      "city": "Phoenix, AZ",
+      "state": "AZ",
+      "phone": "+16025550104",
+      "website": null,
+      "industry": "property-management",
+      "band": "p2",
+      "band_label": "P2: call next",
+      "points": 50,
+      "fit": 62,
+      "fit_label": "Good fit",
+      "opportunity": 23,
+      "opportunity_label": "Minor signals",
+      "confidence": "high",
+      "confidence_pct": 83,
+      "next_action": "Call after P1 leads; opening angle: reviews mention broken tools or a confusing process.",
+      "themes": [
+        {
+          "id": "process",
+          "label": "broken tools or a confusing process",
+          "phrase": "…application portal kept erroring out on my phone",
+          "relevance": 0.75
+        }
+      ],
+      "review_sample": {
+        "size": 2,
+        "with_complaints": 1
+      },
+      "parts": [
+        {
+          "label": "Commercial fit",
+          "points": 6,
+          "weight": 25,
+          "reasons": [
+            "Size (review count as proxy): 2,400 reviews, very large, likely corporate systems (1,200+ reviews)"
+          ]
+        },
+        {
+          "label": "Verified opportunity",
+          "points": 6,
+          "weight": 25,
+          "reasons": [
+            "Reviews (1 of 2 sampled reviews): broken tools or a confusing process (“…application portal kept erroring out on my phone”)"
+          ]
+        },
+        {
+          "label": "Likely to benefit",
+          "points": 18,
+          "weight": 20,
+          "reasons": [
+            "Rating 4.5: solid with room to improve (3.8–4.6)",
+            "Ownership: multi-location brand (Ironwood Residential)"
+          ]
+        },
+        {
+          "label": "Reachability",
+          "points": 6,
+          "weight": 15,
+          "reasons": [
+            "On file: phone",
+            "Not on file: email, website, decision-maker name"
+          ]
+        },
+        {
+          "label": "Industry & area priority",
+          "points": 10,
+          "weight": 10,
+          "reasons": [
+            "Industry: property-management (primary target)",
+            "Area: Phoenix, AZ (primary Phoenix-area market)"
+          ]
+        },
+        {
+          "label": "Data completeness & confidence",
+          "points": 4,
+          "weight": 5,
+          "reasons": [
+            "high research confidence (83%)"
+          ]
+        }
+      ],
+      "ownership": "multi location (Ironwood Residential)",
+      "franchise": false,
+      "rating": 4.5,
+      "reviews": 2400,
+      "old_score": 38,
+      "old_tier": "warm",
+      "last_verified": "2026-11-10",
+      "fictional": true,
+      "start": {
+        "stage": "not_contacted",
+        "follow_up": null,
+        "value": null,
+        "notes": "",
+        "last_activity": null
+      }
+    },
+    {
+      "id": "prs_1xx5ahd",
+      "name": "Ocotillo Management Group (fictional)",
+      "city": "Tucson, AZ",
+      "state": "AZ",
+      "phone": "+15205550106",
+      "website": null,
+      "industry": "property-management",
+      "band": "research_first",
+      "band_label": "Research first",
+      "points": 16,
+      "fit": null,
+      "fit_label": "Not enough evidence",
+      "opportunity": null,
+      "opportunity_label": "Not verified",
+      "confidence": "insufficient",
+      "confidence_pct": 26,
+      "next_action": "Research first: verify commercial fit, verified opportunity, likely to benefit before any outreach.",
+      "themes": [],
+      "review_sample": {
+        "size": 0,
+        "with_complaints": 0
+      },
+      "parts": [
+        {
+          "label": "Commercial fit",
+          "points": null,
+          "weight": 25,
+          "reasons": [
+            "Size not verified: no review count or unit count on file"
+          ]
+        },
+        {
+          "label": "Verified opportunity",
+          "points": null,
+          "weight": 25,
+          "reasons": [
+            "No verified problems on file yet (no Snapshot, observations or review text)"
+          ]
+        },
+        {
+          "label": "Likely to benefit",
+          "points": null,
+          "weight": 20,
+          "reasons": [
+            "Rating not verified",
+            "Ownership not verified (no chain or franchise flag on file)"
+          ]
+        },
+        {
+          "label": "Reachability",
+          "points": 6,
+          "weight": 15,
+          "reasons": [
+            "On file: phone",
+            "Not on file: email, website, decision-maker name"
+          ]
+        },
+        {
+          "label": "Industry & area priority",
+          "points": 9,
+          "weight": 10,
+          "reasons": [
+            "Industry: property-management (primary target)",
+            "Area: Tucson, AZ (other Arizona market)"
+          ]
+        },
+        {
+          "label": "Data completeness & confidence",
+          "points": 1,
+          "weight": 5,
+          "reasons": [
+            "insufficient research confidence (26%)"
+          ]
+        }
+      ],
+      "ownership": null,
+      "franchise": false,
+      "rating": null,
+      "reviews": null,
+      "old_score": 30,
+      "old_tier": "cold",
+      "last_verified": null,
+      "fictional": true,
+      "start": {
+        "stage": "not_contacted",
+        "follow_up": null,
+        "value": null,
+        "notes": "",
+        "last_activity": null
+      }
+    },
+    {
+      "id": "prs_0wbhupg",
+      "name": "Copper Mesa Rentals (fictional)",
+      "city": "Glendale, AZ",
+      "state": "AZ",
+      "phone": "+16235550102",
+      "website": null,
+      "industry": "property-management",
+      "band": "in_progress",
+      "band_label": "In progress",
+      "points": 57,
+      "fit": 85,
+      "fit_label": "Strong fit",
+      "opportunity": 0,
+      "opportunity_label": "No problem found in the evidence checked",
+      "confidence": "high",
+      "confidence_pct": 87,
+      "next_action": "Audit booked; prepare the Snapshot.",
+      "themes": [],
+      "review_sample": {
+        "size": 2,
+        "with_complaints": 0
+      },
+      "parts": [
+        {
+          "label": "Commercial fit",
+          "points": 25,
+          "weight": 25,
+          "reasons": [
+            "Size (review count as proxy): 95 reviews, established but not oversized (50–600 reviews)"
+          ]
+        },
+        {
+          "label": "Verified opportunity",
+          "points": 0,
+          "weight": 25,
+          "reasons": [
+            "No complaint language in 2 sampled reviews",
+            "Ignored as praise: “Never had a delay with any repair…”; “…team is not slow to reply to…”"
+          ]
+        },
+        {
+          "label": "Likely to benefit",
+          "points": 12,
+          "weight": 20,
+          "reasons": [
+            "Rating 4.8: near-perfect, less visible pain (above 4.6)",
+            "Ownership not verified (no chain or franchise flag on file)"
+          ]
+        },
+        {
+          "label": "Reachability",
+          "points": 6,
+          "weight": 15,
+          "reasons": [
+            "On file: phone",
+            "Not on file: email, website, decision-maker name"
+          ]
+        },
+        {
+          "label": "Industry & area priority",
+          "points": 10,
+          "weight": 10,
+          "reasons": [
+            "Industry: property-management (primary target)",
+            "Area: Glendale, AZ (primary Phoenix-area market)"
+          ]
+        },
+        {
+          "label": "Data completeness & confidence",
+          "points": 4,
+          "weight": 5,
+          "reasons": [
+            "high research confidence (87%)"
+          ]
+        }
+      ],
+      "ownership": null,
+      "franchise": false,
+      "rating": 4.8,
+      "reviews": 95,
+      "old_score": 68,
+      "old_tier": "hot",
+      "last_verified": "2026-11-10",
+      "fictional": true,
+      "start": {
+        "stage": "audit_booked",
+        "follow_up": null,
+        "value": null,
+        "notes": "",
+        "last_activity": null
+      }
+    },
+    {
+      "id": "prs_0kv0qjw",
+      "name": "Palo Verde Property Care (fictional)",
+      "city": "Peoria, AZ",
+      "state": "AZ",
+      "phone": "+16235550105",
+      "website": null,
+      "industry": "property-management",
+      "band": "closed",
+      "band_label": "Closed (declined)",
+      "points": 65,
+      "fit": 100,
+      "fit_label": "Strong fit",
+      "opportunity": 0,
+      "opportunity_label": "No problem found in the evidence checked",
+      "confidence": "high",
+      "confidence_pct": 87,
+      "next_action": "Declined; no further outreach unless they reach out.",
+      "themes": [],
+      "review_sample": {
+        "size": 2,
+        "with_complaints": 0
+      },
+      "parts": [
+        {
+          "label": "Commercial fit",
+          "points": 25,
+          "weight": 25,
+          "reasons": [
+            "Size (review count as proxy): 140 reviews, established but not oversized (50–600 reviews)"
+          ]
+        },
+        {
+          "label": "Verified opportunity",
+          "points": 0,
+          "weight": 25,
+          "reasons": [
+            "No complaint language in 2 sampled reviews",
+            "Ignored 1 sentence about a previous company"
+          ]
+        },
+        {
+          "label": "Likely to benefit",
+          "points": 20,
+          "weight": 20,
+          "reasons": [
+            "Rating 4.4: solid with room to improve (3.8–4.6)",
+            "Ownership not verified (no chain or franchise flag on file)"
+          ]
+        },
+        {
+          "label": "Reachability",
+          "points": 6,
+          "weight": 15,
+          "reasons": [
+            "On file: phone",
+            "Not on file: email, website, decision-maker name"
+          ]
+        },
+        {
+          "label": "Industry & area priority",
+          "points": 10,
+          "weight": 10,
+          "reasons": [
+            "Industry: property-management (primary target)",
+            "Area: Peoria, AZ (primary Phoenix-area market)"
+          ]
+        },
+        {
+          "label": "Data completeness & confidence",
+          "points": 4,
+          "weight": 5,
+          "reasons": [
+            "high research confidence (87%)"
+          ]
+        }
+      ],
+      "ownership": null,
+      "franchise": false,
+      "rating": 4.4,
+      "reviews": 140,
+      "old_score": 68,
+      "old_tier": "hot",
+      "last_verified": "2026-11-10",
+      "fictional": true,
+      "start": {
+        "stage": "declined",
+        "follow_up": null,
+        "value": null,
+        "notes": "Happy with current setup (fictional note)",
+        "last_activity": null
+      }
+    }
+  ]
+}

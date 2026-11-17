@@ -12,7 +12,8 @@ import type { EvidenceKind, Industry, Ownership } from './icp-config.ts';
 import type { LegacyLead } from './legacy-pm.ts';
 
 export interface Fact<T> { value: T; kind: EvidenceKind; checked_at: string | null; source?: string }
-export type OutreachStatus = 'not_contacted' | 'attempted' | 'contacted' | 'audit_booked' | 'declined' | 'customer';
+export type OutreachStatus = 'not_contacted' | 'attempted' | 'contacted' | 'audit_booked' | 'audit_delivered' | 'build_sold' | 'retainer_active' | 'declined' | 'customer';
+export interface Outreach { status: OutreachStatus; notes: string; last_contact: string | null; follow_up: string | null; deal_value: number | null }
 export type Restriction = 'do_not_contact' | 'no_calls' | 'no_sms' | 'no_email';
 export interface Observation { category: string; severity: 'high' | 'medium' | 'low'; note: string; kind: EvidenceKind; checked_at: string | null; source_url?: string }
 
@@ -39,7 +40,7 @@ export interface ProspectRecord {
   observations: Observation[];
   snapshot: { verified_score: number | null; coverage: number; confidence: Confidence; report_date: string } | null;
   contact_restrictions: Restriction[];
-  outreach: { status: OutreachStatus; notes: string; last_contact: string | null };
+  outreach: Outreach;
   /** Raw legacy tracker fields, kept so the old score can be reproduced exactly. */
   legacy: LegacyLead | null;
   dedupe_key: string;
@@ -67,7 +68,7 @@ function blank(name: string, origin: ProspectRecord['origin']): ProspectRecord {
     schema: 'rrs.prospect/1', prospect_id: '', fictional: false, origin, name, industry: null, city: null, state: null,
     website: null, phone: null, email: null, decision_maker: null, operating_status: null, ownership: null, ownership_label: null,
     rating: null, review_count: null, units_managed: null, review_excerpts: null, observations: [], snapshot: null,
-    contact_restrictions: [], outreach: { status: 'not_contacted', notes: '', last_contact: null }, legacy: null, dedupe_key: '',
+    contact_restrictions: [], outreach: { status: 'not_contacted', notes: '', last_contact: null, follow_up: null, deal_value: null }, legacy: null, dedupe_key: '',
   };
 }
 
@@ -173,8 +174,10 @@ export function parseCsv(text: string): string[][] {
   return rows;
 }
 
+/** Both tracker versions: v1 "Booked Audit"; v2 adds the Audit → Build → Retainer ladder. */
 const LEGACY_STATUS: Record<string, OutreachStatus> = {
-  'not contacted': 'not_contacted', attempted: 'attempted', 'booked audit': 'audit_booked', declined: 'declined',
+  'not contacted': 'not_contacted', attempted: 'attempted', 'booked audit': 'audit_booked', 'audit booked': 'audit_booked',
+  'audit delivered': 'audit_delivered', 'build sold': 'build_sold', 'retainer active': 'retainer_active', declined: 'declined',
 };
 
 export function fromLegacyCsv(text: string, opts: LegacyImportOptions = {}): ImportResult {
@@ -183,9 +186,10 @@ export function fromLegacyCsv(text: string, opts: LegacyImportOptions = {}): Imp
   const prospects: ProspectRecord[] = [];
   const rows = parseCsv(text);
   if (!rows.length) return { prospects, errors: [{ where: 'csv', message: 'file is empty' }], warnings };
-  const header = rows[0]!.map((h) => h.trim().toLowerCase());
+  // Header names compared without spaces/punctuation: "NextFollowUp" = "Next follow-up".
+  const header = rows[0]!.map((h) => h.trim().toLowerCase().replace(/[^a-z0-9]/g, ''));
   const col = (n: string) => header.indexOf(n);
-  for (const required of ['name', 'city', 'phone', 'rating', 'reviews', 'status', 'notes']) {
+  for (const required of ['name', 'city', 'phone', 'rating', 'reviews', 'status']) {
     if (col(required) < 0) errors.push({ where: 'header', message: `missing column "${required}" (expected the PM Lead Scorer export)` });
   }
   if (errors.length) return { prospects, errors, warnings };
@@ -208,7 +212,19 @@ export function fromLegacyCsv(text: string, opts: LegacyImportOptions = {}): Imp
     else if (get('reviews')) errors.push({ where: `${where} (${name})`, message: `Reviews "${get('reviews')}" is not a whole number` });
     const status = LEGACY_STATUS[get('status').toLowerCase()];
     if (get('status') && !status) warnings.push({ where: `${where} (${name})`, message: `unknown Status "${get('status')}"; treated as Not Contacted` });
-    p.outreach = { status: status ?? 'not_contacted', notes: get('notes'), last_contact: null };
+    // v2 export: NextFollowUp (YYYY-MM-DD), DealValue, LastActivity ("9/16/2026: Called, no answer").
+    const follow = get('nextfollowup');
+    if (follow && !isIsoDate(follow)) warnings.push({ where: `${where} (${name})`, message: `NextFollowUp "${follow}" is not YYYY-MM-DD; ignored` });
+    const value = Number(get('dealvalue'));
+    if (get('dealvalue') && (!Number.isFinite(value) || value < 0)) warnings.push({ where: `${where} (${name})`, message: `DealValue "${get('dealvalue')}" is not a number; ignored` });
+    const activity = get('lastactivity');
+    p.outreach = {
+      status: status ?? 'not_contacted',
+      notes: [get('notes'), activity && `Last activity: ${activity}`].filter(Boolean).join(' | '),
+      last_contact: null,
+      follow_up: follow && isIsoDate(follow) ? follow : null,
+      deal_value: Number.isFinite(value) && value > 0 ? value : null,
+    };
     prospects.push(finish(p));
   });
   return { prospects, errors, warnings };
@@ -246,8 +262,14 @@ export function mergeProspects(list: ProspectRecord[]): { prospects: ProspectRec
     prev.observations.push(...p.observations);
     prev.snapshot ??= p.snapshot;
     prev.contact_restrictions = [...new Set([...prev.contact_restrictions, ...p.contact_restrictions])];
-    if (p.outreach.status !== 'not_contacted' || p.outreach.notes) {
-      prev.outreach = { status: p.outreach.status !== 'not_contacted' ? p.outreach.status : prev.outreach.status, notes: [prev.outreach.notes, p.outreach.notes].filter(Boolean).join(' | '), last_contact: p.outreach.last_contact ?? prev.outreach.last_contact };
+    if (p.outreach.status !== 'not_contacted' || p.outreach.notes || p.outreach.follow_up || p.outreach.deal_value) {
+      prev.outreach = {
+        status: p.outreach.status !== 'not_contacted' ? p.outreach.status : prev.outreach.status,
+        notes: [prev.outreach.notes, p.outreach.notes].filter(Boolean).join(' | '),
+        last_contact: p.outreach.last_contact ?? prev.outreach.last_contact,
+        follow_up: p.outreach.follow_up ?? prev.outreach.follow_up,
+        deal_value: p.outreach.deal_value ?? prev.outreach.deal_value,
+      };
     }
     prev.legacy ??= p.legacy;
   }

@@ -9,6 +9,7 @@
 | 1 · Business & offer foundation | ✅ Built, **awaiting approval** | Prices, logo concept, positioning, proposal template |
 | 2 · Website & lead magnet | ✅ **Feature-complete, not connected** | Site, Snapshot capture, exports, intake workflow, mobile pass, consent. Going live needs approvals + accounts |
 | 3 · Audit & research engine | 🟡 In progress | Exports, **scorecard workbook + importer**, **ICP scoring** done. Data model, research engine and the other 24 scorecards next |
+| 4 · Sales enablement | 🟡 Started | **Call queue** + outcomes loop done; script library drafted (needs owner review) |
 | 4–7 | ⏳ Planned | `IMPLEMENTATION-PLAN.md` |
 
 ## What is working (verified 2026-11-17)
@@ -19,11 +20,12 @@
   - all six report formats (`npm run snapshot:export`)
   - proven against a local stand-in endpoint: 22 connected checks, including failure and retry
 - **Scorecard workbook:** generate (blank or from a lead) → fill on a phone in Google Sheets/Excel → import with cell-cited checks → six report formats. Formulas match the engine.
+- **Call queue (phone):** the scored list as a call queue: tap-to-call, one-tap outcomes with automatic follow-ups, follow-up calendar, pipeline $, scripts and objections, results by priority. Hosted privately for the owner; outcomes flow back into scoring.
 - **ICP scoring:** lead batches (tracker JSON + CSV with statuses, website leads, Snapshots) → four separate scores with reasons → ranked call list (CSV + JSON). The CRM record now carries ICP fit and outreach priority.
 - **Exportable Snapshot reports:** printable HTML, PDF, criteria/summary CSV, full JSON, CRM record (JSON Schema), editable 9-slide deck. Fictional samples are downloadable on the site.
 - **Mobile:** sticky Snapshot button, saved progress, step scrolling, keyboard hints.
 - **Consent:** GA4 loads only after "Allow". 10 checks with Google requests intercepted.
-- **Tests:** 68 unit tests, strict type-check of all framework-free modules. A fresh clone passes `npm run verify`.
+- **Tests:** 79 unit tests, 46 call-queue browser checks, strict type-check of all framework-free modules. A fresh clone passes `npm run verify`.
 
 ## Built but not live (needs approval / accounts)
 | Item | What's missing |
