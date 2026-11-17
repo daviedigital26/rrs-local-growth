@@ -2,6 +2,7 @@ node_modules/
 02-Public-Website/dist/
 15-Quality-Assurance/screenshots/*.png
 !15-Quality-Assurance/screenshots/.gitkeep
+15-Quality-Assurance/e2e/last-run.json
 19-Exports/*.zip
 19-Exports/*.bundle
 .env

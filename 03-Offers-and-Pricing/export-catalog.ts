@@ -1,4 +1,5 @@
 /** Generates catalog exports. Run: npm run catalog */
+import { createHash } from 'node:crypto';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -18,7 +19,7 @@ const stamp = 'Generated from `offer-catalog.ts` by `npm run catalog`. Edit the 
 // JSON ────────────────────────────────────────────────────────────────────
 writeFileSync(
   join(out, 'offer-catalog.json'),
-  JSON.stringify({ meta: { generated: new Date().toISOString().slice(0, 10), priceStatus: 'Prices are proposed launch prices pending owner approval', laborCostPerHourAssumption: LABOR_COST_PER_HOUR }, offers, addOns }, null, 2),
+  JSON.stringify({ meta: { contentHash: createHash('sha256').update(JSON.stringify({ offers, addOns })).digest('hex').slice(0, 12), priceStatus: 'Prices are proposed launch prices pending owner approval', laborCostPerHourAssumption: LABOR_COST_PER_HOUR }, offers, addOns }, null, 2),
 );
 
 // Catalog (all 14 artefacts per offer) ────────────────────────────────────
