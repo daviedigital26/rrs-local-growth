@@ -14,9 +14,16 @@ export interface Attribution {
   first_touch_at?: string; // ISO
 }
 
-export interface SnapshotRequestPayload {
+/** Spam signals the server re-checks (05-Lead-Research/intake/lead-intake.ts). */
+export interface SpamSignals {
+  form_started_at?: string; // ISO, set on first interaction
+  company_website?: string; // honeypot: must be empty
+}
+
+export interface SnapshotRequestPayload extends SpamSignals {
   form: 'snapshot_request';
   submitted_at: string; // ISO
+  interest?: string; // offer id from ?interest= links
   business_name: string;
   website?: string; // optional: "no website" is valid
   city: string;
@@ -34,7 +41,7 @@ export interface SnapshotRequestPayload {
   attribution: Attribution;
 }
 
-export interface ContactPayload {
+export interface ContactPayload extends SpamSignals {
   form: 'contact';
   submitted_at: string;
   contact_name: string;

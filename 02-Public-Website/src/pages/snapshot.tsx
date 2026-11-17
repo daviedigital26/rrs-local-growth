@@ -137,9 +137,10 @@ function SnapshotForm() {
           <Chips name="preferred_channel" legendId="l-channel" options={[{ value: 'email', label: 'Email' }, { value: 'phone', label: 'Phone call' }, { value: 'text', label: 'Text' }]} />
         </div>
         <label className="consent" data-sms-consent="" hidden>
-          <input type="checkbox" name="consent_sms" value="yes" />
+          <input type="checkbox" name="consent_sms" value="yes" aria-describedby="err-consent_sms" />
           <span>{CONSENT_SMS}</span>
         </label>
+        <FieldError id="consent_sms" />
         <label className="consent">
           <input type="checkbox" name="consent_contact" value="yes" required aria-describedby="err-consent_contact" />
           <span>{CONSENT_CONTACT} See our <a href="/privacy/">privacy policy</a>.</span>

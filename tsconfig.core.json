@@ -12,6 +12,9 @@
     "04-Audits-and-Scorecards/snapshot/report/model.ts",
     "04-Audits-and-Scorecards/snapshot/report/formats.ts",
     "04-Audits-and-Scorecards/snapshot/report/pdf.ts",
-    "04-Audits-and-Scorecards/snapshot/report/pptx.ts"
+    "04-Audits-and-Scorecards/snapshot/report/pptx.ts",
+    "05-Lead-Research/intake/*.ts",
+    "12-Automations/n8n/*.ts",
+    "15-Quality-Assurance/mock-intake/*.ts"
   ]
 }

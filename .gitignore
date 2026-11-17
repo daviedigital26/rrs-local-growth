@@ -10,3 +10,7 @@ node_modules/
 !.env.example
 *.log
 .DS_Store
+05-Lead-Research/Research-Outputs/*
+!05-Lead-Research/Research-Outputs/README.md
+19-Exports/snapshots/
+02-Public-Website/dist-*/

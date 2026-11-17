@@ -15,7 +15,8 @@ import { routes } from '../src/routes.tsx';
 
 const web = join(dirname(fileURLToPath(import.meta.url)), '..');
 const root = join(web, '..');
-const dist = join(web, 'dist');
+/** RRS_DIST_DIR lets QA build a second, differently configured copy (e.g. dist-connected). */
+const dist = join(web, process.env.RRS_DIST_DIR ?? 'dist');
 const t0 = Date.now();
 
 rmSync(dist, { recursive: true, force: true });

@@ -14,16 +14,19 @@
     "register": "tsx 00-Project-Management/build-register.ts",
     "assets": "tsx 08-Design-Assets/build-assets.ts",
     "build:site": "tsx 02-Public-Website/scripts/build.tsx",
-    "build": "npm run tokens && npm run catalog && npm run framework && npm run assets && npm run build:site && npm run register",
+    "build": "npm run tokens && npm run catalog && npm run framework && npm run workflows && npm run assets && npm run build:site && npm run register",
     "serve": "tsx 02-Public-Website/scripts/serve.ts",
     "test": "node --import tsx --test \"**/*.test.ts\"",
     "test:e2e": "tsx 15-Quality-Assurance/e2e/run-e2e.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "typecheck:core": "tsc -p tsconfig.core.json --noEmit",
-    "verify": "npm run build && npm run typecheck:core && npm test && npm run test:e2e",
+    "verify": "npm run build && npm run typecheck:core && npm test && npm run test:e2e && npm run test:e2e:connected",
     "framework": "tsx 04-Audits-and-Scorecards/snapshot/export-methodology.ts",
     "snapshot:export": "tsx 04-Audits-and-Scorecards/snapshot/report/export-cli.ts",
-    "samples": "tsx 04-Audits-and-Scorecards/snapshot/report/export-cli.ts 17-Sample-Clients/fictional-hvac-snapshot.json --out 17-Sample-Clients/exports --stable"
+    "samples": "tsx 04-Audits-and-Scorecards/snapshot/report/export-cli.ts 17-Sample-Clients/fictional-hvac-snapshot.json --out 17-Sample-Clients/exports --stable",
+    "workflows": "tsx 12-Automations/n8n/build-workflows.ts",
+    "snapshot:new": "tsx 05-Lead-Research/intake/snapshot-new-cli.ts",
+    "test:e2e:connected": "tsx 15-Quality-Assurance/e2e/run-connected.ts"
   },
   "dependencies": {
     "pdf-lib": "1.17.1",

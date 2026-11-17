@@ -110,7 +110,13 @@
     industry: function (f) { return checked(f, 'industry') ? '' : 'Choose your industry.'; },
     contact_name: function (f) { return val(f, 'contact_name') ? '' : 'Enter your name.'; },
     email: function (f) { return EMAIL.test(val(f, 'email')) ? '' : 'Enter a valid email address.'; },
-    phone: function (f) { var v = val(f, 'phone'); return !v || validPhone(v) ? '' : 'Enter a valid phone number, or leave it blank.'; },
+    phone: function (f) {
+      var v = val(f, 'phone'); var ch = checked(f, 'preferred_channel');
+      if (v && !validPhone(v)) return 'Enter a valid phone number, or leave it blank.';
+      if (!v && (ch === 'phone' || ch === 'text')) return 'Add a phone number so we can ' + (ch === 'text' ? 'text' : 'call') + ' you, or choose email.';
+      return '';
+    },
+    consent_sms: function (f) { var c = f.querySelector('[name="consent_sms"]'); return checked(f, 'preferred_channel') === 'text' && c && !c.checked ? 'Tick the box so we’re allowed to text you, or choose another option.' : ''; },
     message: function (f) { return val(f, 'message') ? '' : 'Enter a message.'; },
     consent_contact: function (f) { var c = f.querySelector('[name="consent_contact"]'); return c && c.checked ? '' : 'Please confirm we may contact you about your request.'; },
   };
@@ -172,7 +178,7 @@
     var steps = $$('.snap-step', snap);
     var status = $('[data-step-status]', snap);
     var current = 0;
-    var STEP_FIELDS = [['business_name', 'website', 'city', 'industry'], [], ['contact_name', 'email', 'phone', 'consent_contact']];
+    var STEP_FIELDS = [['business_name', 'website', 'city', 'industry'], [], ['contact_name', 'email', 'phone', 'consent_sms', 'consent_contact']];
 
     function show(i, focus) {
       current = i;
@@ -263,6 +269,8 @@
         consent_sms: !!(snap.querySelector('[name="consent_sms"]') || {}).checked,
         consent_text: (snap.querySelector('[name="consent_contact"]').parentNode.textContent || '').trim(),
         attribution: attribution,
+        form_started_at: val(snap, 'form_started_at') || undefined,
+        company_website: val(snap, 'company_website'),
       };
       var btn = snap.querySelector('button[type=submit]');
       if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
@@ -294,6 +302,7 @@
         form: 'contact', submitted_at: new Date().toISOString(), contact_name: val(contact, 'contact_name'), business_name: val(contact, 'business_name') || undefined,
         email: val(contact, 'email'), phone: val(contact, 'phone') || undefined, topic: checked(contact, 'topic') || 'general', message: val(contact, 'message').slice(0, 2000),
         consent_contact: true, consent_text: (contact.querySelector('[name="consent_contact"]').parentNode.textContent || '').trim(), attribution: attribution,
+        form_started_at: val(contact, 'form_started_at') || undefined, company_website: val(contact, 'company_website'),
       };
       send(payload).then(function (mode) { track('contact_submit', { topic: payload.topic, mode: mode }); showDone(contact, mode); })
         .catch(function (err) { reportError('contact submit failed: ' + err.message); if (formErr) { formErr.textContent = 'We couldn’t send your message just now. Please try again in a moment.'; formErr.hidden = false; } });

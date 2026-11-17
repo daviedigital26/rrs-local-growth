@@ -186,7 +186,10 @@ try {
   check('[snapshot] SMS consent appears only for text', await sp.isVisible('[data-sms-consent]'));
   await sp.click('button[type="submit"]');
   check('[snapshot] invalid email + missing consent blocked', await sp.isVisible('[data-error-for="email"]') && await sp.isVisible('[data-error-for="consent_contact"]'));
+  check('[snapshot] text channel requires phone + SMS consent', await sp.isVisible('[data-error-for="phone"]') && await sp.isVisible('[data-error-for="consent_sms"]'));
   await sp.fill('#f-email', 'owner@example.com');
+  await sp.fill('#f-phone', '602-555-0147');
+  await sp.check('input[name="consent_sms"]');
   await sp.check('input[name="consent_contact"]');
   await sp.waitForTimeout(3100); // human-speed guard
   await sp.click('button[type="submit"]');

@@ -3,7 +3,7 @@
 > Generated from `deliverables.ts` by `npm run register`. Edit the data file, not this table.
 > Rule: nothing is marked Created/Tested/Approved unless the file exists (enforced by `register.test.ts`).
 
-**Totals:** Created 11 · Tested 19 · Blocked 3 · Planned 10
+**Totals:** Created 12 · Tested 21 · Blocked 2 · Planned 10
 
 | ID | Name | Description | File location | Status | Dependencies | Validation | Approval | Classification | Last modified |
 |---|---|---|---|---|---|---|---|---|---|
@@ -35,7 +35,9 @@
 | RRS-2-12 | SEO plumbing | Titles, descriptions, canonical, OG, JSON-LD, breadcrumbs, sitemap.xml, robots.txt. | `02-Public-Website/src/lib/seo.tsx` | **Tested** | RRS-2-01 | seo checks in e2e | Not required | Working | 2026-11-16 |
 | RRS-2-13 | Open Graph image + favicons | OG template PNG and favicon set rendered from SVG (concept mark). | `08-Design-Assets/build-assets.ts`<br>`02-Public-Website/public/og/og-default.png`<br>`02-Public-Website/public/favicon.svg` | **Created** | RRS-1-03 | Rendered via sharp | Pending | Draft, Needs approval | 2026-11-16 |
 | RRS-2-14 | Website QA suite | Playwright e2e at 375/768/1280, overflow, links, SEO, forms, demo labels, screenshots. | `15-Quality-Assurance/e2e/run-e2e.ts` | **Tested** | RRS-2-01 | 776/776 checks pass (TEST-RESULTS.md) | Not required | Working | 2026-11-16 |
-| RRS-2-15 | Form submission endpoint (n8n) | Snapshot + contact intake webhook → CRM. | — | **Blocked** | RRS-2-07 | — | Pending | Needs credentials, Needs approval | 2026-11-16 |
+| RRS-2-15 | n8n intake workflow (inactive) | Webhook → shared validator (bundled) → CRM upsert via env-var URL → owner notification → 200; spam silently 200; invalid 422. Exported inactive, no credentials. | `12-Automations/n8n/rrs-intake.workflow.json`<br>`12-Automations/n8n/build-workflows.ts` | **Created** | RRS-2-18 | Structure, wiring, no-secrets and embedded Code-node execution tested (intake.test.ts). NOT import-tested in a live n8n: needs approved instance | Pending | Needs credentials, Needs approval | 2026-11-17 |
+| RRS-2-18 | Server-side intake validator + lead → Snapshot draft | Re-validates and normalises every submission (email, E.164 phone, domain), re-checks spam, builds dedupe key + lead record; converts accepted requests into research drafts (owner answers = owner-reported, rest Not verified). CLI: npm run snapshot:new. | `05-Lead-Research/intake/lead-intake.ts`<br>`05-Lead-Research/intake/lead-to-snapshot.ts`<br>`05-Lead-Research/intake/snapshot-new-cli.ts`<br>`05-Lead-Research/intake/intake.test.ts` | **Tested** | RRS-2-06, RRS-2-07 | intake.test.ts (8 tests) | Not required | Working | 2026-11-17 |
+| RRS-2-19 | Connected-mode e2e + mock intake endpoint | Builds a site copy pointed at a local mock (same validator), submits real forms: payload contract, CORS, consent, attribution, failure + retry, contact form. | `15-Quality-Assurance/e2e/run-connected.ts`<br>`15-Quality-Assurance/mock-intake/server.ts` | **Tested** | RRS-2-18 | 22/22 connected checks pass | Not required | Working | 2026-11-17 |
 | RRS-2-16 | Analytics, booking, Search Console, hosting | Provider accounts + config. Guidance written; nothing activated. | `18-Documentation/INTEGRATIONS-GUIDE.md` | **Blocked** | — | — | Pending | Needs credentials, Needs approval | 2026-11-16 |
 | RRS-3-01 | 25 reusable scorecards (XLSX + CSV/JSON) | Spec Part 5 list. | — | **Planned** | RRS-2-06 | — | Not required | — | 2026-11-16 |
 | RRS-3-02 | Research engine + evidence model | Spec Part 6 workflow, documented APIs only. | — | **Planned** | RRS-3-04 | — | Pending | Needs credentials | 2026-11-16 |
@@ -48,5 +50,5 @@
 | RRS-4-03 | Marketing campaign & 90-day calendar | Spec Part 10. | — | **Planned** | — | — | Pending | — | 2026-11-16 |
 | RRS-4-04 | Visual asset library + manifest | Spec Part 11. | — | **Planned** | RRS-1-01 | — | Pending | — | 2026-11-16 |
 | RRS-5-01 | Onboarding portal & SOP library | Spec Parts 12–14. | — | **Planned** | RRS-3-04 | — | Pending | — | 2026-11-16 |
-| RRS-6-01 | n8n workflow library (30) | Spec Part 15. | — | **Planned** | RRS-2-15 | — | Pending | Needs credentials | 2026-11-16 |
+| RRS-6-01 | n8n workflow library (30) | Spec Part 15. Intake workflow (RRS-2-15) is the first. | — | **Planned** | RRS-2-15 | — | Pending | Needs credentials | 2026-11-16 |
 | RRS-7-01 | End-to-end launch test | Spec Phase 7. | — | **Planned** | — | — | Pending | — | 2026-11-16 |

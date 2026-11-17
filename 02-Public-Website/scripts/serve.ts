@@ -12,15 +12,15 @@ const TYPES: Record<string, string> = {
   '.xml': 'application/xml', '.pdf': 'application/pdf', '.csv': 'text/csv; charset=utf-8', '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation', '.txt': 'text/plain; charset=utf-8', '.webmanifest': 'application/manifest+json',
 };
 
-export function startServer(port = Number(process.argv[2] ?? 4321)) {
+export function startServer(port = Number(process.argv[2] ?? 4321), root = dist) {
   const server = createServer((req, res) => {
     if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405).end('Method not allowed (static preview)'); return; }
     const url = new URL(req.url ?? '/', 'http://localhost');
     let p = normalize(decodeURIComponent(url.pathname)).replace(/^(\.\.[/\\])+/, '');
-    let file = join(dist, p);
-    if (!file.startsWith(dist)) { res.writeHead(403).end(); return; }
+    let file = join(root, p);
+    if (!file.startsWith(root)) { res.writeHead(403).end(); return; }
     if (existsSync(file) && statSync(file).isDirectory()) file = join(file, 'index.html');
-    if (!existsSync(file)) { res.writeHead(404, { 'Content-Type': TYPES['.html']! }).end(readFileSync(join(dist, '404.html'))); return; }
+    if (!existsSync(file)) { res.writeHead(404, { 'Content-Type': TYPES['.html']! }).end(readFileSync(join(root, '404.html'))); return; }
     res.writeHead(200, { 'Content-Type': TYPES[extname(file)] ?? 'application/octet-stream' }).end(readFileSync(file));
   });
   return new Promise<typeof server>((resolve) => server.listen(port, () => resolve(server)));

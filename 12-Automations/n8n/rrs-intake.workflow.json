@@ -1,0 +1,299 @@
+{
+  "name": "RRS · Snapshot & contact intake",
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "nodes": [
+    {
+      "id": "00000000-0000-4000-8000-000000000001",
+      "name": "Website form webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "00000000-0000-4000-8000-000000000101",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rrs-intake",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://www.example-rrs-domain.com"
+        }
+      }
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000002",
+      "name": "Validate & normalise",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// RRS intake validator (generated from 05-Lead-Research/intake/lead-intake.ts — do not edit here)\n\"use strict\";var RRSIntake=(()=>{var k=Object.defineProperty;var F=Object.getOwnPropertyDescriptor;var H=Object.getOwnPropertyNames;var j=Object.prototype.hasOwnProperty;var K=(e,s)=>{for(var t in s)k(e,t,{get:s[t],enumerable:!0})},Y=(e,s,t,c)=>{if(s&&typeof s==\"object\"||typeof s==\"function\")for(let a of H(s))!j.call(e,a)&&a!==t&&k(e,a,{get:()=>s[a],enumerable:!(c=F(s,a))||c.enumerable});return e};var J=e=>Y(k({},\"__esModule\",{value:!0}),e);var ie={};K(ie,{CONCERN_VALUES:()=>D,CONTACT_TOPICS:()=>B,INDUSTRY_VALUES:()=>G,INTAKE_VERSION:()=>L,MIN_FILL_MS:()=>W,dedupeKey:()=>V,normalizeName:()=>x,normalizePhone:()=>U,normalizeWebsite:()=>$,processSubmission:()=>te,shortHash:()=>z});var T=[0,.25,.5,.75,1];var i=\"If this cannot be checked (page or profile unavailable, access restricted, search not completed) mark Not verified. Do not score 0.\",X=[{id:\"maps\",name:\"Google Maps presence\",outcome:\"Get Discovered\",question:\"Can nearby customers find an accurate, complete profile when they search on Google Maps?\",recommendedOffer:\"local-visibility-jumpstart\",limitations:\"Local results vary by searcher location, device and time. Sampled positions are observations, not rankings. Private profile data (e.g. Insights) is only available with the owner\\u2019s delegated access.\",criteria:[{id:\"maps.profile\",label:\"Profile found and matches the business\",points:4,measure:\"A Google Business Profile exists for the business name, phone and area.\",tiers:{1:\"Found; name, phone and area match\",\"0.5\":\"Found, but details conflict or an apparent duplicate exists\",0:\"No profile found after a documented search using name, phone and address variants\"},sources:[\"Google Maps public listing\",\"Google Places API (approved key)\"],evidence:\"Profile URL, search queries used, date checked\",allowedEvidence:[\"public_observation\",\"api_data\"],missingData:i,freshnessDays:30,limitations:'\"Not found\" is an observation only after the documented search; it is never assumed.'},{id:\"maps.category\",label:\"Primary category and services fit\",points:4,measure:\"Primary category matches the core service; services are listed.\",tiers:{1:\"Primary category correct and services listed\",\"0.5\":\"Category acceptable but services missing, or category too broad\",0:\"Primary category clearly mismatched\"},sources:[\"Google Maps public listing\"],evidence:\"Screenshot or noted category + services, date\",allowedEvidence:[\"public_observation\",\"api_data\"],missingData:i,freshnessDays:30,limitations:\"Secondary categories are not always publicly visible.\"},{id:\"maps.completeness\",label:\"Profile completeness\",points:4,measure:\"Count of: hours, website link, phone, address/service area, business description.\",tiers:{1:\"5 of 5 present\",\"0.75\":\"4 of 5\",\"0.5\":\"3 of 5\",\"0.25\":\"2 of 5\",0:\"0\\u20131 of 5\"},sources:[\"Google Maps public listing\",\"Google Places API\"],evidence:\"Checklist of the five fields with date\",allowedEvidence:[\"public_observation\",\"api_data\"],missingData:i,freshnessDays:30,limitations:\"Descriptions are hidden in some views; check the full profile.\"},{id:\"maps.activity\",label:\"Recent photos or updates\",points:3,measure:\"Owner-added photos or updates visible within the last 90 days.\",tiers:{1:\"Within 30 days\",\"0.5\":\"Within 90 days\",0:\"None visible in 90 days\"},sources:[\"Google Maps public listing\"],evidence:\"Date of most recent owner photo/update\",allowedEvidence:[\"public_observation\"],missingData:i,freshnessDays:30,limitations:\"Photo dates are approximate in the public interface.\"},{id:\"maps.local_results\",label:\"Visible in sampled local results\",points:5,measure:'Position in local results for \"<core service> <city>\" in a sampled search with recorded conditions.',tiers:{1:\"Top 3\",\"0.75\":\"Positions 4\\u20135\",\"0.5\":\"Positions 6\\u201310\",\"0.25\":\"Positions 11\\u201320\",0:\"Not in top 20\"},sources:[\"Approved search API or manual sample with recorded location, device, date\"],evidence:\"Query, location, device, date, observed position\",allowedEvidence:[\"sampled_test\",\"api_data\"],missingData:i,freshnessDays:30,limitations:\"One sample from one location. Positions change by searcher location and over time.\"}]},{id:\"ai\",name:\"AI discovery readiness\",outcome:\"Get Discovered\",question:\"Is the information AI assistants rely on consistent, structured and worth citing?\",recommendedOffer:\"ai-discovery-accelerator\",limitations:\"AI assistant answers vary by assistant, version, date, location and conversation context. Results are observations under recorded conditions and never a stable ranking.\",criteria:[{id:\"ai.entity\",label:\"Business facts consistent across sources\",points:5,measure:\"Name, address/service area and phone match across website, Google profile and the top 3 directories for the industry.\",tiers:{1:\"All consistent\",\"0.5\":\"One mismatch\",0:\"Two or more mismatches\"},sources:[\"Business website\",\"Google Business Profile\",\"Top industry directories\"],evidence:\"Table of values per source with URLs and date\",allowedEvidence:[\"public_observation\",\"api_data\"],missingData:i,freshnessDays:60,limitations:\"Directory choice is industry-specific and recorded with the result.\"},{id:\"ai.schema\",label:\"Local business structured data\",points:4,measure:\"Valid LocalBusiness (or subtype) structured data with name, phone and area on the website.\",tiers:{1:\"Present and valid\",\"0.5\":\"Present with errors or missing key fields\",0:\"Absent\"},sources:[\"Website HTML\",\"Schema validator\"],evidence:\"Validator result/screenshot and date\",allowedEvidence:[\"public_observation\"],missingData:i,freshnessDays:60,limitations:\"Structured data supports understanding; it does not guarantee use by any AI system.\"},{id:\"ai.answers\",label:\"Answer-focused service content\",points:4,measure:\"Service pages directly answer common customer questions (what\\u2019s included, process, pricing factors, area served).\",tiers:{1:\"Most core services answered clearly\",\"0.5\":\"Some services, thin answers\",0:\"No answer-focused content\"},sources:[\"Business website\"],evidence:\"URLs reviewed and notes, date\",allowedEvidence:[\"public_observation\"],missingData:i,freshnessDays:60,limitations:\"Qualitative review against a written checklist.\"},{id:\"ai.mentions\",label:\"Reputable third-party mentions\",points:3,measure:\"Business appears on reputable third-party sources (associations, local media, quality directories).\",tiers:{1:\"3+ reputable sources\",\"0.5\":\"1\\u20132 sources\",0:\"None found after documented search\"},sources:[\"Public web search via approved service\",\"Industry association directories\"],evidence:\"Source URLs and date\",allowedEvidence:[\"public_observation\",\"api_data\"],missingData:i,freshnessDays:60,limitations:'Coverage of search tools is incomplete; absence is \"none found\", not \"none exist\".'},{id:\"ai.assistant_sample\",label:\"Mentioned in sampled AI answers\",points:4,measure:\"Across a recorded prompt set on named assistants, the business is mentioned and described accurately.\",tiers:{1:\"Mentioned accurately in at least half of prompts\",\"0.5\":\"Mentioned in some prompts or with inaccuracies\",0:\"Not mentioned in any sampled prompt\"},sources:[\"Named AI assistants, used within their terms\"],evidence:\"Prompt text, assistant + version if shown, date, location context, raw answers saved\",allowedEvidence:[\"sampled_test\"],missingData:i,freshnessDays:30,limitations:\"High variability. Repeat with identical conditions before comparing months.\"}]},{id:\"reviews\",name:\"Reviews & trust\",outcome:\"Get Chosen\",question:\"When customers compare you, does your reputation make you the obvious choice?\",recommendedOffer:\"reputation-revenue-engine\",limitations:\"Only public review data is used. Competitor set (3\\u20135 nearby, same category) is recorded with the result.\",criteria:[{id:\"reviews.volume\",label:\"Review volume vs. local competitors\",points:5,measure:\"Google review count compared with the median of 3\\u20135 nearby competitors.\",tiers:{1:\"At or above median\",\"0.75\":\"75\\u201399% of median\",\"0.5\":\"50\\u201374%\",\"0.25\":\"25\\u201349%\",0:\"Below 25%\"},sources:[\"Google Maps public listings\",\"Google Places API\"],evidence:\"Counts for business and named competitors, date\",allowedEvidence:[\"public_observation\",\"api_data\"],missingData:i,freshnessDays:30,limitations:\"Volume is relative to the recorded competitor set only.\"},{id:\"reviews.rating\",label:\"Average rating\",points:4,measure:\"Google average star rating.\",tiers:{1:\"4.7 or higher\",\"0.75\":\"4.5\\u20134.6\",\"0.5\":\"4.2\\u20134.4\",\"0.25\":\"3.8\\u20134.1\",0:\"Below 3.8\"},sources:[\"Google Maps public listing\"],evidence:\"Rating and count, date\",allowedEvidence:[\"public_observation\",\"api_data\"],missingData:i,freshnessDays:30,limitations:\"Ratings with very few reviews are low-information; note count.\"},{id:\"reviews.recency\",label:\"Review recency\",points:4,measure:\"Age of the most recent Google review.\",tiers:{1:\"14 days or less\",\"0.75\":\"15\\u201330 days\",\"0.5\":\"31\\u201360 days\",\"0.25\":\"61\\u201390 days\",0:\"Over 90 days\"},sources:[\"Google Maps public listing\"],evidence:\"Date of latest review\",allowedEvidence:[\"public_observation\",\"api_data\"],missingData:i,freshnessDays:14,limitations:'Public dates can be relative (\"2 weeks ago\").'},{id:\"reviews.responses\",label:\"Owner responses\",points:4,measure:\"Share of the 10 most recent reviews with an owner response.\",tiers:{1:\"80% or more\",\"0.5\":\"50\\u201379%\",\"0.25\":\"1\\u201349%\",0:\"None\"},sources:[\"Google Maps public listing\"],evidence:\"Count of responses in last 10, date\",allowedEvidence:[\"public_observation\"],missingData:i,freshnessDays:30,limitations:\"Fewer than 10 reviews: use all available and note it.\"},{id:\"reviews.site_trust\",label:\"Trust proof on website\",points:3,measure:\"Count of: licence/insurance info where applicable, real team or job photos, stated warranty/guarantee terms, link to public reviews.\",tiers:{1:\"4 of 4\",\"0.75\":\"3 of 4\",\"0.5\":\"2 of 4\",\"0.25\":\"1 of 4\",0:\"None\"},sources:[\"Business website\"],evidence:\"URLs and checklist, date\",allowedEvidence:[\"public_observation\"],missingData:i,freshnessDays:60,limitations:\"Photo authenticity is judged visually; stock photos do not count.\"}]},{id:\"website\",name:\"Website conversion\",outcome:\"Get Chosen\",question:\"Does the website make it easy to understand, trust and contact you, especially on a phone?\",recommendedOffer:\"website-to-customer-conversion\",limitations:\"We observe the site as a visitor would and never submit fake inquiries. Speed uses lab data, which differs from real-user data.\",criteria:[{id:\"website.mobile_cta\",label:\"Call/CTA visible on mobile\",points:5,measure:\"On a ~390px-wide screen, tap-to-call or the primary CTA is visible without scrolling.\",tiers:{1:\"Visible and tappable\",\"0.5\":\"Present but below the fold or not tappable\",0:\"No phone/CTA found on the homepage\"},sources:[\"Business website at mobile viewport\"],evidence:\"Mobile screenshot, date\",allowedEvidence:[\"public_observation\"],missingData:i,freshnessDays:60,limitations:\"Homepage only unless noted.\"},{id:\"website.clarity\",label:\"Clear offer above the fold\",points:4,measure:\"First screen states the service, the area served and a reason to choose them.\",tiers:{1:\"All three\",\"0.5\":\"Two of three\",0:\"One or none\"},sources:[\"Business website\"],evidence:\"Screenshot + checklist, date\",allowedEvidence:[\"public_observation\"],missingData:i,freshnessDays:60,limitations:\"Judged against the written checklist.\"},{id:\"website.speed\",label:\"Mobile page speed\",points:4,measure:\"Google PageSpeed Insights mobile performance score for the homepage.\",tiers:{1:\"90\\u2013100\",\"0.75\":\"75\\u201389\",\"0.5\":\"50\\u201374\",\"0.25\":\"25\\u201349\",0:\"Below 25\"},sources:[\"PageSpeed Insights API (free key)\"],evidence:\"Score, report URL or JSON, date\",allowedEvidence:[\"api_data\"],missingData:i,freshnessDays:30,limitations:\"Lab score; varies run to run (take the median of 3 runs).\"},{id:\"website.form\",label:\"Low-friction inquiry form\",points:4,measure:\"A quote/contact form exists, needs 5 or fewer required fields and is usable on mobile.\",tiers:{1:\"Exists, \\u22645 required fields, mobile-friendly\",\"0.5\":\"Exists but long or awkward on mobile\",0:\"No form found\"},sources:[\"Business website\"],evidence:\"Form URL, field count, date (not submitted)\",allowedEvidence:[\"public_observation\"],missingData:i,freshnessDays:60,limitations:\"Forms are inspected, never submitted with fake data.\"},{id:\"website.basics\",label:\"Technical basics\",points:3,measure:\"Valid HTTPS, no security warnings, primary navigation links work.\",tiers:{1:\"All pass\",\"0.5\":\"One issue\",0:\"Two or more issues\"},sources:[\"Business website\"],evidence:\"Checklist, date\",allowedEvidence:[\"public_observation\"],missingData:i,freshnessDays:60,limitations:\"Spot check, not a full crawl.\"}]},{id:\"followup\",name:\"Lead follow-up\",outcome:\"Get Booked\",question:\"When someone reaches out, how reliably do they hear back and get booked?\",recommendedOffer:\"lead-rescue-booking-engine\",limitations:\"Internal follow-up processes are usually not public. They are Not verified unless the owner reports them or authorises a test. We never send fake inquiries.\",criteria:[{id:\"followup.paths\",label:\"Ways to reach the business\",points:4,measure:\"Count of public inquiry paths: phone, form, text/SMS, online booking.\",tiers:{1:\"4 paths\",\"0.75\":\"3 paths\",\"0.5\":\"2 paths\",\"0.25\":\"1 path\",0:\"None found\"},sources:[\"Business website\",\"Google Business Profile\"],evidence:\"Checklist with URLs, date\",allowedEvidence:[\"public_observation\"],missingData:i,freshnessDays:60,limitations:\"Counts visible paths only.\"},{id:\"followup.after_hours\",label:\"After-hours capture\",points:3,measure:\"A visible way to start an inquiry outside business hours (booking, form with response promise, chat).\",tiers:{1:\"Clear after-hours option with response expectation\",\"0.5\":\"Form only, no expectation set\",0:\"None visible\"},sources:[\"Business website\"],evidence:\"Screenshot/notes, date\",allowedEvidence:[\"public_observation\"],missingData:i,freshnessDays:60,limitations:\"Does not test whether anyone responds.\"},{id:\"followup.booking\",label:\"Online booking or quote request\",points:3,measure:\"Customers can book or request a quote online.\",tiers:{1:\"Self-serve booking or instant quote\",\"0.5\":\"Quote request form only\",0:\"Neither\"},sources:[\"Business website\",\"Google Business Profile booking link\"],evidence:\"URL, date\",allowedEvidence:[\"public_observation\"],missingData:i,freshnessDays:60,limitations:\"Not submitted.\"},{id:\"followup.speed\",label:\"Speed to first response\",points:4,measure:\"Typical time to first response for a new inquiry.\",tiers:{1:\"Within 5 minutes\",\"0.75\":\"Within an hour\",\"0.5\":\"Same day\",\"0.25\":\"Next day\",0:\"Longer or inconsistent\"},sources:[\"Owner report\",\"Authorised test agreed in writing\"],evidence:\"Owner answer with date, or authorised test log\",allowedEvidence:[\"owner_reported\",\"authorized_test\"],missingData:\"Not publicly observable. Mark Not verified unless owner-reported or tested with written authorisation. Never assume a slow response.\",freshnessDays:90,limitations:\"Owner reports are not independently verified.\",ownerQuestion:{prompt:\"How fast do you usually respond to a new inquiry?\",options:[{label:\"Within 5 minutes\",tier:1},{label:\"Within an hour\",tier:.75},{label:\"Same day\",tier:.5},{label:\"Next day\",tier:.25},{label:\"Not sure / it varies\",tier:\"not_verified\"}]}},{id:\"followup.missed_calls\",label:\"Missed-call recovery\",points:3,measure:\"What happens after a missed call.\",tiers:{1:\"Text or call back within 15 minutes\",\"0.5\":\"Called back same day\",\"0.25\":\"Voicemail only\",0:\"Nothing consistent\"},sources:[\"Owner report\",\"Authorised test\"],evidence:\"Owner answer with date, or authorised test log\",allowedEvidence:[\"owner_reported\",\"authorized_test\"],missingData:\"Not publicly observable. Mark Not verified unless owner-reported or tested with written authorisation.\",freshnessDays:90,limitations:\"Owner reports are not independently verified.\",ownerQuestion:{prompt:\"What happens when you miss a call?\",options:[{label:\"We text or call back within 15 min\",tier:1},{label:\"We call back the same day\",tier:.5},{label:\"They can leave a voicemail\",tier:.25},{label:\"Nothing consistent\",tier:0},{label:\"Not sure\",tier:\"not_verified\"}]}},{id:\"followup.quotes\",label:\"Quote follow-up\",points:3,measure:\"Unaccepted quotes receive structured follow-up.\",tiers:{1:\"Set schedule, 2+ touches\",\"0.5\":\"Usually one follow-up\",0:\"Only if the customer calls back\"},sources:[\"Owner report\"],evidence:\"Owner answer with date\",allowedEvidence:[\"owner_reported\",\"authorized_test\"],missingData:\"Not publicly observable. Mark Not verified unless owner-reported.\",freshnessDays:90,limitations:\"Owner reports are not independently verified.\",ownerQuestion:{prompt:\"Do you follow up on quotes that haven\\u2019t been accepted?\",options:[{label:\"Yes, on a set schedule (2+ touches)\",tier:1},{label:\"Usually once\",tier:.5},{label:\"Only if they call us\",tier:0},{label:\"Not sure\",tier:\"not_verified\"}]}}]}],q=X.flatMap(e=>e.criteria.map(s=>({...s,category:e.id})));var L=\"1.0.0\",G=[\"home-services\",\"auto-detailing\",\"property-management\",\"recurring-services\",\"remodeling\",\"professional-services\",\"realtor\",\"other\"],D=[\"Not showing up on Google Maps\",\"Not enough reviews\",\"Website doesn\\u2019t bring in calls\",\"Missed calls or slow follow-up\",\"Curious about AI search\",\"Not sure, that\\u2019s why I\\u2019m here\"],B=[\"general\",\"pricing\",\"realtor-pipeline-recovery\",\"profit-leak-audit\",\"detailer-booking-recovery\",\"partnership\",\"med-spa\",\"chiropractic\",\"dental\"],Z=q.filter(e=>e.ownerQuestion).map(e=>e.id),ee=[\"utm_source\",\"utm_medium\",\"utm_campaign\",\"utm_term\",\"utm_content\",\"referrer\",\"landing_page\",\"first_touch_at\"],W=3e3,se=/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/,o=(e,s)=>typeof e==\"string\"?e.replace(/[\\u0000-\\u001f\\u007f]/g,\" \").replace(/\\s+/g,\" \").trim().slice(0,s):\"\",M=e=>e===!0||e===\"true\"||e===\"yes\"||e===\"on\";function $(e){if(!e)return null;try{let s=new URL(/^https?:\\/\\//i.test(e)?e:`https://${e}`);if(!/^https?:$/.test(s.protocol)||!/\\.[a-z]{2,}$/i.test(s.hostname)||s.username||s.password)return null;let t=s.hostname.toLowerCase().replace(/^www\\./,\"\");return{url:`${s.protocol}//${s.hostname.toLowerCase()}${s.pathname===\"/\"?\"\":s.pathname}`,domain:t}}catch{return null}}function U(e){let s=e.replace(/\\D/g,\"\");return s.length===10?`+1${s}`:s.length===11&&s.startsWith(\"1\")?`+${s}`:s.length>=11&&s.length<=15?`+${s}`:null}var x=e=>e.toLowerCase().replace(/&/g,\" and \").replace(/[^a-z0-9]+/g,\" \").replace(/\\b(llc|inc|co|company|corp|ltd|the)\\b/g,\" \").replace(/\\s+/g,\" \").trim();function V(e){return e.domain?`domain:${e.domain}`:e.name?`name:${x(e.name)}|area:${x(e.city??\"\")}`:`email:${(e.email??\"\").toLowerCase()}`}function z(e){let s=2166136261;for(let t=0;t<e.length;t++)s^=e.charCodeAt(t),s=Math.imul(s,16777619)>>>0;return s.toString(36).padStart(7,\"0\")}function te(e,s){if(!e||typeof e!=\"object\"||Array.isArray(e))return{status:\"invalid\",errors:[\"Body must be a JSON object\"]};let t=e,c=t.form===\"contact\"?\"contact\":t.form===\"snapshot_request\"?\"snapshot_request\":null;if(!c)return{status:\"invalid\",errors:[\"Unknown form\"]};if(o(t.company_website,200))return{status:\"spam\",errors:[]};let a=Number.isNaN(Date.parse(String(t.submitted_at)))?s:new Date(String(t.submitted_at)).toISOString(),N=Date.parse(String(t.form_started_at??\"\")),E=Number.isNaN(N),p=E?null:Date.parse(a)-N;if(p!==null&&p<W)return{status:\"spam\",errors:[]};let n=[],C=o(t.contact_name,80),f=o(t.email,120).toLowerCase(),g=o(t.phone,30),v=g?U(g):null;C||n.push(\"contact_name is required\"),se.test(f)||n.push(\"email is invalid\"),g&&!v&&n.push(\"phone is invalid\"),M(t.consent_contact)||n.push(\"consent_contact must be true\");let S=o(t.consent_text,600);S||n.push(\"consent_text is required\");let m=[\"email\",\"phone\",\"text\"].find(l=>l===t.preferred_channel)??\"email\",A=M(t.consent_sms);m===\"text\"&&!A&&n.push(\"preferred_channel text requires consent_sms\"),m!==\"email\"&&!v&&n.push(`preferred_channel ${m} requires a phone number`);let d=null,u=null,h=null,w=null,R=[],y={},I=null,_=null;if(c===\"snapshot_request\"){d=o(t.business_name,120)||null,d||n.push(\"business_name is required\");let l=o(t.website,200);if(u=$(l),l&&!u&&n.push(\"website is invalid\"),h=o(t.city,80)||null,h||n.push(\"city is required\"),w=G.find(r=>r===t.industry)??null,w||n.push(\"industry is invalid\"),Array.isArray(t.concerns)&&(R=t.concerns.filter(r=>typeof r==\"string\"&&D.includes(r)).slice(0,D.length)),t.self_check&&typeof t.self_check==\"object\")for(let[r,b]of Object.entries(t.self_check))Z.includes(r)&&(b===\"not_verified\"?y[r]=\"not_verified\":typeof b==\"number\"&&T.includes(b)&&(y[r]=b))}else d=o(t.business_name,120)||null,I=B.find(l=>l===t.topic)??\"general\",_=o(t.message,2e3)||null,_||n.push(\"message is required\");if(n.length)return{status:\"invalid\",errors:n};let O={},Q=t.attribution&&typeof t.attribution==\"object\"?t.attribution:{};for(let l of ee){let r=o(Q[l],300);r&&(O[l]=r)}let P=V({domain:u?.domain,name:d,city:h,email:f});return{status:\"accepted\",errors:[],record:{schema:\"rrs.lead/1\",lead_id:`lead_${z(`${P}|${a}`)}`,form:c,received_at:s,submitted_at:a,dedupe_key:P,business:{name:d,website:u?.url??null,domain:u?.domain??null,city:h,industry:w},contact:{name:C,email:f,phone:v,preferred_channel:m},interest:o(t.interest,80)||null,topic:I,message:_,concerns:R,self_check:y,consent:{contact:!0,sms:A,text:S,captured_at:a},attribution:O,signals:{fill_seconds:p===null?null:Math.round(p/1e3),no_timing:E},status:\"new\",next_action:c===\"snapshot_request\"?\"Prepare Snapshot draft; manual review before any delivery\":\"Reply to message\",intake_version:L}}}return J(ie);})();\n\nconst now = new Date().toISOString();\nreturn $input.all().map((item) => {\n  const body = item.json.body ?? item.json;\n  const r = RRSIntake.processSubmission(body, now);\n  return { json: { status: r.status, errors: r.errors, record: r.record ?? null } };\n});"
+      }
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000003",
+      "name": "Accepted?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-accepted",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "accepted",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000004",
+      "name": "Create/update CRM lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        160
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.RRS_CRM_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.record) }}",
+        "options": {
+          "timeout": 10000
+        }
+      }
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000005",
+      "name": "Notify owner",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        160
+      ],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.RRS_NOTIFY_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: 'New ' + $('Validate & normalise').item.json.record.form + ' from ' + ($('Validate & normalise').item.json.record.business.name || $('Validate & normalise').item.json.record.contact.name) + ' (' + $('Validate & normalise').item.json.record.lead_id + ')' }) }}",
+        "options": {
+          "timeout": 10000
+        }
+      }
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000006",
+      "name": "Respond 200 accepted",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1200,
+        160
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true, lead_id: $('Validate & normalise').item.json.record.lead_id }) }}",
+        "options": {
+          "responseCode": 200
+        }
+      }
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000007",
+      "name": "Spam?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        720,
+        440
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c-spam",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "spam",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000008",
+      "name": "Respond 200 (silent drop)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        960,
+        360
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true }) }}",
+        "options": {
+          "responseCode": 200
+        }
+      }
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000009",
+      "name": "Respond 422 invalid",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        960,
+        540
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: false, errors: $json.errors }) }}",
+        "options": {
+          "responseCode": 422
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Website form webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate & normalise",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate & normalise": {
+      "main": [
+        [
+          {
+            "node": "Accepted?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Accepted?": {
+      "main": [
+        [
+          {
+            "node": "Create/update CRM lead",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Spam?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create/update CRM lead": {
+      "main": [
+        [
+          {
+            "node": "Notify owner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify owner": {
+      "main": [
+        [
+          {
+            "node": "Respond 200 accepted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Spam?": {
+      "main": [
+        [
+          {
+            "node": "Respond 200 (silent drop)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond 422 invalid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "rrs": {
+      "generatedFrom": "05-Lead-Research/intake/lead-intake.ts",
+      "requiresEnv": [
+        "RRS_CRM_WEBHOOK_URL",
+        "RRS_NOTIFY_WEBHOOK_URL"
+      ],
+      "status": "not import-tested; review before activating"
+    }
+  },
+  "tags": []
+}
