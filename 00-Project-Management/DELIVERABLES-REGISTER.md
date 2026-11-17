@@ -3,7 +3,7 @@
 > Generated from `deliverables.ts` by `npm run register`. Edit the data file, not this table.
 > Rule: nothing is marked Created/Tested/Approved unless the file exists (enforced by `register.test.ts`).
 
-**Totals:** Created 12 · Tested 21 · Blocked 2 · Planned 10
+**Totals:** Created 12 · Tested 23 · Blocked 2 · Planned 10
 
 | ID | Name | Description | File location | Status | Dependencies | Validation | Approval | Classification | Last modified |
 |---|---|---|---|---|---|---|---|---|---|
@@ -39,6 +39,8 @@
 | RRS-2-18 | Server-side intake validator + lead → Snapshot draft | Re-validates and normalises every submission (email, E.164 phone, domain), re-checks spam, builds dedupe key + lead record; converts accepted requests into research drafts (owner answers = owner-reported, rest Not verified). CLI: npm run snapshot:new. | `05-Lead-Research/intake/lead-intake.ts`<br>`05-Lead-Research/intake/lead-to-snapshot.ts`<br>`05-Lead-Research/intake/snapshot-new-cli.ts`<br>`05-Lead-Research/intake/intake.test.ts` | **Tested** | RRS-2-06, RRS-2-07 | intake.test.ts (8 tests) | Not required | Working | 2026-11-17 |
 | RRS-2-19 | Connected-mode e2e + mock intake endpoint | Builds a site copy pointed at a local mock (same validator), submits real forms: payload contract, CORS, consent, attribution, failure + retry, contact form. | `15-Quality-Assurance/e2e/run-connected.ts`<br>`15-Quality-Assurance/mock-intake/server.ts` | **Tested** | RRS-2-18 | 22/22 connected checks pass | Not required | Working | 2026-11-17 |
 | RRS-2-16 | Analytics, booking, Search Console, hosting | Provider accounts + config. Guidance written; nothing activated. | `18-Documentation/INTEGRATIONS-GUIDE.md` | **Blocked** | — | — | Pending | Needs credentials, Needs approval | 2026-11-16 |
+| RRS-2-20 | Mobile usability pass | Sticky mobile Snapshot CTA (steps aside at CTAs/footer), Snapshot progress saved through reloads/app switches (consent never restored, Start over), step scroll-into-view, phone keyboard hints (inputmode, autocapitalize, enterkeyhint). | `02-Public-Website/public/js/site.js`<br>`02-Public-Website/src/components/layout.tsx`<br>`02-Public-Website/src/styles/site.css` | **Tested** | RRS-2-07 | e2e: 15 mobile checks (sticky CTA visibility/target/placement, restore + consent + start over, step scroll, hints) | Not required | Working | 2026-11-17 |
+| RRS-2-21 | GA4 consent banner + consent-gated analytics | Banner only when ANALYTICS_PROVIDER=ga4; Google tag loads only after Allow; Decline remembered and clears _ga cookies; Cookie settings reopens; events forwarded after consent; CSP widened only in GA4 builds. | `02-Public-Website/public/js/site.js`<br>`02-Public-Website/src/components/layout.tsx`<br>`15-Quality-Assurance/e2e/run-connected.ts` | **Tested** | RRS-2-01 | e2e consent variant: 10 checks with Google requests intercepted | Pending | Working, Needs credentials, Needs approval | 2026-11-17 |
 | RRS-3-01 | 25 reusable scorecards (XLSX + CSV/JSON) | Spec Part 5 list. | — | **Planned** | RRS-2-06 | — | Not required | — | 2026-11-16 |
 | RRS-3-02 | Research engine + evidence model | Spec Part 6 workflow, documented APIs only. | — | **Planned** | RRS-3-04 | — | Pending | Needs credentials | 2026-11-16 |
 | RRS-3-03 | ICP scoring (4 separated scores) | Fit / opportunity / confidence / priority. Adapts the existing PM scorer. | — | **Planned** | — | — | Not required | — | 2026-11-16 |

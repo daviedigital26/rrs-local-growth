@@ -80,4 +80,4 @@ Payload schema: `src/lib/lead-payload.ts`. No passwords are collected. Consent t
 A headless CMS is optional later. The typed content files are designed to become CMS schemas.
 
 ## Performance budget
-HTML < 60 KB per page, CSS < 50 KB minified (~9 KB gzipped), JS < 15 KB, fonts: 2 preloaded (~60 KB), no third-party requests by default, LCP element = hero text (no hero image dependency).
+HTML < 60 KB per page, CSS < 50 KB minified (~10 KB gzipped), JS < 20 KB minified (~6 KB gzipped), fonts: 2 preloaded (~60 KB), no third-party requests by default, LCP element = hero text (no hero image dependency).

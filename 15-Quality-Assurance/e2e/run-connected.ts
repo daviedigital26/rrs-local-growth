@@ -108,6 +108,45 @@ try {
   mock.server.close();
 }
 
+// ── GA4 consent variant: analytics may load ONLY after an explicit "Allow" ───────
+const ga = spawnSync('npx', ['tsx', '02-Public-Website/scripts/build.tsx'], { cwd: root, env: { ...process.env, ANALYTICS_PROVIDER: 'ga4', ANALYTICS_ID: 'G-TEST000000', RRS_DIST_DIR: 'dist-ga4' }, encoding: 'utf8' });
+if (ga.status !== 0) { console.error(ga.stderr); process.exit(1); }
+const gaDir = join(root, '02-Public-Website/dist-ga4');
+check('[consent] CSP allows Google tag only in the GA4 build', /script-src [^;]*https:\/\/www\.googletagmanager\.com/.test(readFileSync(join(gaDir, '_headers'), 'utf8')) && !/googletagmanager/.test(headers));
+const gaSite = await startServer(4473, gaDir);
+const b2 = await chromium.launch();
+try {
+  const ctx = await b2.newContext({ viewport: { width: 375, height: 812 } });
+  let gaRequests = 0;
+  await ctx.route(/googletagmanager\.com|google-analytics\.com/, (route) => { gaRequests++; return route.fulfill({ status: 200, contentType: 'text/javascript', body: '/* stubbed in tests */' }); });
+  const g = await ctx.newPage();
+  await g.goto('http://localhost:4473/pricing/', { waitUntil: 'networkidle' });
+  check('[consent] banner shown on first visit', await g.isVisible('[data-consent-banner]'));
+  check('[consent] no Google request before a choice', gaRequests === 0, `${gaRequests}`);
+  await g.evaluate(() => window.scrollTo(0, 1600)); await g.waitForTimeout(300);
+  check('[consent] sticky CTA stays hidden while the banner is open', !(await g.isVisible('[data-mobile-cta]')));
+  await g.click('[data-consent="denied"]');
+  check('[consent] Decline hides the banner', !(await g.isVisible('[data-consent-banner]')));
+  await g.reload({ waitUntil: 'networkidle' });
+  check('[consent] Decline is remembered and nothing loads', !(await g.isVisible('[data-consent-banner]')) && gaRequests === 0 && (await g.evaluate(() => typeof (window as unknown as { gtag?: unknown }).gtag)) === 'undefined');
+  await g.click('[data-consent-open]');
+  check('[consent] Cookie settings reopens the banner', await g.isVisible('[data-consent-banner]'));
+  await g.click('[data-consent="granted"]');
+  await g.waitForTimeout(300);
+  check('[consent] Allow loads the Google tag', gaRequests >= 1, `${gaRequests}`);
+  await g.click('a[data-cta="snapshot-nav"]', { trial: true }).catch(() => undefined);
+  await g.evaluate(() => (window as unknown as { rrsTrack: (e: string, p: object) => void }).rrsTrack('cta_click', { cta: 'test' }));
+  const forwarded = await g.evaluate(() => (window as unknown as { dataLayer: unknown[] }).dataLayer.some((e) => { const a = e as ArrayLike<unknown>; return a && a[0] === 'event' && a[1] === 'cta_click'; }));
+  check('[consent] site events forwarded to GA4 after consent', forwarded);
+  const before = gaRequests;
+  await g.reload({ waitUntil: 'networkidle' });
+  check('[consent] Allow is remembered (no banner, tag loads)', !(await g.isVisible('[data-consent-banner]')) && gaRequests > before);
+  await ctx.close();
+} finally {
+  await b2.close();
+  gaSite.close();
+}
+
 const failed = results.filter((r) => !r.ok);
 console.log(`e2e (connected): ${results.length - failed.length}/${results.length} checks passed in ${((Date.now() - t0) / 1000).toFixed(1)} s`);
 if (failed.length) process.exit(1);

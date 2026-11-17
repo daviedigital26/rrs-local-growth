@@ -12,6 +12,7 @@
     var payload = Object.assign({ event: event, page: location.pathname }, props || {});
     window.dataLayer.push(payload);
     if (typeof window.plausible === 'function') window.plausible(event, { props: props || {} });
+    if (window.__rrsGa && typeof window.gtag === 'function') window.gtag('event', event, props || {});
   }
   window.rrsTrack = track;
   if (cfg.analytics && cfg.analytics.provider === 'plausible' && cfg.analytics.id) {
@@ -19,9 +20,41 @@
     s.defer = true; s.src = 'https://plausible.io/js/script.js'; s.setAttribute('data-domain', cfg.analytics.id);
     window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };
     document.head.appendChild(s);
-  } else if (cfg.analytics && cfg.analytics.provider === 'ga4') {
-    // GA4 needs a consent banner before loading. Not built yet (KNOWN-ISSUES), so it stays off.
-    console.warn('[rrs] GA4 configured but consent banner not implemented; analytics not loaded.');
+  }
+
+  /* ── GA4 only after explicit consent ───────────────────────────────────── */
+  var CONSENT_KEY = 'rrs_consent';
+  var banner = $('[data-consent-banner]');
+  function getConsent() { try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; } }
+  function setConsent(v) { try { localStorage.setItem(CONSENT_KEY, v); } catch (e) { /* private mode */ } }
+  function loadGa4() {
+    if (window.__rrsGa || !cfg.analytics || cfg.analytics.provider !== 'ga4' || !cfg.analytics.id) return;
+    window.__rrsGa = true;
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    window.gtag('js', new Date());
+    window.gtag('config', cfg.analytics.id, { anonymize_ip: true });
+    var g = document.createElement('script');
+    g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(cfg.analytics.id);
+    document.head.appendChild(g);
+  }
+  function clearGaCookies() {
+    document.cookie.split(';').forEach(function (c) {
+      var name = c.split('=')[0].trim();
+      if (/^_ga/.test(name)) document.cookie = name + '=; Max-Age=0; path=/; domain=' + location.hostname.replace(/^www\./, '.');
+    });
+  }
+  function showBanner(show) { if (banner) { banner.hidden = !show; if (show) { var b = banner.querySelector('[data-consent="granted"]'); if (b) b.focus(); } } updateSticky(); }
+  if (cfg.analytics && cfg.analytics.provider === 'ga4' && banner) {
+    var choice = getConsent();
+    if (choice === 'granted') loadGa4(); else if (choice !== 'denied') showBanner(true);
+    banner.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-consent]'); if (!b) return;
+      var v = b.getAttribute('data-consent');
+      setConsent(v); showBanner(false);
+      if (v === 'granted') loadGa4(); else clearGaCookies();
+    });
+    $$('[data-consent-open]').forEach(function (b) { b.addEventListener('click', function () { showBanner(true); }); });
   }
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('[data-cta]');
@@ -54,6 +87,28 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && header.hasAttribute('data-open')) { setNav(false); toggle.focus(); } });
     $$('#site-nav a').forEach(function (a) { a.addEventListener('click', function () { setNav(false); }); });
     window.addEventListener('resize', function () { if (window.innerWidth >= 1024) setNav(false); });
+  }
+
+  /* ── Sticky mobile CTA ─────────────────────────────────────────────────── */
+  var sticky = $('[data-mobile-cta]');
+  var inView = [];
+  function updateSticky() {
+    if (!sticky) return;
+    var show = window.innerWidth < 1024 && window.scrollY > 420 && inView.length === 0 && !(banner && !banner.hidden);
+    if (sticky.hidden === show) { sticky.hidden = !show; document.body.classList.toggle('has-mobile-cta', show); }
+  }
+  if (sticky && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var i = inView.indexOf(en.target);
+        if (en.isIntersecting && i < 0) inView.push(en.target);
+        if (!en.isIntersecting && i >= 0) inView.splice(i, 1);
+      });
+      updateSticky();
+    });
+    $$('.hero__ctas, .cta-band, .site-footer, .pcard__actions').forEach(function (t) { io.observe(t); });
+    window.addEventListener('scroll', updateSticky, { passive: true });
+    window.addEventListener('resize', updateSticky);
   }
 
   /* ── Attribution (first touch + current) ───────────────────────────────── */
@@ -185,13 +240,66 @@
       steps.forEach(function (s, k) { s.classList.toggle('is-active', k === i); });
       $$('[data-progress]', snap).forEach(function (p, k) { p.classList.toggle('is-current', k === i); p.classList.toggle('is-done', k < i); });
       if (status) status.textContent = 'Step ' + (i + 1) + ' of ' + steps.length;
-      if (focus) { var first = steps[i].querySelector('input:not([type=hidden]):not([tabindex="-1"]), button'); if (first) first.focus(); }
+      if (focus) {
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var top = snap.getBoundingClientRect().top;
+        if (top < 0 || top > window.innerHeight * 0.4) snap.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
+        var first = steps[i].querySelector('input:not([type=hidden]):not([tabindex="-1"]), button');
+        if (first) first.focus({ preventScroll: true });
+      }
+      saveDraft();
     }
-    show(0, false);
+
+    /* Save progress so an accidental reload or app switch doesn't lose answers.
+       Consent boxes and the honeypot are never saved: consent must be given fresh. */
+    var SAVE_KEY = 'rrs_snapshot_draft';
+    var SKIP = { company_website: 1, consent_contact: 1, consent_sms: 1, form_started_at: 1 };
+    function saveDraft() {
+      var data = { step: current, fields: {} };
+      $$('input, textarea', snap).forEach(function (el) {
+        if (!el.name || el.type === 'hidden' || SKIP[el.name]) return;
+        if (el.type === 'radio' || el.type === 'checkbox') { if (el.checked) (data.fields[el.name] = data.fields[el.name] || []).push(el.value); }
+        else if (el.value) data.fields[el.name] = el.value;
+      });
+      try { sessionStorage.setItem(SAVE_KEY, JSON.stringify(data)); } catch (e) { /* storage unavailable */ }
+    }
+    function clearDraft() { try { sessionStorage.removeItem(SAVE_KEY); } catch (e) { /* ignore */ } }
+    function syncConditional() {
+      var other = snap.querySelector('[data-other-for="city"]'); if (other) other.hidden = checked(snap, 'city') !== 'Other';
+      var sms = snap.querySelector('[data-sms-consent]'); if (sms) sms.hidden = checked(snap, 'preferred_channel') !== 'text';
+      updateSelfCheck();
+    }
+    function restoreDraft() {
+      var d = null;
+      try { d = JSON.parse(sessionStorage.getItem(SAVE_KEY) || 'null'); } catch (e) { d = null; }
+      if (!d || !d.fields || !Object.keys(d.fields).length) return -1;
+      Object.keys(d.fields).forEach(function (name) {
+        var v = d.fields[name];
+        $$('[name="' + CSS.escape(name) + '"]', snap).forEach(function (el) {
+          if (SKIP[el.name] || el.type === 'hidden') return;
+          if (el.type === 'radio' || el.type === 'checkbox') el.checked = Array.isArray(v) && v.indexOf(el.value) >= 0;
+          else if (typeof v === 'string') el.value = v;
+        });
+      });
+      syncConditional();
+      var note = $('[data-restored]', snap); if (note) note.hidden = false;
+      return Math.max(0, Math.min(Number(d.step) || 0, steps.length - 1));
+    }
+    snap.addEventListener('input', saveDraft);
+    var startOver = $('[data-start-over]', snap);
+    if (startOver) startOver.addEventListener('click', function () {
+      clearDraft(); snap.reset(); syncConditional();
+      $$('.field-error', snap).forEach(function (e) { e.hidden = true; });
+      $$('[aria-invalid]', snap).forEach(function (e) { e.removeAttribute('aria-invalid'); });
+      var note = $('[data-restored]', snap); if (note) note.hidden = true;
+      show(0, true);
+    });
+    var restoredStep = restoreDraft();
+    show(restoredStep > 0 ? restoredStep : 0, false);
 
     // Prefill from links (?industry=…, ?interest=…)
     var ind = params.get('industry');
-    if (ind) { var r = snap.querySelector('[name="industry"][value="' + CSS.escape(ind) + '"]'); if (r) r.checked = true; }
+    if (ind && !checked(snap, 'industry')) { var r = snap.querySelector('[name="industry"][value="' + CSS.escape(ind) + '"]'); if (r) { r.checked = true; saveDraft(); } }
     var interest = params.get('interest');
     var interestInput = snap.querySelector('[name="interest"]');
     if (interest && interestInput) interestInput.value = interest.slice(0, 80);
@@ -211,6 +319,7 @@
       if (t.name === 'city') { var other = snap.querySelector('[data-other-for="city"]'); if (other) { other.hidden = t.value !== 'Other'; if (!other.hidden) other.focus(); } }
       if (t.name === 'preferred_channel') { var sms = snap.querySelector('[data-sms-consent]'); if (sms) { sms.hidden = t.value !== 'text'; if (sms.hidden) sms.querySelector('input').checked = false; } }
       if (t.name && t.name.indexOf('self_') === 0) updateSelfCheck();
+      saveDraft();
       if (RULES[t.name] && t.getAttribute('aria-invalid') !== null) setError(snap, t.name, RULES[t.name](snap));
       if (t.closest('.chips[aria-invalid]')) setError(snap, t.name, RULES[t.name] ? RULES[t.name](snap) : '');
     });
@@ -276,6 +385,7 @@
       if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
       send(payload).then(function (mode) {
         track('snapshot_submit', { industry: payload.industry, mode: mode });
+        clearDraft();
         showDone(snap, mode);
       }).catch(function (err) {
         reportError('snapshot submit failed: ' + err.message);

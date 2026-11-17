@@ -269,6 +269,63 @@ try {
   check('[a11y] first Tab focuses skip link', await kb.evaluate(() => document.activeElement?.classList.contains('skip-link') ?? false));
   await m.close();
 
+  // ── Mobile usability ─────────────────────────────────────────────────
+  const mu = await browser.newContext({ viewport: { width: 375, height: 812 }, reducedMotion: 'reduce' });
+  // Sticky CTA: hidden at top, shown after scrolling, never on the Snapshot page
+  const st = await mu.newPage();
+  await st.goto(`${BASE}/services/lead-recovery/`, { waitUntil: 'networkidle' });
+  check('[mobile] sticky CTA hidden at top of page', !(await st.isVisible('[data-mobile-cta]')));
+  await st.evaluate(() => window.scrollTo(0, 1400));
+  await st.waitForTimeout(300);
+  check('[mobile] sticky CTA appears after scrolling', await st.isVisible('[data-mobile-cta]'));
+  const stBox = await st.evaluate(() => { const r = document.querySelector('[data-mobile-cta] .btn')!.getBoundingClientRect(); return { bottom: r.bottom, h: r.height, vh: window.innerHeight }; });
+  check('[mobile] sticky CTA sits inside the viewport with a ≥44px target', stBox.bottom <= stBox.vh && stBox.h >= 44, JSON.stringify(stBox));
+  await st.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await st.waitForTimeout(300);
+  check('[mobile] sticky CTA steps aside at the footer/CTA band', !(await st.isVisible('[data-mobile-cta]')));
+  await st.evaluate(() => window.scrollTo(0, 1400)); await st.waitForTimeout(300);
+  await st.click('[data-mobile-cta] a');
+  await st.waitForURL('**/free-snapshot/');
+  check('[mobile] sticky CTA leads to the Snapshot form', st.url().endsWith('/free-snapshot/'));
+  check('[mobile] no sticky CTA on the Snapshot page', (await st.$('[data-mobile-cta]')) === null);
+  const desk = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+  await desk.goto(`${BASE}/services/lead-recovery/`); await desk.evaluate(() => window.scrollTo(0, 1400)); await desk.waitForTimeout(200);
+  check('[desktop] sticky CTA never shows on wide screens', !(await desk.isVisible('[data-mobile-cta]')));
+  await desk.close();
+
+  // Keyboard hints for phone keyboards
+  const kh = await mu.newPage();
+  await kh.goto(`${BASE}/free-snapshot/`, { waitUntil: 'networkidle' });
+  const hints = await kh.evaluate(() => ({
+    email: [document.querySelector('#f-email')!.getAttribute('inputmode'), document.querySelector('#f-email')!.getAttribute('autocapitalize'), document.querySelector('#f-email')!.getAttribute('spellcheck')],
+    phone: document.querySelector('#f-phone')!.getAttribute('inputmode'),
+    biz: document.querySelector('#f-business')!.getAttribute('autocapitalize'),
+    enter: document.querySelector('#f-name')!.getAttribute('enterkeyhint'),
+  }));
+  check('[mobile] keyboard hints on Snapshot fields', hints.email.join() === 'email,none,false' && hints.phone === 'tel' && hints.biz === 'words' && hints.enter === 'next', JSON.stringify(hints));
+
+  // Save progress: survives reload, never restores consent, clears on Start over
+  await kh.click('#f-business'); await kh.fill('#f-business', 'Autosave Plumbing (fictional)');
+  await kh.click('label.chip:has(input[name="city"][value="Other"])'); await kh.fill('[data-other-for="city"]', 'Goodyear');
+  await kh.click('label.chip:has(input[name="industry"][value="home-services"])');
+  await kh.click('[data-step="1"] [data-next]');
+  const formTop = await kh.evaluate(() => document.querySelector('[data-snapshot-form]')!.getBoundingClientRect().top);
+  check('[mobile] next step scrolls the form into view', formTop >= 0 && formTop < 200, `${formTop}`);
+  await kh.click('[data-step="2"] [data-next]');
+  await kh.fill('#f-email', 'save@example.com');
+  await kh.check('input[name="consent_contact"]');
+  await kh.reload({ waitUntil: 'networkidle' });
+  const restored = { biz: await kh.inputValue('#f-business'), city: await kh.inputValue('[data-other-for="city"]'), cityShown: await kh.evaluate(() => !(document.querySelector('[data-other-for="city"]') as HTMLInputElement).hidden), industry: await kh.isChecked('input[name="industry"][value="home-services"]'), email: await kh.inputValue('#f-email') };
+  check('[mobile] answers restored after reload', restored.biz === 'Autosave Plumbing (fictional)' && restored.city === 'Goodyear' && restored.cityShown && restored.industry && restored.email === 'save@example.com', JSON.stringify(restored));
+  check('[mobile] restored on the step the visitor left', await kh.isVisible('[data-step="3"]'));
+  check('[mobile] restored-answers note shown', await kh.isVisible('[data-restored]'));
+  check('[mobile] consent is never restored (must be given fresh)', !(await kh.isChecked('input[name="consent_contact"]')));
+  await kh.click('[data-start-over]');
+  check('[mobile] Start over clears answers and returns to step 1', (await kh.inputValue('#f-business')) === '' && await kh.isVisible('[data-step="1"]') && !(await kh.isVisible('[data-restored]')));
+  await kh.reload({ waitUntil: 'networkidle' });
+  check('[mobile] nothing restored after Start over', !(await kh.isVisible('[data-restored]')));
+  await mu.close();
+
   // No-JS fallback
   const nj = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 375, height: 812 } });
   const np = await nj.newPage();

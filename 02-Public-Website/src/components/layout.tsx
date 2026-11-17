@@ -81,10 +81,34 @@ function Footer() {
         </div>
         <div className="site-footer__bottom">
           <p>© {new Date().getFullYear()} {config.company.name}, a {config.company.parent} company.</p>
-          <ul>{legalNav.map((l) => <li key={l.href}><a href={l.href}>{l.label}</a></li>)}</ul>
+          <ul>
+            {legalNav.map((l) => <li key={l.href}><a href={l.href}>{l.label}</a></li>)}
+            {config.analytics.provider === 'ga4' ? <li><button type="button" className="linklike" data-consent-open="">Cookie settings</button></li> : null}
+          </ul>
         </div>
       </div>
     </footer>
+  );
+}
+
+/** Sticky mobile CTA everywhere except where the form already is. */
+const showStickyCta = (path: string) => !path.startsWith('/free-snapshot/') && path !== '/contact/' && path !== '/404.html';
+
+/** Shown only when GA4 is configured: analytics loads after an explicit "Allow". */
+function ConsentBanner() {
+  return (
+    <section className="consent-banner" data-consent-banner="" hidden aria-labelledby="consent-title">
+      <div className="consent-banner__inner">
+        <div>
+          <h2 id="consent-title">Allow analytics cookies?</h2>
+          <p>We use Google Analytics to see which pages help visitors. It stays off unless you allow it. <a href="/privacy/">Privacy policy</a></p>
+        </div>
+        <div className="consent-banner__actions">
+          <button type="button" className="btn btn--ghost-dark" data-consent="denied">Decline</button>
+          <button type="button" className="btn btn--primary" data-consent="granted">Allow</button>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -113,6 +137,12 @@ export function Document({ meta, children, bodyClass = '' }: { meta: PageMeta; c
         <Header path={meta.path} />
         <main id="main" tabIndex={-1}>{children}</main>
         <Footer />
+        {showStickyCta(meta.path) ? (
+          <div className="mobile-cta" data-mobile-cta="" hidden>
+            <CtaLink href="/free-snapshot/" cta="snapshot-sticky" arrow>Get My Free Snapshot</CtaLink>
+          </div>
+        ) : null}
+        {config.analytics.provider === 'ga4' ? <ConsentBanner /> : null}
       </body>
     </html>
   );

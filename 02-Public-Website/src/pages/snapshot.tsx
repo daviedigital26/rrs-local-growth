@@ -62,23 +62,27 @@ function SnapshotForm() {
         <li data-progress="3">Contact</li>
       </ol>
       <p className="sr-only" aria-live="polite" data-step-status="" />
+      <p className="restored-note" data-restored="" hidden>
+        <span>We kept your answers from earlier.</span>
+        <button type="button" className="linklike" data-start-over="">Start over</button>
+      </p>
 
       <fieldset className="snap-step" data-step="1">
         <legend>Step 1 of 3 · Your business</legend>
         <div className="field">
           <label htmlFor="f-business">Business name <span className="req">required</span></label>
-          <input id="f-business" name="business_name" type="text" required maxLength={120} autoComplete="organization" aria-describedby="err-business_name" />
+          <input id="f-business" name="business_name" type="text" required maxLength={120} autoComplete="organization" autoCapitalize="words" enterKeyHint="next" aria-describedby="err-business_name" />
           <FieldError id="business_name" />
         </div>
         <div className="field">
           <label htmlFor="f-website">Website <span className="opt">optional, no website is fine</span></label>
-          <input id="f-website" name="website" type="url" inputMode="url" placeholder="https://" maxLength={200} autoComplete="url" aria-describedby="err-website" />
+          <input id="f-website" name="website" type="url" inputMode="url" placeholder="https://" maxLength={200} autoComplete="url" autoCapitalize="none" autoCorrect="off" spellCheck={false} enterKeyHint="next" aria-describedby="err-website" />
           <FieldError id="website" />
         </div>
         <div className="field">
           <p className="field__label" id="l-city">City <span className="req">required</span></p>
           <Chips name="city" legendId="l-city" required options={cities.map((c) => ({ value: c, label: c }))} />
-          <input className="field__other" name="city_other" type="text" maxLength={80} placeholder="Your city" aria-label="Other city" data-other-for="city" hidden />
+          <input className="field__other" name="city_other" type="text" maxLength={80} placeholder="Your city" aria-label="Other city" autoCapitalize="words" autoComplete="address-level2" enterKeyHint="next" data-other-for="city" hidden />
           <FieldError id="city" />
         </div>
         <div className="field">
@@ -118,18 +122,18 @@ function SnapshotForm() {
         <div className="field-row">
           <div className="field">
             <label htmlFor="f-name">Your name <span className="req">required</span></label>
-            <input id="f-name" name="contact_name" type="text" required maxLength={80} autoComplete="name" aria-describedby="err-contact_name" />
+            <input id="f-name" name="contact_name" type="text" required maxLength={80} autoComplete="name" autoCapitalize="words" enterKeyHint="next" aria-describedby="err-contact_name" />
             <FieldError id="contact_name" />
           </div>
           <div className="field">
             <label htmlFor="f-email">Email <span className="req">required</span></label>
-            <input id="f-email" name="email" type="email" required maxLength={120} autoComplete="email" inputMode="email" aria-describedby="err-email" />
+            <input id="f-email" name="email" type="email" required maxLength={120} autoComplete="email" inputMode="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} enterKeyHint="next" aria-describedby="err-email" />
             <FieldError id="email" />
           </div>
         </div>
         <div className="field">
           <label htmlFor="f-phone">Phone <span className="opt">optional</span></label>
-          <input id="f-phone" name="phone" type="tel" maxLength={30} autoComplete="tel" inputMode="tel" aria-describedby="err-phone" />
+          <input id="f-phone" name="phone" type="tel" maxLength={30} autoComplete="tel" inputMode="tel" enterKeyHint="done" aria-describedby="err-phone" />
           <FieldError id="phone" />
         </div>
         <div className="field">

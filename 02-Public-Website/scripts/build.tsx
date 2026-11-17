@@ -71,11 +71,12 @@ writeFileSync(
 );
 
 // Security headers (Netlify / Cloudflare Pages format; harmless elsewhere)
-const connect = ["'self'", config.formEndpoint && new URL(config.formEndpoint).origin, config.errorEndpoint && new URL(config.errorEndpoint).origin, config.analytics.provider === 'plausible' && 'https://plausible.io', config.analytics.provider === 'ga4' && 'https://*.google-analytics.com'].filter(Boolean).join(' ');
+const connect = ["'self'", config.formEndpoint && new URL(config.formEndpoint).origin, config.errorEndpoint && new URL(config.errorEndpoint).origin, config.analytics.provider === 'plausible' && 'https://plausible.io', config.analytics.provider === 'ga4' && 'https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com'].filter(Boolean).join(' ');
+const imgSrc = ["'self'", 'data:', config.analytics.provider === 'ga4' && 'https://*.google-analytics.com https://www.googletagmanager.com'].filter(Boolean).join(' ');
 const scriptSrc = ["'self'", "'sha256-" + createHash('sha256').update("document.documentElement.classList.replace('no-js','js')").digest('base64') + "'", config.analytics.provider === 'plausible' && 'https://plausible.io', config.analytics.provider === 'ga4' && 'https://www.googletagmanager.com'].filter(Boolean).join(' ');
 writeFileSync(
   join(dist, '_headers'),
-  `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Content-Security-Policy: default-src 'self'; script-src ${scriptSrc}; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src ${connect}; form-action 'self'${config.formEndpoint ? ' ' + new URL(config.formEndpoint).origin : ''}; frame-ancestors 'none'; base-uri 'self'\n/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n/css/*\n  Cache-Control: public, max-age=31536000, immutable\n/js/*\n  Cache-Control: public, max-age=31536000, immutable\n`,
+  `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Content-Security-Policy: default-src 'self'; script-src ${scriptSrc}; style-src 'self' 'unsafe-inline'; img-src ${imgSrc}; font-src 'self'; connect-src ${connect}; form-action 'self'${config.formEndpoint ? ' ' + new URL(config.formEndpoint).origin : ''}; frame-ancestors 'none'; base-uri 'self'\n/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n/css/*\n  Cache-Control: public, max-age=31536000, immutable\n/js/*\n  Cache-Control: public, max-age=31536000, immutable\n`,
 );
 
 const total = sizes.reduce((s, [, b]) => s + b, 0);

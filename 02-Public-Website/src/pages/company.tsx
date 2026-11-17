@@ -83,7 +83,7 @@ export function ContactPage() {
           <form className="contact-form card-form" method="post" action={config.formEndpoint || '#contact-form'} id="contact-form" data-contact-form="" noValidate aria-labelledby="contact-form-h">
             <div className="field">
               <label htmlFor="c-name">Your name <span className="req">required</span></label>
-              <input id="c-name" name="contact_name" type="text" required maxLength={80} autoComplete="name" aria-describedby="err-c_contact_name" />
+              <input id="c-name" name="contact_name" type="text" required maxLength={80} autoComplete="name" autoCapitalize="words" enterKeyHint="next" aria-describedby="err-c_contact_name" />
               <p className="field-error" id="err-c_contact_name" hidden data-error-for="contact_name" />
             </div>
             <div className="field">
@@ -92,12 +92,12 @@ export function ContactPage() {
             </div>
             <div className="field">
               <label htmlFor="c-email">Email <span className="req">required</span></label>
-              <input id="c-email" name="email" type="email" required maxLength={120} autoComplete="email" aria-describedby="err-c_email" />
+              <input id="c-email" name="email" type="email" required maxLength={120} autoComplete="email" inputMode="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} enterKeyHint="next" aria-describedby="err-c_email" />
               <p className="field-error" id="err-c_email" hidden data-error-for="email" />
             </div>
             <div className="field">
               <label htmlFor="c-phone">Phone <span className="opt">optional</span></label>
-              <input id="c-phone" name="phone" type="tel" maxLength={30} autoComplete="tel" />
+              <input id="c-phone" name="phone" type="tel" maxLength={30} autoComplete="tel" inputMode="tel" enterKeyHint="next" />
             </div>
             <div className="field">
               <p className="field__label" id="c-topic-l">Topic</p>
